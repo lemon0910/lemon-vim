@@ -60,10 +60,10 @@ set cursorline
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
+" set t_ti= t_te=
 
 " Remember info about open buffers on close
-set viminfo^=%
+" set viminfo^=%
 
 " For regular expressions turn magic on
 set magic
@@ -333,6 +333,8 @@ noremap <silent><leader>sc :nohls<CR>
 nnoremap <Leader>tp :setlocal paste!<CR>
 
 nnoremap <Enter> :
+noremap <M-f> : call utils#Tools_PreviousCursor(1) <CR>
+noremap <M-b> : call utils#Tools_PreviousCursor(0) <CR>
 
 "==========================================
 " Theme Settings  主题设置
@@ -357,12 +359,23 @@ if has("gui_running")
 endif
 
 " theme主题
-set background=light
-set t_Co=256
+" set background=light
+" set t_Co=256
 
-colorscheme PaperColor
+" colorscheme PaperColor
 
 " 设置标记一列的背景颜色和数字一行颜色一致
+
+set t_Co=256
+set termguicolors
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set t_8b=^[[48;2;%lu;%lu;%lum
+set t_8f=^[[38;2;%lu;%lu;%lum
+" colorscheme deus
+colorscheme one
+set background=dark " Setting dark mode
+
 hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange

@@ -31,9 +31,8 @@ Plug 'christoomey/vim-tmux-navigator'       " vim和tmux导航
 Plug 'Lokaltog/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'vim-airline/vim-airline'              " 状态栏增强展示
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/a.vim'                                " .h和.c快速切换
-Plug 'sirver/ultisnips'                     " 别名缩写
-Plug 'honza/vim-snippets'
+Plug 'vim-scripts/a.vim'                    " .h和.c快速切换
+Plug 't9md/vim-choosewin'                   " 切换window
 Plug 'mbbill/undotree'                      " undo
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'                   " git相关
@@ -41,28 +40,25 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
 Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
-Plug 'NLKNguyen/papercolor-theme'           " 主题 paperclor
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neocomplete.vim'
+Plug 'rakr/vim-one'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'mhinz/vim-startify', { 'on': 'Startify' }  "启动窗口界面
 Plug 'yianwillis/vimcdoc'                   " vim的中文文档
 Plug 'tpope/vim-surround'                     " 快速修改匹配
 Plug 'jiangmiao/auto-pairs'                   " 快速匹配
-Plug 'pelodelfuego/vim-swoop'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'sheerun/vim-polyglot'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/fzf-filemru', { 'on': 'ProjectMru' }
-Plug 'justinmk/vim-sneak'
+Plug 'dyng/ctrlsf.vim'
 
 if count(g:bundle_groups, 'golang')
     Plug 'fatih/vim-go', {'for': 'go'}
 endif
 
 if count(g:bundle_groups, 'python')
-    Plug 'python-mode/python-mode', { 'for': 'python' }
+    " Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 endif
 
@@ -110,26 +106,6 @@ call plug#end()
     vmap <Leader>cc <Plug>NERDCommenterToggle
 " }}}
 
-" vim-multiple-cursors {
-    let g:multi_cursor_next_key='<C-n>'
-    let g:multi_cursor_prev_key='<C-m>'
-    let g:multi_cursor_skip_key='<C-x>'
-    let g:multi_cursor_quit_key='<Esc>'
-" }
-
-" vim-swoop {
-    " Do not let vim-swoop create keybindings
-    let g:swoopHighlight = ["hi! link SwoopBufferLineHi Warning", "hi! link SwoopPatternHi Error"]
-    let g:swoopUseDefaultKeyMap = 0
-    " Visual selection mode mapping: swoop current selection.
-    vmap <Leader>s :call SwoopMultiSelection()<CR>
-    " Normal mode mapping:
-    "   <Leader>ss to start swoop buffer.
-    "   <Leader>sm to swoop in multiple buffers.
-    " nnoremap <Leader>ss :call Swoop()<CR>
-    nnoremap <Leader>sm :call SwoopMulti()<CR>
-" }
-
 " vim-interestingwords {{{
     nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
     nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
@@ -151,7 +127,7 @@ call plug#end()
 " }}}
 
 " vim-airline {
-    let g:airline_theme='papercolor'
+    let g:airline_theme='one'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -189,35 +165,7 @@ call plug#end()
     nnoremap <leader>gb :Gblame<CR>
     nnoremap <leader>gl :Glog<CR>
     nnoremap <leader>gp :Git push<CR>
-" }}}
-
-" rainbow_parentheses {{{
-"    " 不加入这行, 防止黑色括号出现, 很难识别
-"    " \ ['black',       'SeaGreen3'],
-"    let g:rbpt_colorpairs = [
-"        \ ['brown',       'RoyalBlue3'],
-"        \ ['Darkblue',    'SeaGreen3'],
-"        \ ['darkgray',    'DarkOrchid3'],
-"        \ ['darkgreen',   'firebrick3'],
-"        \ ['darkcyan',    'RoyalBlue3'],
-"        \ ['darkred',     'SeaGreen3'],
-"        \ ['darkmagenta', 'DarkOrchid3'],
-"        \ ['brown',       'firebrick3'],
-"        \ ['gray',        'RoyalBlue3'],
-"        \ ['darkmagenta', 'DarkOrchid3'],
-"        \ ['Darkblue',    'firebrick3'],
-"        \ ['darkgreen',   'RoyalBlue3'],
-"        \ ['darkcyan',    'SeaGreen3'],
-"        \ ['darkred',     'DarkOrchid3'],
-"        \ ['red',         'firebrick3'],
-"        \ ]
-
-"    let g:rbpt_max = 16
-"    let g:rbpt_loadcmd_toggle = 0
-"    au VimEnter * RainbowParenthesesToggle
-"    au Syntax * RainbowParenthesesLoadRound
-"    au Syntax * RainbowParenthesesLoadSquare
-"    au Syntax * RainbowParenthesesLoadBraces
+    nnoremap <leader>gv :GV<CR>
 " }}}
 
 " rainbow {
@@ -315,11 +263,6 @@ call plug#end()
     \ }
 " }}}
 
-" ultisnips {{{
-    " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-    let g:UltiSnipsExpandTrigger="<C-d>"
-" }}}
-
 " undotree {{{
     map <leader>u :UndotreeToggle<CR>
 " }}}
@@ -328,24 +271,6 @@ call plug#end()
     " .h和.c切换相关
     map <leader>aa :A<CR>
 " }}}
-
-" ag.vim {{{
-    " map <leader>ag :Ag
-    " nnoremap <leader>ac :Ag <cword> .<CR>
-" }}}
-
-" python-mode {
-    let g:pymode_lint_checkers = ['pyflakes']
-    let g:pymode_trim_whitespaces = 0
-    let g:pymode_options = 0
-    let g:pymode_rope = 0
-
-    let g:pymode_indent = 1
-    let g:pymode_folding = 0
-    let g:pymode_options_colorcolumn = 1
-    let g:pymode_breakpoint_bind = '<leader>br'
-
-" }
 
 
 " vim-go {{{
@@ -388,6 +313,7 @@ call plug#end()
     nnoremap <Leader>ft :BTags<CR>
     nnoremap <Leader>fc :Commands<CR>
     nnoremap <Leader>fg :GFiles<CR>
+    nnoremap <Leader>fm :Marks<CR>
     nnoremap <Leader>ss :BLines<CR>
     nnoremap <Leader>ag :Ag
 
@@ -398,87 +324,19 @@ call plug#end()
     nnoremap <Leader>fr :ProjectMru --tiebreak=end<cr>
 " }
 
-" paperclor {
-    let g:PaperColor_Theme_Options = {
-        \   'theme': {
-        \     'default.light': {
-        \       'transparent_background': 1
-        \     }
-        \   }
-        \ }
-" }
+" asyncomplete {
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+    let g:asyncomplete_remove_duplicates = 1
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" neocomplete {
-    "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+    call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': [''],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
 " }
 
 " asyncrun.vim {
@@ -487,4 +345,11 @@ call plug#end()
     nnoremap <Leader>ac :cclose<CR>
 " }
 
+" t9md/vim-choosewin {
+    nmap - <Plug>(choosewin)
+" }
+
+" ctrlsf {
+    nnoremap <Leader>fz :CtrlSF
+" }
 "------------------------------------------- end of configs --------------------------------------------
