@@ -40,7 +40,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
 Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
-Plug 'rakr/vim-one'
+Plug 'morhetz/gruvbox'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'mhinz/vim-startify', { 'on': 'Startify' }  "启动窗口界面
@@ -127,7 +127,7 @@ call plug#end()
 " }}}
 
 " vim-airline {
-    let g:airline_theme='one'
+    let g:airline_theme='gruvbox'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#buffer_idx_mode = 1

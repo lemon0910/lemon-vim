@@ -2,6 +2,10 @@
 " Initial Plugin 加载插件
 "==========================================
 
+" 标识是vim8还是neovim
+let g:lemon_nvim = has('nvim') && exists('*jobwait')
+let g:lemon_vim8 = exists('*job_start')
+
 "设置支持上下左右
 set nocompatible
 " 修改leader键
@@ -12,8 +16,8 @@ let g:mapleader = ','
 syntax on
 
 " install bundles
-if filereadable(expand("~/.config/nvim/vimrc.bundles"))
-  source ~/.config/nvim/vimrc.bundles
+if filereadable(expand("~/.vimrc.bundles"))
+    source ~/.vimrc.bundles
 endif
 
 " NOTE: 以下配置有详细说明，一些特性不喜欢可以直接注解掉
@@ -59,8 +63,10 @@ set cursorline
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
-" 好处：误删什么的，如果以前屏幕打开，可以找回
-" set t_ti= t_te=
+" 好处：误删什么的，如果以前屏幕打开，可以找回，在neovim下不起作用
+if g:lemon_vim8
+    set t_ti= t_te=
+endif
 
 " Remember info about open buffers on close
 " set viminfo^=%
@@ -74,11 +80,6 @@ set whichwrap=b,s,<,>,[,]
 
 set tags=./tags,tags;$HOME
 
-" vimrc文件修改之后自动加载, windows
-" autocmd! bufwritepost _vimrc source %
-" vimrc文件修改之后自动加载, linux
-autocmd! bufwritepost .vimrc source %
-
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu
@@ -86,25 +87,30 @@ set completeopt=longest,menu
 " 增强模式中的命令行自动完成操作
 set wildmenu
 
-" 离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup generalSetting
+    autocmd!
+    " vimrc文件修改之后自动加载, windows
+    " autocmd! bufwritepost _vimrc source %
+    " vimrc文件修改之后自动加载, linux
+    autocmd! bufwritepost .vimrc source %
+    " 离开插入模式后自动关闭预览窗口
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-" In the quickfix window, <CR> is used to jump to the error under the
-" cursor, so undefine the mapping there.
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-" quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
-"autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
-"autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
+    " In the quickfix window, <CR> is used to jump to the error under the
+    " cursor, so undefine the mapping there.
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
+    "autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
+    "autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
 
-" command-line window
-autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+    " command-line window
+    autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
-" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+    " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-autocmd TabLeave * let g:last_active_tab = tabpagenr()
+    autocmd TabLeave * let g:last_active_tab = tabpagenr()
+augroup END
 
 "==========================================
 " Display Settings 展示/排版等界面格式设置
@@ -223,9 +229,9 @@ endfunc
 "==========================================
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
-autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType c,cpp set tabstop=2 | set softtabstop=2 | set shiftwidth=2
-autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType c,cpp setlocal tabstop=2 | set softtabstop=2 | set shiftwidth=2
+autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown setlocal filetype=markdown.mkd
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
@@ -257,10 +263,10 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
-nmap j gj
-nmap k gk
-vmap j gj
-vmap k gk
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 " 代码折叠自定义快捷键 <leader>zz
 map <leader>zz :call ToggleFold()<cr>
@@ -274,7 +280,7 @@ noremap <C-a> <Home>
 noremap <C-e> <End>
 
 " Quit visual mode
-vnoremap v <Esc>
+" vnoremap v <Esc>
 " Move to the start of line
 nnoremap H ^
 " Move to the end of line
@@ -358,22 +364,18 @@ if has("gui_running")
   set visualbell t_vb=
 endif
 
-" theme主题
-" set background=light
-" set t_Co=256
+function! ColorSchemeSetting()
+    " 设置标记一列的背景颜色和数字一行颜色一致
+    set t_Co=256
+    set termguicolors
+    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set t_8b=^[[48;2;%lu;%lu;%lum
+    set t_8f=^[[38;2;%lu;%lu;%lum
+endfunc
 
-" colorscheme PaperColor
-
-" 设置标记一列的背景颜色和数字一行颜色一致
-
-set t_Co=256
-set termguicolors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set t_8b=^[[48;2;%lu;%lu;%lum
-set t_8f=^[[38;2;%lu;%lu;%lum
-" colorscheme deus
-colorscheme one
+autocmd Colorscheme * exec ":call ColorSchemeSetting()"
+colorscheme gruvbox
 set background=dark " Setting dark mode
 
 hi! link SignColumn   LineNr
