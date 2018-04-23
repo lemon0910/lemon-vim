@@ -78,7 +78,7 @@ set magic
 set backspace=eol,start,indent
 set whichwrap=b,s,<,>,[,]
 
-set tags=./tags,tags;$HOME
+set tags=./.tags;,.tags
 
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -375,7 +375,7 @@ function! ColorSchemeSetting()
 endfunc
 
 autocmd Colorscheme * exec ":call ColorSchemeSetting()"
-colorscheme gruvbox
+colorscheme NeoSolarized
 set background=dark " Setting dark mode
 
 hi! link SignColumn   LineNr

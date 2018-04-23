@@ -13,7 +13,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript']
-    let g:bundle_groups=['python', 'markdown', 'golang']
+    let g:bundle_groups=['python', 'markdown', 'golang', 'c++']
 endif
 
 " ----------------------------------------------------------------------------
@@ -37,21 +37,27 @@ Plug 'mbbill/undotree'                      " undo
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'                   " git相关
 Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
 Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
 Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
-Plug 'morhetz/gruvbox'
+Plug 'iCyMind/NeoSolarized'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-tags.vim'
 Plug 'mhinz/vim-startify', { 'on': 'Startify' }  "启动窗口界面
 Plug 'yianwillis/vimcdoc'                   " vim的中文文档
 Plug 'tpope/vim-surround'                     " 快速修改匹配
 Plug 'jiangmiao/auto-pairs'                   " 快速匹配
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'tweekmonster/fzf-filemru', { 'on': 'ProjectMru' }
-Plug 'dyng/ctrlsf.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+if count(g:bundle_groups, 'c++')
+    Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-indent'
+    Plug 'kana/vim-textobj-syntax'
+    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+    Plug 'sgur/vim-textobj-parameter'
+endif
 
 if count(g:bundle_groups, 'golang')
     Plug 'fatih/vim-go', {'for': 'go'}
@@ -127,7 +133,8 @@ call plug#end()
 " }}}
 
 " vim-airline {
-    let g:airline_theme='gruvbox'
+    let g:airline_theme='solarized'
+    let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -213,56 +220,6 @@ call plug#end()
     let g:NERDTreeMapOpenVSplit = 'v'
 " }}}
 
-" tagbar {{{
-    nmap <leader>tt :TagbarToggle<CR>
-    let g:tagbar_autofocus = 1
-    " let g:tagbar_autoshowtag = 1
-    " let g:tagbar_show_visibility = 1
-    " for ruby
-    let g:tagbar_type_ruby = {
-        \ 'kinds' : [
-            \ 'm:modules',
-            \ 'c:classes',
-            \ 'd:describes',
-            \ 'C:contexts',
-            \ 'f:methods',
-            \ 'F:singleton methods'
-        \ ]
-    \ }
-
-    " go语言的tagbar配置
-    " 1. install gotags 'go get -u github.com/jstemmer/gotags'
-    " 2. make sure `gotags` in you shell PATH, you can call check it with `which gotags`
-    " for gotags. work with tagbar
-    let g:tagbar_type_go = {
-        \ 'ctagstype' : 'go',
-        \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-        \ ],
-        \ 'sro' : '.',
-        \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-        \ },
-        \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-        \ },
-        \ 'ctagsbin'  : 'gotags',
-        \ 'ctagsargs' : '-sort -silent'
-    \ }
-" }}}
-
 " undotree {{{
     map <leader>u :UndotreeToggle<CR>
 " }}}
@@ -285,43 +242,29 @@ call plug#end()
     let g:go_fmt_fail_silently = 1
 " }}}
 
-" fzf.vim {
-    let $LANG = 'en_US'
-    " Customize fzf colors to match your color scheme
-    let g:fzf_colors =
-        \ { 'fg':      ['fg', 'Normal'],
-        \ 'bg':      ['bg', 'Normal'],
-        \ 'hl':      ['fg', 'Comment'],
-        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-        \ 'hl+':     ['fg', 'Statement'],
-        \ 'info':    ['fg', 'PreProc'],
-        \ 'prompt':  ['fg', 'Conditional'],
-        \ 'pointer': ['fg', 'Exception'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
+" Yggdroot/LeaderF {
+    let g:Lf_ShortcutF = '<leader>ff'
+    let g:Lf_ShortcutB = '<leader>bb'
+    nnoremap <leader>ss :LeaderfLine<CR>
+    nnoremap <leader>ft :LeaderfFunction<CR>
+    nnoremap <leader>fa :LeaderfTag<CR>
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
-    nmap <Leader>? <plug>(fzf-maps-n)
-    xmap <Leader>? <plug>(fzf-maps-x)
-    omap <Leader>? <plug>(fzf-maps-o)
+    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WindowHeight = 0.30
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+    let g:Lf_ShowRelativePath = 0
+    let g:Lf_HideHelp = 1
+    let g:Lf_StlColorscheme = 'powerline'
 
-    nnoremap <Leader>fb :Buffers<CR>
-    nnoremap <Leader>fw :Windows<CR>
-    nnoremap <Leader>ff :Files<CR>
-    nnoremap <Leader>fa :Tags<CR>
-    nnoremap <Leader>ft :BTags<CR>
-    nnoremap <Leader>fc :Commands<CR>
-    nnoremap <Leader>fg :GFiles<CR>
-    nnoremap <Leader>fm :Marks<CR>
-    nnoremap <Leader>ss :BLines<CR>
-    nnoremap <Leader>ag :Ag
-
-    nnoremap <Leader>f? :Files ~<CR>
-" }
-
-" fzf-filemru {
-    nnoremap <Leader>fr :ProjectMru --tiebreak=end<cr>
+    let g:Lf_NormalMap = {
+    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    \ }
 " }
 
 " asyncomplete {
@@ -333,9 +276,17 @@ call plug#end()
 
     call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
+    \ 'whitelist': ['c', 'cpp', 'cc'],
     \ 'blacklist': [''],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': 'tags',
+    \ 'whitelist': ['c', 'cpp', 'cc'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
     \ }))
 " }
 
@@ -349,7 +300,25 @@ call plug#end()
     nmap - <Plug>(choosewin)
 " }
 
-" ctrlsf {
-    nnoremap <Leader>fz :CtrlSF
+" ludovicchabant/vim-gutentags {
+    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+    " 所生成的数据文件的名称
+    let g:gutentags_ctags_tagfile = '.tags'
+
+    " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+
+    " 配置 ctags 的参数
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+    " 检测 ~/.cache/tags 不存在就新建
+    if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+    endif
 " }
 "------------------------------------------- end of configs --------------------------------------------
