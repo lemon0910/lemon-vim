@@ -242,20 +242,28 @@ call plug#end()
 " }}}
 
 " Yggdroot/LeaderF {
-    let g:Lf_ShortcutF = '<leader>ff'
-    let g:Lf_ShortcutB = '<leader>bb'
     nnoremap <leader>ss :LeaderfLine<CR>
     nnoremap <leader>ft :LeaderfFunction<CR>
     nnoremap <leader>fa :LeaderfTag<CR>
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+    nnoremap <leader>se :LeaderfSelf<CR>
 
+    let g:Lf_ShortcutF = '<leader>ff'
+    let g:Lf_ShortcutB = '<leader>bb'
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+    let g:Lf_CursorBlink = 0
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-    let g:Lf_WorkingDirectoryMode = 'Ac'
+    " let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WildIgnore = {
+            \ 'dir': ['.svn','.git','.hg'],
+            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o', '*.lo', '*.so','*.py[co]']
+            \}
+    let g:Lf_MruFileExclude = ['*.sw?','~$*','*.bak','*.exe','*.o', '*.lo', '*.so','*.py[co]']
     let g:Lf_WindowHeight = 0.30
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
-    let g:Lf_StlColorscheme = 'powerline'
+    let g:Lf_DefaultExternalTool = 'ag'
+    let g:Lf_UseVersionControlTool = 0
 " }
 
 " asyncomplete {
