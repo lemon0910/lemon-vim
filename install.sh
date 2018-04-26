@@ -52,6 +52,7 @@ install_for_vim() {
 
     cp init.vim "$HOME/.vimrc"
     cp vimrc.bundles "$HOME/.vimrc.bundles"
+    cp -r ftplugin "$HOME/.vim"
     install_plugins "vim"
 }
 
@@ -67,6 +68,7 @@ install_for_neovim() {
     mkdir -p "$HOME/.config/nvim"
     cp init.vim "$HOME/.config/nvim/init.vim"
     cp vimrc.bundles "$HOME/.vimrc.bundles"
+    cp -r ftplugin "$HOME/.config/nvim"
     install_plugins "nvim"
 }
 

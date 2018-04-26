@@ -246,6 +246,7 @@ call plug#end()
     nnoremap <leader>ft :LeaderfFunction<CR>
     nnoremap <leader>fa :LeaderfTag<CR>
     nnoremap <leader>se :LeaderfSelf<CR>
+    nnoremap <leader>fr :LeaderfMru<CR>
 
     let g:Lf_ShortcutF = '<leader>ff'
     let g:Lf_ShortcutB = '<leader>bb'
@@ -303,6 +304,10 @@ call plug#end()
 " }
 
 " t9md/vim-choosewin {
-    nnoremap - <Plug>(choosewin)
+    nmap  -  <Plug>(choosewin)
+" }
+
+" junegunn/gv.vim {
+    nnoremap <leader>gv :GV<CR>
 " }
 "------------------------------------------- end of configs --------------------------------------------

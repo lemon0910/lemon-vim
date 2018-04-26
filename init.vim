@@ -9,8 +9,8 @@ let g:lemon_vim8 = exists('*job_start')
 "设置支持上下左右
 set nocompatible
 " 修改leader键
-let mapleader = ','
 let g:mapleader = ','
+let g:maplocalleader = ' '
 
 " 开启语法高亮
 syntax on
@@ -227,11 +227,6 @@ endfunc
 "==========================================
 " FileType Settings  文件类型设置
 "==========================================
-
-" 具体编辑文件类型的一般设置，比如不要 tab 等
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType c,cpp setlocal tabstop=2 | set softtabstop=2 | set shiftwidth=2
-autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown setlocal filetype=markdown.mkd
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
