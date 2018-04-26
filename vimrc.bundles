@@ -264,6 +264,13 @@ call plug#end()
     let g:Lf_HideHelp = 1
     let g:Lf_DefaultExternalTool = 'ag'
     let g:Lf_UseVersionControlTool = 0
+
+    function! LeaderfGFiles()
+        let g:Lf_WorkingDirectoryMode = 'Ac'
+        LeaderfFile
+        let g:Lf_WorkingDirectoryMode = 'c'
+    endfunction
+    nnoremap <leader>fg :call LeaderfGFiles()<CR>
 " }
 
 " asyncomplete {
