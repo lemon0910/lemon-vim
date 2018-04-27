@@ -36,6 +36,7 @@ Plug 't9md/vim-choosewin'                   " 切换window
 Plug 'mbbill/undotree'                      " undo
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-fugitive'                   " git相关
+Plug 'junegunn/gv.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
 Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
@@ -171,7 +172,6 @@ call plug#end()
     nnoremap <leader>gb :Gblame<CR>
     nnoremap <leader>gl :Glog<CR>
     nnoremap <leader>gp :Git push<CR>
-    nnoremap <leader>gv :GV<CR>
 " }}}
 
 " rainbow {
