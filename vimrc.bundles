@@ -41,10 +41,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
 Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
 Plug 'iCyMind/NeoSolarized'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-tags.vim'
 Plug 'mhinz/vim-startify', { 'on': 'Startify' }  "启动窗口界面
+Plug 'maralla/completor.vim'
 Plug 'yianwillis/vimcdoc'                   " vim的中文文档
 Plug 'tpope/vim-surround'                     " 快速修改匹配
 Plug 'jiangmiao/auto-pairs'                   " 快速匹配
@@ -277,24 +275,7 @@ call plug#end()
 " asyncomplete {
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-    let g:asyncomplete_remove_duplicates = 1
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['c', 'cpp', 'cc'],
-    \ 'blacklist': [''],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-    \ 'name': 'tags',
-    \ 'whitelist': ['c', 'cpp', 'cc'],
-    \ 'completor': function('asyncomplete#sources#tags#completor'),
-    \ 'config': {
-    \    'max_file_size': 50000000,
-    \  },
-    \ }))
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " }
 
 " asyncrun.vim {
