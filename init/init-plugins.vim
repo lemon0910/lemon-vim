@@ -1,7 +1,7 @@
 if !exists('g:plug_group')
-	"['basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf']
+	"['basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
 	let g:plug_group = ['basic', 'enhanced', 'filetypes']
-	let g:plug_group += ['airline', 'leaderf', 'fzf']
+	let g:plug_group += ['airline', 'fzf']
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -13,9 +13,7 @@ if index(g:plug_group, 'basic') >= 0
     Plug 'lfv89/vim-interestingwords'           " 选中光标指向单词
     Plug 'scrooloose/nerdcommenter'             " 快速注释
     Plug 'Lokaltog/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
-    Plug 'vim-scripts/a.vim'                    " .h和.c快速切换
     Plug 'mbbill/undotree'                      " undo
-    Plug 'luochen1990/rainbow'
     Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
     Plug 'yianwillis/vimcdoc'                   " vim的中文文档
     Plug 'tpope/vim-surround'                     " 快速修改匹配
@@ -55,30 +53,6 @@ if index(g:plug_group, 'basic') >= 0
     " .h和.c切换相关
     map <leader>aa :A<CR>
     " }}}
-    " rainbow {
-    let g:rainbow_conf = {
-        \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-        \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-        \	'operators': '_,_',
-        \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-        \	'separately': {
-        \		'*': {},
-        \		'tex': {
-        \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-        \		},
-        \		'lisp': {
-        \			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-        \		},
-        \		'vim': {
-        \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-        \		},
-        \		'html': {
-        \			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-        \		},
-        \		'css': 0,
-        \	}
-        \}
-" }
 endif
 
 "----------------------------------------------------------------------
@@ -87,15 +61,17 @@ endif
 if index(g:plug_group, 'enhanced') >= 0
     Plug 'mhinz/vim-startify'                   "启动窗口界面
     Plug 'scrooloose/nerdtree'
-    Plug 'wsdjeg/FlyGrep.vim'
     Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
     Plug 'tpope/vim-fugitive'                   " git相关
     Plug 'junegunn/gv.vim'
     Plug 'christoomey/vim-tmux-navigator'       " vim和tmux导航
     Plug 't9md/vim-choosewin'                   " 切换window
-    Plug 'justinmk/vim-dirvish'
     Plug 'chrisbra/vim-diff-enhanced'
     Plug 'maralla/completor.vim'
+    Plug 'godlygeek/tabular', { 'on': 'Tabularize' } " 表格对齐，使用命令Tabularize
+    Plug 'justinmk/vim-dirvish'        "文件浏览器
+    Plug 'skywind3000/vim-preview'
+    Plug 'tpope/vim-unimpaired'
     
     " vim-startify {{{
     " 默认不显示 startify
@@ -157,13 +133,38 @@ if index(g:plug_group, 'enhanced') >= 0
     " junegunn/gv.vim {
     nnoremap <leader>gv :GV<CR>
     " }
-    " justinmk/vim-dirvish {
-    nnoremap <leader>dr :Dirvish<CR>
+    " { dirvish
+    " Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
+    " 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
+    " 比默认的纯按照字母排序更友好点。
+    "----------------------------------------------------------------------
+    function! s:setup_dirvish()
+        if &buftype != 'nofile' && &filetype != 'dirvish'
+            return
+        endif
+        if has('nvim')
+            return
+        endif
+        " 取得光标所在行的文本（当前选中的文件名）
+        let text = getline('.')
+        if ! get(g:, 'dirvish_hide_visible', 0)
+            exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
+        endif
+        " 排序文件名
+        exec 'sort ,^.*[\/],'
+        let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
+        " 定位到之前光标处的文件
+        call search(name, 'wc')
+        noremap <silent><buffer> ~ :Dirvish ~<cr>
+        noremap <buffer> % :e %
+    endfunc
     " }
+
+    augroup MyPluginSetup
+        autocmd!
+        autocmd FileType dirvish call s:setup_dirvish()
+    augroup END
  
-    " wsdjeg/FlyGrep.vim
-    " nnoremap <leader>ag :FlyGrep<CR>
-    " }
 endif
 
 "----------------------------------------------------------------------
@@ -182,7 +183,7 @@ if index(g:plug_group, 'tags') >= 0
 
 	" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
 	let g:gutentags_project_root = ['.root']
-	let g:gutentags_ctags_tagfile = '.tags'
+	let g:gutentags_ctags_tagfile = 'tags'
 
 	" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
 	let g:gutentags_cache_dir = expand('~/.cache/tags')
@@ -328,13 +329,13 @@ if index(g:plug_group, 'fzf') >= 0
     Plug 'pbogut/fzf-mru.vim'
     " fzf {
     nnoremap <Leader>ff :Files<CR>
-    " nnoremap <Leader>fg :GFiles<CR>
-    " nnoremap <Leader>fb :Buffers<CR>
+    nnoremap <Leader>fg :GFiles<CR>
+    nnoremap <Leader>fb :Buffers<CR>
     nnoremap <Leader>ag :Ag
-    " nnoremap <Leader>ss :BLines<CR>
-    " nnoremap <Leader>ft :BTags<CR>
-    " nnoremap <Leader>fa :Tags<CR>
-    " nnoremap <Leader>fr :FZFMru<CR>
+    nnoremap <Leader>ss :BLines<CR>
+    nnoremap <Leader>ft :BTags<CR>
+    nnoremap <Leader>fa :Tags<CR>
+    nnoremap <Leader>fr :FZFMru<CR>
 
     " This is the default extra key bindings
     let g:fzf_action = {
@@ -381,7 +382,7 @@ if index(g:plug_group, 'leaderf') >= 0
     nnoremap <leader>se :LeaderfSelf<CR>
     nnoremap <leader>fr :LeaderfMru<CR>
 
-    let g:Lf_ShortcutF = '<leader>fg'
+    let g:Lf_ShortcutF = '<leader>ff'
     let g:Lf_ShortcutB = '<leader>fb'
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_CursorBlink = 0
@@ -396,13 +397,163 @@ if index(g:plug_group, 'leaderf') >= 0
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
-    let g:Lf_DefaultExternalTool = 'ag'
     let g:Lf_UseVersionControlTool = 0
     let g:Lf_WorkingDirectoryMode = 'Ac'
     " }
 endif
 
+"----------------------------------------------------------------------
+" ale：动态语法检查
+"----------------------------------------------------------------------
+if index(g:plug_group, 'ale') >= 0
+	Plug 'w0rp/ale'
+
+	" 设定延迟和提示信息
+	let g:ale_completion_delay = 500
+	let g:ale_echo_delay = 20
+	let g:ale_lint_delay = 500
+	let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+
+	" 设定检测的时机：normal 模式文字改变，或者离开 insert模式
+	" 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
+	let g:ale_lint_on_text_changed = 'normal'
+	let g:ale_lint_on_insert_leave = 1
+
+	" 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
+	if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
+		let g:ale_command_wrapper = 'nice -n5'
+	endif
+
+	" 允许 airline 集成
+	let g:airline#extensions#ale#enabled = 1
+
+	" 编辑不同文件类型需要的语法检查器
+	let g:ale_linters = {
+				\ 'c': ['gcc', 'cppcheck'], 
+				\ 'cpp': ['gcc', 'cppcheck'], 
+				\ 'python': ['flake8', 'pylint'], 
+				\ 'lua': ['luac'], 
+				\ 'go': ['go build', 'gofmt'],
+				\ 'java': ['javac'],
+				\ 'javascript': ['eslint'], 
+				\ }
+
+
+	" 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
+	function s:lintcfg(name)
+		let conf = s:path('tools/conf/')
+		let path1 = conf . a:name
+		let path2 = expand('~/.vim/linter/'. a:name)
+		if filereadable(path2)
+			return path2
+		endif
+		return shellescape(filereadable(path2)? path2 : path1)
+	endfunc
+
+	" 设置 flake8/pylint 的参数
+	let g:ale_python_flake8_options = '--conf='.s:lintcfg('flake8.conf')
+	let g:ale_python_pylint_options = '--rcfile='.s:lintcfg('pylint.conf')
+	let g:ale_python_pylint_options .= ' --disable=W'
+	let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+	let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+	let g:ale_c_cppcheck_options = ''
+	let g:ale_cpp_cppcheck_options = ''
+
+	let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
+
+	" 如果没有 gcc 只有 clang 时（FreeBSD）
+	if executable('gcc') == 0 && executable('clang')
+		let g:ale_linters.c += ['clang']
+		let g:ale_linters.cpp += ['clang']
+	endif
+endif
+
 " Add plugins to &runtimepath
 call plug#end()
+
+"----------------------------------------------------------------------
+" YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
+"----------------------------------------------------------------------
+
+if (index(g:plug_group, 'ycmd')) >= 0
+    " 禁用预览功能：扰乱视听
+    let g:ycm_add_preview_to_completeopt = 0
+
+    " 禁用诊断功能：我们用前面更好用的 ALE 代替
+    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_server_log_level = 'info'
+    let g:ycm_min_num_identifier_candidate_chars = 2
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    let g:ycm_complete_in_strings=1
+    let g:ycm_key_invoke_completion = '<c-z>'
+    set completeopt=menu,menuone
+
+    " noremap <c-z> <NOP>
+
+    " 两个字符自动触发语义补全
+    let g:ycm_semantic_triggers =  {
+                \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+                \ 'cs,lua,javascript': ['re!\w{2}'],
+                \ }
+
+
+    "----------------------------------------------------------------------
+    " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
+    "----------------------------------------------------------------------
+    let g:ycm_filetype_whitelist = { 
+                \ "c":1,
+                \ "cpp":1, 
+                \ "objc":1,
+                \ "objcpp":1,
+                \ "python":1,
+                \ "java":1,
+                \ "javascript":1,
+                \ "coffee":1,
+                \ "vim":1, 
+                \ "go":1,
+                \ "cs":1,
+                \ "lua":1,
+                \ "perl":1,
+                \ "perl6":1,
+                \ "php":1,
+                \ "ruby":1,
+                \ "rust":1,
+                \ "erlang":1,
+                \ "asm":1,
+                \ "nasm":1,
+                \ "masm":1,
+                \ "tasm":1,
+                \ "asm68k":1,
+                \ "asmh8300":1,
+                \ "asciidoc":1,
+                \ "basic":1,
+                \ "vb":1,
+                \ "make":1,
+                \ "cmake":1,
+                \ "html":1,
+                \ "css":1,
+                \ "less":1,
+                \ "json":1,
+                \ "cson":1,
+                \ "typedscript":1,
+                \ "haskell":1,
+                \ "lhaskell":1,
+                \ "lisp":1,
+                \ "scheme":1,
+                \ "sdl":1,
+                \ "sh":1,
+                \ "zsh":1,
+                \ "bash":1,
+                \ "man":1,
+                \ "markdown":1,
+                \ "matlab":1,
+                \ "maxima":1,
+                \ "dosini":1,
+                \ "conf":1,
+                \ "config":1,
+                \ "zimbu":1,
+                \ "ps1":1,
+                \ }
+endif
  
 "------------------------------------------- end of configs --------------------------------------------
