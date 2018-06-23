@@ -1,18 +1,18 @@
-if !exists('g:plug_group')
+if !exists('g:bundle_group')
 	"['basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
-	let g:plug_group = ['basic', 'enhanced', 'filetypes']
-	let g:plug_group += ['airline', 'fzf']
+	let g:bundle_group = ['basic', 'enhanced', 'filetypes']
+	let g:bundle_group += ['airline', 'fzf']
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/bundle')
 
 "----------------------------------------------------------------------
 " 基础插件
 "----------------------------------------------------------------------
-if index(g:plug_group, 'basic') >= 0
+if index(g:bundle_group, 'basic') >= 0
     Plug 'lfv89/vim-interestingwords'           " 选中光标指向单词
     Plug 'scrooloose/nerdcommenter'             " 快速注释
-    Plug 'Lokaltog/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
+    Plug 'easymotion/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
     Plug 'mbbill/undotree'                      " undo
     Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
     Plug 'yianwillis/vimcdoc'                   " vim的中文文档
@@ -20,17 +20,20 @@ if index(g:plug_group, 'basic') >= 0
     Plug 'jiangmiao/auto-pairs'                   " 快速匹配
 
     " nerdcommenter {{{
-    let g:NERDSpaceDelims=1
+    " " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
 
-    nmap <Leader>cc <Plug>NERDCommenterToggle
-    omap <Leader>cc <Plug>NERDCommenterToggle
-    vmap <Leader>cc <Plug>NERDCommenterToggle
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1
+
+    " Add your own custom formats or override the defaults
+    let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' , 'cpp' : { 'left' : '/**', 'right' : '*/' }} }
+
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
     " }}}
+    
     " vim-interestingwords {{{
-    nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
-    nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
-    nnoremap <silent> n :call WordNavigation('forward')<cr>
-    nnoremap <silent> N :call WordNavigation('backward')<cr>
     let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
     let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
     " }}}
@@ -38,6 +41,9 @@ if index(g:plug_group, 'basic') >= 0
     " easymotion {{{
     let g:EasyMotion_smartcase = 1
     "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+    " s{char}{char} to move to {char}{char}
+    nmap s <Plug>(easymotion-overwin-f2)
+    " Move to word
     map <Leader><leader>h <Plug>(easymotion-linebackward)
     map <Leader><Leader>j <Plug>(easymotion-j)
     map <Leader><Leader>k <Plug>(easymotion-k)
@@ -45,6 +51,7 @@ if index(g:plug_group, 'basic') >= 0
     " 重复上一次操作, 类似repeat插件, 很强大
     map <Leader><leader>. <Plug>(easymotion-repeat)
     " }}}
+
     " undotree {{{
     map <leader>u :UndotreeToggle<CR>
     " }}}
@@ -58,7 +65,7 @@ endif
 "----------------------------------------------------------------------
 " 增强插件
 "----------------------------------------------------------------------
-if index(g:plug_group, 'enhanced') >= 0
+if index(g:bundle_group, 'enhanced') >= 0
     Plug 'mhinz/vim-startify'                   "启动窗口界面
     Plug 'scrooloose/nerdtree'
     Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
@@ -164,6 +171,13 @@ if index(g:plug_group, 'enhanced') >= 0
         autocmd!
         autocmd FileType dirvish call s:setup_dirvish()
     augroup END
+
+    " { skywind3000/vim-preview
+    nnoremap <leader>pt : execute 'PreviewTag ' . expand('<cword>') <CR>
+    nnoremap <leader>pf : PreviewFile
+    nnoremap <leader>pc : PreviewClose<CR>
+    nnoremap <leader>ps : PreviewSignature<CR>
+    " }
  
 endif
 
@@ -172,7 +186,7 @@ endif
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
 "----------------------------------------------------------------------
-if index(g:plug_group, 'tags') >= 0
+if index(g:bundle_group, 'tags') >= 0
 
 	" 提供 ctags/gtags 后台数据库自动更新功能
 	Plug 'ludovicchabant/vim-gutentags'
@@ -217,7 +231,7 @@ endif
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
 "----------------------------------------------------------------------
-if index(g:plug_group, 'textobj') >= 0
+if index(g:bundle_group, 'textobj') >= 0
 	
 	" 基础插件：提供让用户方便的自定义文本对象的接口
 	Plug 'kana/vim-textobj-user'
@@ -244,7 +258,7 @@ endif
 "----------------------------------------------------------------------
 " 文件类型扩展
 "----------------------------------------------------------------------
-if index(g:plug_group, 'filetypes') >= 0
+if index(g:bundle_group, 'filetypes') >= 0
 
 	" powershell 脚本文件的语法高亮
 	Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
@@ -282,7 +296,7 @@ endif
 "----------------------------------------------------------------------
 " airline
 "----------------------------------------------------------------------
-if index(g:plug_group, 'airline') >= 0
+if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline'              " 状态栏增强展示
     Plug 'vim-airline/vim-airline-themes'
     
@@ -323,7 +337,7 @@ endif
 "----------------------------------------------------------------------
 " fzf
 "----------------------------------------------------------------------
-if index(g:plug_group, 'fzf') >= 0
+if index(g:bundle_group, 'fzf') >= 0
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'pbogut/fzf-mru.vim'
@@ -373,7 +387,7 @@ endif
 "----------------------------------------------------------------------
 " LeaderF
 "----------------------------------------------------------------------
-if index(g:plug_group, 'leaderf') >= 0
+if index(g:bundle_group, 'leaderf') >= 0
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     " Yggdroot/LeaderF {
     nnoremap <leader>ss :LeaderfLine<CR>
@@ -405,7 +419,7 @@ endif
 "----------------------------------------------------------------------
 " ale：动态语法检查
 "----------------------------------------------------------------------
-if index(g:plug_group, 'ale') >= 0
+if index(g:bundle_group, 'ale') >= 0
 	Plug 'w0rp/ale'
 
 	" 设定延迟和提示信息
@@ -475,7 +489,7 @@ call plug#end()
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
 
-if (index(g:plug_group, 'ycmd')) >= 0
+if (index(g:bundle_group, 'ycmd')) >= 0
     " 禁用预览功能：扰乱视听
     let g:ycm_add_preview_to_completeopt = 0
 

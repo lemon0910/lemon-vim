@@ -18,7 +18,7 @@ vnoremap k gk
 map <leader>zz :call ToggleFold()<cr>
 
 " ctags相关设置
-map gd <C-]>
+map gd :execute 'tjump ' . expand('<cword>') <CR>
 map gb <C-O>
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
