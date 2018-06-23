@@ -14,7 +14,7 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'scrooloose/nerdcommenter'             " 快速注释
     Plug 'easymotion/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
     Plug 'mbbill/undotree'                      " undo
-    Plug 'conradirwin/vim-bracketed-paste'      " 粘贴代码插件，无需再对vim设置
+    Plug 'roxma/vim-paste-easy'      " 粘贴代码插件，无需再对vim设置
     Plug 'yianwillis/vimcdoc'                   " vim的中文文档
     Plug 'tpope/vim-surround'                     " 快速修改匹配
     Plug 'jiangmiao/auto-pairs'                   " 快速匹配
@@ -32,7 +32,7 @@ if index(g:bundle_group, 'basic') >= 0
     " Allow commenting and inverting empty lines (useful when commenting a region)
     let g:NERDCommentEmptyLines = 1
     " }}}
-    
+
     " vim-interestingwords {{{
     let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
     let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
@@ -80,7 +80,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
     Plug 'wsdjeg/FlyGrep.vim'
-    
+
     " vim-startify {{{
     " 默认不显示 startify
 	" let g:startify_disable_at_vimenter = 1
@@ -179,7 +179,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <leader>pc : PreviewClose<CR>
     nnoremap <leader>ps : PreviewSignature<CR>
     " }
- 
+
 endif
 
 "----------------------------------------------------------------------
@@ -204,7 +204,7 @@ if index(g:bundle_group, 'tags') >= 0
 	let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 	" 默认禁用自动生成
-	let g:gutentags_modules = [] 
+	let g:gutentags_modules = []
 
 	" 如果有 ctags 可执行就允许动态生成 ctags 文件
 	if executable('ctags')
@@ -233,7 +233,7 @@ endif
 " 文本对象：textobj 全家桶
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'textobj') >= 0
-	
+
 	" 基础插件：提供让用户方便的自定义文本对象的接口
 	Plug 'kana/vim-textobj-user'
 
@@ -255,7 +255,7 @@ if index(g:bundle_group, 'textobj') >= 0
 	" 提供 uri/url 的文本对象，iu/au 表示
 	Plug 'jceb/vim-textobj-uri'
 endif
- 
+
 "----------------------------------------------------------------------
 " 文件类型扩展
 "----------------------------------------------------------------------
@@ -300,7 +300,7 @@ endif
 if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline'              " 状态栏增强展示
     Plug 'vim-airline/vim-airline-themes'
-    
+
     " vim-airline {
     let g:airline_theme='violet'
     let g:airline_solarized_bg='dark'
@@ -444,13 +444,13 @@ if index(g:bundle_group, 'ale') >= 0
 
 	" 编辑不同文件类型需要的语法检查器
 	let g:ale_linters = {
-				\ 'c': ['gcc', 'cppcheck'], 
-				\ 'cpp': ['gcc', 'cppcheck'], 
-				\ 'python': ['flake8', 'pylint'], 
-				\ 'lua': ['luac'], 
+				\ 'c': ['gcc', 'cppcheck'],
+				\ 'cpp': ['gcc', 'cppcheck'],
+				\ 'python': ['flake8', 'pylint'],
+				\ 'lua': ['luac'],
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
-				\ 'javascript': ['eslint'], 
+				\ 'javascript': ['eslint'],
 				\ }
 
 
@@ -515,16 +515,16 @@ if (index(g:bundle_group, 'ycmd')) >= 0
     "----------------------------------------------------------------------
     " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
     "----------------------------------------------------------------------
-    let g:ycm_filetype_whitelist = { 
+    let g:ycm_filetype_whitelist = {
                 \ "c":1,
-                \ "cpp":1, 
+                \ "cpp":1,
                 \ "objc":1,
                 \ "objcpp":1,
                 \ "python":1,
                 \ "java":1,
                 \ "javascript":1,
                 \ "coffee":1,
-                \ "vim":1, 
+                \ "vim":1,
                 \ "go":1,
                 \ "cs":1,
                 \ "lua":1,
@@ -570,5 +570,5 @@ if (index(g:bundle_group, 'ycmd')) >= 0
                 \ "ps1":1,
                 \ }
 endif
- 
+
 "------------------------------------------- end of configs --------------------------------------------
