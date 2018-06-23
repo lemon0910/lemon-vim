@@ -79,6 +79,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'justinmk/vim-dirvish'        "文件浏览器
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
+    Plug 'wsdjeg/FlyGrep.vim'
     
     " vim-startify {{{
     " 默认不显示 startify
