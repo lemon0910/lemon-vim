@@ -14,9 +14,9 @@ set rtp+=~/.vim
 
 " 加载基础配置
 LoadScript init/init-basic.vim
+" 插件加载
+LoadScript init/init-plugins.vim
 " 界面样式
 LoadScript init/init-themes.vim
 " 自定义按键
 LoadScript init/init-keymaps.vim
-" 插件加载
-LoadScript init/init-plugins.vim
