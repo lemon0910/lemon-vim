@@ -14,7 +14,7 @@
 
 ## 简介
 
-这里我自己平时工作环境的vim，参考了k-vim，spf13，space-vim等一些优秀的vim配置，常用的功能和插件都都包含在内。个人感觉vim还是用自己配置的最舒服，熟悉自己vimrc中所有的配置，熟悉安装的插件的功能和快捷键设置。简单学习了vimscript语法，但还无法编写自己的vim插件，欢迎喜欢vim的人共同交流。
+这里我自己平时工作环境的vim，参考了k-vim，spf13，space-vim，vim-init等一些优秀的vim配置，常用的功能和插件都都包含在内。个人感觉vim还是用自己配置的最舒服，熟悉自己vimrc中所有的配置，熟悉安装的插件的功能和快捷键设置。简单学习了vimscript语法，但还无法编写自己的vim插件，欢迎喜欢vim的人共同交流。
 
 ## 安装步骤
 
@@ -42,45 +42,19 @@ sh -x install.sh
 
 执行下面的命令：
 ```
-cd ~ && rm -rf .vim .vimrc .vimrc.bundles .config/nvim && cd -
+cd ~ && rm -rf .vim .vimrc .config/nvim && cd -
 ```
 
 ## 自定义快捷键
 
-记录自己在vimrc文件中设置的快捷键，快捷键的好处是大大提高了vim的使用效率，配置都是基于自己的喜好。
-
-```
-注意, 以下 ',' 代表<leader>
-ctrl + j/k/h/l                进行上下左右窗口跳转,不需要ctrl+w+jkhl
-
-" ctags的设置
-gd                            跳转到定义
-gb                            返回上一次跳转点
-
-" 命令行模式加强
-H                        跳到行首
-L                        跳到行尾
-
-,q                            退出
-,wq                           保存退出
-,ww                           保存文件
-
-,+数字                        切换到对应数字的buffer
-tab                      进行buffer的切换
-Alt+c                        清空所有的tab
-ctrl+t                       新建tab
-
-ctrl+r                       执行程序，目前支持c，c++，sh，python和go
-,y                           复制选中区到系统剪切板中
-ctrl+n                       相对/绝对行号切换
-```
+记录自己在vimrc文件中设置的快捷键，快捷键的好处是大大提高了vim的使用效率，配置都是基于自己的喜好。<leader>键设置为逗号，快捷键参考init/init-keymaps.vim和init/init-plugins.vim文件。
 
 ## 插件
 
 ### 插件管理
 
 使用 [vim-plug](https://github.com/junegunn/vim-plug) 管理插件。
-`vim-plug` 常见问题: [vim-plug faq](https://github.com/junegunn/vim-plug/wiki/faq)，关于YouCompleteMe安装问题[YCM timeout](https://github.com/junegunn/vim-plug/wiki/faq#youcompleteme-timeout)。
+`vim-plug` 常见问题: [vim-plug faq](https://github.com/junegunn/vim-plug/wiki/faq)，关于YouCompleteMe安装问题[YCM](https://github.com/Valloric/YouCompleteMe)。
 管理插件的命令：
 
 ```
@@ -92,12 +66,6 @@ ctrl+n                       相对/绝对行号切换
 ```
 
 ### 插件列表
-
-### gmarik/vundle
-
-[项目地址](https://github.com/VundleVim/Vundle.vim)
-
-用于管理所有插件，和plug类似。
 
 ### scrooloose/nerdtree
 
@@ -113,31 +81,6 @@ ctrl+n                       相对/绝对行号切换
 
 通过配置快捷键，使用`<leader>n`可以展示目录。
 
-### majutsushi/tagbar
-
-[项目地址](https://github.com/majutsushi/tagbar)
-
-标签导航，显示文件中的函数和变量。效果如下：
-
-![tag](/images/3.png)
-
-演示如下：
-
-![tagbargif](/images/4.gif)
-
-配置`<leader>t`用于展示tagbar。
-
-### kien/ctrlp.vim
-
-[项目地址](https://github.com/kien/ctrlp.vim)
-
-非常强大，可以根据关键词查找相应的文件。
-演示如下：
-
-![ctrlp](/images/5.gif)
-
-配置`<leader>p`来唤醒该插件。
-
 ### vim-airline/vim-airline和vim-airline/vim-airline-themes
 
 [airline项目地址](https://github.com/vim-airline/vim-airline)
@@ -147,14 +90,6 @@ ctrl+n                       相对/绝对行号切换
 用于美观状态栏，演示如下：
 
 ![airline](/images/6.gif)
-
-### kien/rainbow_parentheses.vim
-
-[项目地址](https://github.com/kien/rainbow_parentheses.vim)
-
-括号高亮，演示如下：
-
-![rainbow_parentheses](/images/7.png)
 
 ### Lokaltog/vim-easymotion
 
@@ -182,45 +117,17 @@ YCM是目前最好的自动补全插件，用起来非常的爽，大大提高�
 
 ![interestingwords](/images/10.png)
 
-### Raimondi/delimitMate
-
-[项目地址](https://github.com/Raimondi/delimitMate)
-
-自动补全引号，括号等。
-
 ### scrooloose/nerdcommenter
 
 [项目地址](https://github.com/scrooloose/nerdcommenter)
 
 快速的添加和去除注释，快捷键`<leader>cc`添加注释，`<leader>c<space>`取消注释。
 
-### matze/vim-move
-
-[项目地址](https://github.com/matze/vim-move)
-
-快速移动选中的行。演示如下：
-
-![vim-move](/images/11.gif)
-
 ### a.vim
 
 [项目地址](https://github.com/vim-scripts/a.vim)
 
 快速的进行.h和.c文件进行切换，在编写c和c++程序时比较实用，文件切换非常快速。
-
-### sirver/ultisnips
-
-[项目地址](https://github.com/SirVer/ultisnips)
-
-别名定义，可以更高效的编写代码，需要将别名牢记在心。演示如下：
-
-![ultisnips](/images/12.gif)
-
-### honza/vim-snippets
-
-[项目地址](https://github.com/honza/vim-snippets)
-
-和ultisnips一起配合使用，规定了一些别名的定义，比较齐全。
 
 ### mbbill/undotree
 
@@ -232,35 +139,11 @@ YCM是目前最好的自动补全插件，用起来非常的爽，大大提高�
 
 使用`<leader>u`可以查看撤销操作日志。
 
-### rking/ag.vim
-
-[项目地址](https://github.com/rking/ag.vim)
-
-使用ag命令搜索代替grep搜索，搜索更加的快速高效。
-
-### brookhong/cscope.vim
-
-[项目地址](https://github.com/brookhong/cscope.vim)
-
-帮助创建和更新cscope的database的插件，无需自己配置cscope，非常方便。
-
-### conradirwin/vim-bracketed-paste
-
-[项目地址](https://github.com/ConradIrwin/vim-bracketed-paste)
-
-在vim中粘贴往往会导致格式错误，vim-bracketed-paste会处理相关问题，无需每次粘贴都输入`:paste`。
-
 ### skywind3000/asyncrun.vim
 
 [项目地址](https://github.com/skywind3000/asyncrun.vim)
 
 在后台异步的执行任务，如编译连接等。使用`<leader>ar`唤醒，使用`<leader>co`查看执行结果。
-
-### Shougo/neocomplete.vim
-
-[项目地址](https://github.com/Shougo/neocomplete.vim)
-
-另一款比较流行的代码自动补全插件，需要vim支持lua。因为YCM安装要求太多，所以使用neocomplete作为备选方案。
 
 ### tpope/vim-fugitive
 

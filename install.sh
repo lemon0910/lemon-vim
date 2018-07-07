@@ -43,32 +43,30 @@ backup() {
 
 install_for_vim() {
     backup "$HOME/.vimrc"
-    rm -rf "$HOME/.vimrc.bundles"
-    msg "\033[1;34m==>\033[0m Trying to download vim-plug"
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    ret="$?"
-    success "Successfully downloaded vim-plug"
 
     cp init.vim "$HOME/.vimrc"
-    cp vimrc.bundles "$HOME/.vimrc.bundles"
+    cp -rf autoload "$HOME/.vim"
+    cp -rf colors "$HOME/.vim"
+    cp -rf ftdetect "$HOME/.vim"
     cp -r ftplugin "$HOME/.vim"
+    cp -rf init "$HOME/.vim"
+    cp -rf plugin "$HOME/.vim"
+    cp -rf tools "$HOME/.vim"
     install_plugins "vim"
 }
 
 install_for_neovim() {
     backup "$HOME/.config/nvim/init.vim"
-    rm -rf "$HOME/.vimrc.bundles"
-    msg "\033[1;34m==>\033[0m Trying to download vim-plug"
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    ret="$?"
-    success "Successfully downloaded vim-plug"
 
     mkdir -p "$HOME/.config/nvim"
     cp init.vim "$HOME/.config/nvim/init.vim"
-    cp vimrc.bundles "$HOME/.vimrc.bundles"
-    cp -r ftplugin "$HOME/.config/nvim"
+    cp -rf autoload "$HOME/.vim"
+    cp -rf colors "$HOME/.vim"
+    cp -rf ftdetect "$HOME/.vim"
+    cp -r ftplugin "$HOME/.vim"
+    cp -rf init "$HOME/.vim"
+    cp -rf plugin "$HOME/.vim"
+    cp -rf tools "$HOME/.vim"
     install_plugins "nvim"
 }
 

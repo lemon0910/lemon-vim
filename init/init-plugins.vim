@@ -505,6 +505,8 @@ endif
 if (index(g:bundle_group, 'ycmd')) >= 0
     Plug 'Valloric/YouCompleteMe'
     Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
+    let g:ycm_global_ycm_extra_conf = '~/.vim/tools/conf/.ycm_extra_conf.py'
     " 禁用预览功能：扰乱视听
     let g:ycm_add_preview_to_completeopt = 0
 " 
