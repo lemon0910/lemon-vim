@@ -21,6 +21,9 @@ map <leader>zz :call ToggleFold()<cr>
 map gd :execute 'tjump ' . expand('<cword>') <CR>
 map gb <C-O>
 
+" 行号开关
+nnoremap <C-n> :call utils#ToggleNumber()<CR>
+
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 noremap <C-a> <Home>
 noremap <C-e> <End>
@@ -38,7 +41,7 @@ nnoremap <leader>wq :wq<CR>
 nnoremap <leader>ww :w<CR>
 nnoremap <leader>Q :q!<CR>
 
-" normal模式下切换到确切的tab
+" normal模式下切换到确切的buffer
 nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bn :bnext<CR>
 nnoremap <Leader>bf :bfirst<CR>
@@ -67,14 +70,16 @@ nnoremap <Leader>wl <C-W>l
 nnoremap <Leader>ws <C-W>s
 nnoremap <Leader>wv <C-W>v
 " 复制选中区到系统剪切板中
-vnoremap <leader>y "+y
+vnoremap <leader>yy "+y
 
 " 去掉搜索高亮
 noremap <silent><leader>sc :nohls<CR>
 " Toggle pastemode
 nnoremap <Leader>tp :setlocal paste!<CR>
 
-nnoremap <Enter> :
+nnoremap ` :
+
+" 移动窗口
 noremap <M-f> : call utils#Tools_PreviousCursor(1) <CR>
 noremap <M-b> : call utils#Tools_PreviousCursor(0) <CR>
 

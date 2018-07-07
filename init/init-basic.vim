@@ -37,8 +37,6 @@ filetype on
 filetype indent on
 " 允许插件
 filetype plugin on
-" 启动自动补全
-filetype plugin indent on
 
 " 文件修改之后自动载入
 set autoread
@@ -118,9 +116,6 @@ set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\
 " Always show the status line - use 2 lines for the status bar
 set laststatus=2
 
-" 显示行号
-set number
-
 " 括号配对情况, 跳转并高亮一下匹配的括号
 set showmatch
 " How many tenths of a second to blink when matching brackets
@@ -171,9 +166,6 @@ set hidden
 set wildmode=list:longest
 set ttyfast
 
-" 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set relativenumber number
-
 augroup generalSetting
     autocmd!
     " vimrc文件修改之后自动加载, windows
@@ -189,9 +181,4 @@ augroup generalSetting
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
     autocmd TabLeave * let g:last_active_tab = tabpagenr()
-	au FocusLost * :set norelativenumber number
-	au FocusGained * :set relativenumber
-	" 插入模式下用绝对行号, 普通模式下用相对
-	autocmd InsertEnter * :set norelativenumber number
-	autocmd InsertLeave * :set relativenumber
 augroup END

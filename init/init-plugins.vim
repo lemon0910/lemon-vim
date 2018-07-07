@@ -1,10 +1,23 @@
 if !exists('g:bundle_group')
-	"['basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
-	let g:bundle_group = ['basic', 'enhanced', 'filetypes']
+	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
+	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes', 'ycmd']
 	let g:bundle_group += ['airline', 'fzf']
 endif
 
 call plug#begin('~/.vim/bundle')
+
+"----------------------------------------------------------------------
+" 主题安装
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'themes') >= 0
+    Plug 'jacoborus/tender.vim'
+    Plug 'rakr/vim-one'
+    Plug 'drewtempelmeyer/palenight.vim'
+    Plug 'KeitaNakamura/neodark.vim'
+    Plug 'iCyMind/NeoSolarized'
+    Plug 'crusoexia/vim-monokai'
+    Plug 'morhetz/gruvbox'
+endif
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -14,7 +27,6 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'scrooloose/nerdcommenter'             " 快速注释
     Plug 'easymotion/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
     Plug 'mbbill/undotree'                      " undo
-    Plug 'roxma/vim-paste-easy'      " 粘贴代码插件，无需再对vim设置
     Plug 'yianwillis/vimcdoc'                   " vim的中文文档
     Plug 'tpope/vim-surround'                     " 快速修改匹配
     Plug 'jiangmiao/auto-pairs'                   " 快速匹配
@@ -74,12 +86,14 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'christoomey/vim-tmux-navigator'       " vim和tmux导航
     Plug 't9md/vim-choosewin'                   " 切换window
     Plug 'chrisbra/vim-diff-enhanced'
-    Plug 'maralla/completor.vim'
     Plug 'godlygeek/tabular', { 'on': 'Tabularize' } " 表格对齐，使用命令Tabularize
     Plug 'justinmk/vim-dirvish'        "文件浏览器
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
-    Plug 'wsdjeg/FlyGrep.vim'
+    Plug 'dyng/ctrlsf.vim'
+    if index(g:bundle_group, 'ycmd') < 0
+        Plug 'maralla/completor.vim'
+    endif
 
     " vim-startify {{{
     " 默认不显示 startify
@@ -103,7 +117,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <leader>gc :Gcommit<CR>
     nnoremap <leader>gb :Gblame<CR>
     nnoremap <leader>gl :Glog<CR>
-    nnoremap <leader>gp :Git push<CR>
     " }}}
     " nerdtree {{{
     let g:NERDTreeShowHidden=1
@@ -135,7 +148,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
 
     " t9md/vim-choosewin {
-    nmap  -  <Plug>(choosewin)
+    nmap  <leader>o  <Plug>(choosewin)
     " }
 
     " junegunn/gv.vim {
@@ -178,6 +191,9 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <leader>pf : PreviewFile
     nnoremap <leader>pc : PreviewClose<CR>
     nnoremap <leader>ps : PreviewSignature<CR>
+    " }
+    " dyng/ctrlsf.vim {
+    nnoremap <leader>ag :CtrlSF
     " }
 
 endif
@@ -302,7 +318,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='violet'
+    let g:airline_theme='neodark'
     let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
@@ -346,7 +362,6 @@ if index(g:bundle_group, 'fzf') >= 0
     nnoremap <Leader>ff :Files<CR>
     nnoremap <Leader>fg :GFiles<CR>
     nnoremap <Leader>fb :Buffers<CR>
-    nnoremap <Leader>ag :Ag
     nnoremap <Leader>ss :BLines<CR>
     nnoremap <Leader>ft :BTags<CR>
     nnoremap <Leader>fa :Tags<CR>
@@ -483,38 +498,35 @@ if index(g:bundle_group, 'ale') >= 0
 	endif
 endif
 
-" Add plugins to &runtimepath
-call plug#end()
-
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
 
 if (index(g:bundle_group, 'ycmd')) >= 0
+    Plug 'Valloric/YouCompleteMe'
+    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
     " 禁用预览功能：扰乱视听
     let g:ycm_add_preview_to_completeopt = 0
-
-    " 禁用诊断功能：我们用前面更好用的 ALE 代替
+" 
+    " " 禁用诊断功能：我们用前面更好用的 ALE 代替
     let g:ycm_show_diagnostics_ui = 0
     let g:ycm_server_log_level = 'info'
     let g:ycm_min_num_identifier_candidate_chars = 2
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
     let g:ycm_complete_in_strings=1
-    let g:ycm_key_invoke_completion = '<c-z>'
     set completeopt=menu,menuone
 
-    " noremap <c-z> <NOP>
-
-    " 两个字符自动触发语义补全
+    " " 两个字符自动触发语义补全
     let g:ycm_semantic_triggers =  {
                 \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
                 \ 'cs,lua,javascript': ['re!\w{2}'],
                 \ }
 
+    nnoremap <Leader>yg :YcmGenerateConfig<CR>
 
-    "----------------------------------------------------------------------
-    " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
-    "----------------------------------------------------------------------
+"----------------------------------------------------------------------
+" Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
+"----------------------------------------------------------------------
     let g:ycm_filetype_whitelist = {
                 \ "c":1,
                 \ "cpp":1,
@@ -570,5 +582,8 @@ if (index(g:bundle_group, 'ycmd')) >= 0
                 \ "ps1":1,
                 \ }
 endif
+
+" Add plugins to &runtimepath
+call plug#end()
 
 "------------------------------------------- end of configs --------------------------------------------
