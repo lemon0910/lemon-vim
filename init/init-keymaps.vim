@@ -21,9 +21,6 @@ map <leader>zz :call ToggleFold()<cr>
 map gd :execute 'tjump ' . expand('<cword>') <CR>
 map gb <C-O>
 
-" 行号开关
-nnoremap <C-n> :call utils#ToggleNumber()<CR>
-
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 noremap <C-a> <Home>
 noremap <C-e> <End>
@@ -42,10 +39,6 @@ nnoremap <leader>ww :w<CR>
 nnoremap <leader>Q :q!<CR>
 
 " normal模式下切换到确切的buffer
-nnoremap <leader>bp :bprevious<CR>
-nnoremap <leader>bn :bnext<CR>
-nnoremap <Leader>bf :bfirst<CR>
-nnoremap <leader>bl :blast<CR>
 nnoremap <leader>bc :%bd<CR>
 nnoremap <Leader>bd :bd<CR>
 nnoremap <Leader>bk :bw<CR>

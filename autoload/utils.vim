@@ -44,7 +44,3 @@ function! utils#AutoSetFileHead()
     normal o
     normal o
 endfunc
-
-function! utils#ToggleNumber()
-    set nu!
-endfunction
