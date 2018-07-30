@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes', 'ycmd']
-	let g:bundle_group += ['airline', 'fzf']
+	let g:bundle_group += ['airline', 'leaderf']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -17,6 +17,7 @@ if index(g:bundle_group, 'themes') >= 0
     Plug 'iCyMind/NeoSolarized'
     Plug 'crusoexia/vim-monokai'
     Plug 'morhetz/gruvbox'
+    Plug 'aradunovic/perun.vim'
 endif
 
 "----------------------------------------------------------------------
@@ -90,11 +91,22 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'justinmk/vim-dirvish'        "文件浏览器
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
-    Plug 'dyng/ctrlsf.vim'
+    Plug 'gabesoft/vim-ags'
     if index(g:bundle_group, 'ycmd') < 0
         Plug 'maralla/completor.vim'
     endif
+    if g:lemon_vim8
+        Plug 'PangPangPangPangPang/vim-terminal'
+    endif
 
+    " { vim-terminal
+    if g:lemon_vim8
+        map <silent> <F2> :VSTerminalToggle<cr>
+        tmap <silent> <F2> <c-w>:VSTerminalToggle<cr>
+        let g:vs_terminal_custom_height = 20
+        tnoremap <C-n> <c-\><c-n>
+    endif
+    " }
     " vim-startify {{{
     " 默认不显示 startify
 	" let g:startify_disable_at_vimenter = 1
@@ -192,8 +204,23 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <leader>pc : PreviewClose<CR>
     nnoremap <leader>ps : PreviewSignature<CR>
     " }
-    " dyng/ctrlsf.vim {
-    nnoremap <leader>ag :CtrlSF
+    " vim-ags {
+    nnoremap <leader>ag :Ags
+     let g:ags_enable_async = 1
+     let g:ags_agargs = {
+                \ '--break'             : [ '', '' ],
+                \ '--color'             : [ '', '' ],
+                \ '--color-line-number' : [ '"1;30"', '' ],
+                \ '--color-match'       : [ '"32;40"', '' ],
+                \ '--color-path'        : [ '"1;31"', '' ],
+                \ '--column'            : [ '', '' ],
+                \ '--context'           : [ 'g:ags_agcontext', '-C' ],
+                \ '--filename'          : [ '', '' ],
+                \ '--group'             : [ '', '' ],
+                \ '--heading'           : [ '', '-H' ],
+                \ '--max-count'         : [ 'g:ags_agmaxcount', '-m' ],
+                \ '--numbers'           : [ '', '' ]
+                \ }
     " }
 
 endif
