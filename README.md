@@ -8,6 +8,7 @@
 - [插件](#插件)
     - [插件管理](##插件管理)
     - [插件列表](##插件列表)
+    - [部分插件介绍](##部分插件介绍)
 - [参考内容](#参考内容)
 - [vim资料](#vim资料)
 
@@ -47,7 +48,7 @@ cd ~ && rm -rf .vim .vimrc .config/nvim && cd -
 
 ## 自定义快捷键
 
-记录自己在vimrc文件中设置的快捷键，快捷键的好处是大大提高了vim的使用效率，配置都是基于自己的喜好。<leader>键设置为","，基本快捷键配置参考init/init-keymaps.vim文件。插件快捷键配置参考init/init-plugins.vim文件。也可以参考下面的表格：
+记录自己在vimrc文件中设置的快捷键，快捷键的好处是大大提高了vim的使用效率，配置都是基于自己的喜好。\<leader\>键设置为","，基本快捷键配置参考init/init-keymaps.vim文件。插件快捷键配置参考init/init-plugins.vim文件。也可以参考下面的表格：
 
 快捷键 | 功能 | 其它
 ------ | ---- | ----
@@ -55,40 +56,40 @@ gd | 跳转到定义 | 基础配置
 gb | 跳回上一处 | 基础配置
 H | 跳到行首 | 基础配置
 L | 跳到行尾 | 基础配置
-<leader>q | 直接退出 | 基础配置
-<leader>wq | 保存退出 | 基础配置
-<leader>ww | 保存 | 基础配置
-<leader>Q | 强制退出 | 基础配置
-<leader>ba | 删除所有缓冲 | 基础配置
-<leader>bd | 删除当前缓冲 | 基础配置
-<leader>b[1-9] | 切换到相应编号的缓冲 | 基础配置
-<tab> | 切换到下一个缓冲 | 基础配置
-<s-tab> | 切换到上一个缓冲 | 基础配置
-<leader>sc | 去除搜索高亮 | 基础配置
-<space><space> | 输入: | 基础配置
-<leader>u | 打开撤销树 | undotree
-<leader>aa | 快速切换.h和.cpp文件 | a.vim
-<leader>gs | 查看git status内容 | vim-fugitive
-<leader>gd | git diff内容 | vim-fugitive
-<leader>gc | git commit内容 | vim-fugitive
-<leader>gb | git blame内容 | vim-fugitive
-<leader>gl | git log内容 | vim-fugitive
-<leader>n | 打开目录树 | nerdtree
-<leader>ar | 异步运行命令 | asyncrun.vim
-<leader>o | 选择窗口 | vim-choosewin
-<leader>pt | 预览当前tag | vim-preview
-<leader>pf | 预览文件 | vim-preview
-<leader>pc | 关闭预览窗口 | vim-preview
-<leader>ps | 预览Signature | vim-preview
-<leader>ag | 使用ag搜索 | vim-ags
-<leader>ff | 搜索打开文件 | vim-fzf
-<leader>fg | 搜索git文件 | vim-fzf
-<leader>fb | 搜索buffer | vim-fzf
-<leader>ss | 搜索当前缓冲内容 | fzf.vim
-<leader>ft | 搜索当前文件的tag | fzf.vim
-<leader>fa | 搜索所有的tag | fzf.vim
-<leader>fr | 搜索打开历史文件 | fzf.vim
-<leader>k | 高亮当前word | vim-interestingwords
+\<leader\>q | 直接退出 | 基础配置
+\<leader\>wq | 保存退出 | 基础配置
+\<leader\>ww | 保存 | 基础配置
+\<leader\>Q | 强制退出 | 基础配置
+\<leader\>ba | 删除所有缓冲 | 基础配置
+\<leader\>bd | 删除当前缓冲 | 基础配置
+\<leader\>b[1-9] | 切换到相应编号的缓冲 | 基础配置
+\<tab\> | 切换到下一个缓冲 | 基础配置
+\<s-tab\> | 切换到上一个缓冲 | 基础配置
+\<leader\>sc | 去除搜索高亮 | 基础配置
+\<space\>\<space\> | 输入: | 基础配置
+\<leader\>u | 打开撤销树 | undotree
+\<leader\>aa | 快速切换.h和.cpp文件 | a.vim
+\<leader\>gs | 查看git status内容 | vim-fugitive
+\<leader\>gd | git diff内容 | vim-fugitive
+\<leader\>gc | git commit内容 | vim-fugitive
+\<leader\>gb | git blame内容 | vim-fugitive
+\<leader\>gl | git log内容 | vim-fugitive
+\<leader\>n | 打开目录树 | nerdtree
+\<leader\>ar | 异步运行命令 | asyncrun.vim
+\<leader\>o | 选择窗口 | vim-choosewin
+\<leader\>pt | 预览当前tag | vim-preview
+\<leader\>pf | 预览文件 | vim-preview
+\<leader\>pc | 关闭预览窗口 | vim-preview
+\<leader\>ps | 预览Signature | vim-preview
+\<leader\>ag | 使用ag搜索 | vim-ags
+\<leader\>ff | 搜索打开文件 | vim-fzf
+\<leader\>fg | 搜索git文件 | vim-fzf
+\<leader\>fb | 搜索buffer | vim-fzf
+\<leader\>ss | 搜索当前缓冲内容 | fzf.vim
+\<leader\>ft | 搜索当前文件的tag | fzf.vim
+\<leader\>fa | 搜索所有的tag | fzf.vim
+\<leader\>fr | 搜索打开历史文件 | fzf.vim
+\<leader\>k | 高亮当前word | vim-interestingwords
 s | 搜索两个字母并跳转 | easymotion
 
 ## 插件
