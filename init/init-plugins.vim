@@ -155,8 +155,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
     " asyncrun.vim {
     nnoremap <Leader>ar :AsyncRun
-    nnoremap <Leader>ao :copen<CR>
-    nnoremap <Leader>ac :cclose<CR>
     " }
 
     " t9md/vim-choosewin {
