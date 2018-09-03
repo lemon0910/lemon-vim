@@ -18,6 +18,7 @@ if index(g:bundle_group, 'themes') >= 0
     Plug 'crusoexia/vim-monokai'
     Plug 'morhetz/gruvbox'
     Plug 'aradunovic/perun.vim'
+    Plug 'ashfinal/vim-colors-paper'
 endif
 
 "----------------------------------------------------------------------
@@ -343,7 +344,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='neodark'
+    let g:airline_theme='paper'
     let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
@@ -438,7 +439,7 @@ if index(g:bundle_group, 'leaderf') >= 0
     nnoremap <leader>fr :LeaderfMru<CR>
 
     let g:Lf_ShortcutF = '<leader>ff'
-    let g:Lf_ShortcutB = '<leader>fb'
+    let g:Lf_ShortcutB = '<leader>bb'
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_CursorBlink = 0
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -453,7 +454,7 @@ if index(g:bundle_group, 'leaderf') >= 0
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
     let g:Lf_UseVersionControlTool = 0
-    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WorkingDirectoryMode = 'ac'
     " }
 endif
 

@@ -48,6 +48,7 @@ nnoremap <S-Tab> :bp<CR>
 noremap <silent><leader>sc :nohls<CR>
 
 nnoremap <space><space> :
+nnoremap ; :
 
 " 移动窗口
 noremap <M-f> : call utils#Tools_PreviousCursor(1) <CR>

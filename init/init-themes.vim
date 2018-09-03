@@ -23,15 +23,13 @@ endif
 function! ColorSchemeSetting()
     " 设置标记一列的背景颜色和数字一行颜色一致
     set t_Co=256
-    set termguicolors
-    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set t_8b=^[[48;2;%lu;%lu;%lum
     set t_8f=^[[38;2;%lu;%lu;%lum
+    set termguicolors
 endfunc
 
 autocmd Colorscheme * exec ":call ColorSchemeSetting()"
-colorscheme neodark
+colorscheme paper
 set background=dark " Setting dark mode
 
 hi! link SignColumn   LineNr

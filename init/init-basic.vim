@@ -1,10 +1,6 @@
 "==========================================
 " 初始化设置
 "==========================================
-" 标识是vim8还是neovim
-let g:lemon_nvim = has('nvim') && exists('*jobwait')
-let g:lemon_vim8 = exists('*job_start')
-
 "设置支持上下左右
 set nocompatible
 " 修改leader键
