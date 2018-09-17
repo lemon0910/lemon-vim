@@ -56,12 +56,6 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 " 突出显示当前行
 set cursorline
 
-" 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
-" 好处：误删什么的，如果以前屏幕打开，可以找回，在neovim下不起作用
-if g:lemon_vim8
-    set t_ti= t_te=
-endif
-
 " For regular expressions turn magic on
 set magic
 
