@@ -1,6 +1,6 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
-	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes', 'ycmd']
+	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
 	let g:bundle_group += ['airline', 'leaderf']
 endif
 
@@ -94,7 +94,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
     if index(g:bundle_group, 'ycmd') < 0
-        Plug 'maralla/completor.vim'
+        " Plug 'maralla/completor.vim'
     endif
     if g:lemon_vim8
         Plug 'PangPangPangPangPang/vim-terminal'
@@ -204,7 +204,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <leader>ps : PreviewSignature<CR>
     " }
     " vim-ags {
-    nnoremap <leader>ag :Ags
+     nnoremap <leader>ag :Ags 
      let g:ags_enable_async = 1
      let g:ags_agargs = {
                 \ '--break'             : [ '', '' ],
@@ -344,7 +344,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='paper'
+    let g:airline_theme='violet'
     let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
@@ -388,10 +388,10 @@ if index(g:bundle_group, 'fzf') >= 0
     nnoremap <Leader>ff :Files<CR>
     nnoremap <Leader>fg :GFiles<CR>
     nnoremap <Leader>fb :Buffers<CR>
-    nnoremap <Leader>ss :BLines<CR>
     nnoremap <Leader>ft :BTags<CR>
     nnoremap <Leader>fa :Tags<CR>
     nnoremap <Leader>fr :FZFMru<CR>
+    nnoremap <Leader>ss :BLines<CR>
 
     " This is the default extra key bindings
     let g:fzf_action = {
@@ -613,5 +613,6 @@ endif
 
 " Add plugins to &runtimepath
 call plug#end()
+
 
 "------------------------------------------- end of configs --------------------------------------------

@@ -3,9 +3,6 @@
 "==========================================
 "设置支持上下左右
 set nocompatible
-" 修改leader键
-let g:mapleader = ','
-let g:maplocalleader = ' '
 
 "==========================================
 " General Settings 基础设置
