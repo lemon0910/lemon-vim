@@ -22,9 +22,10 @@ endif
 
 function! ColorSchemeSetting()
     " 设置标记一列的背景颜色和数字一行颜色一致
-    set t_Co=256
-    set t_8b=^[[48;2;%lu;%lu;%lum
-    set t_8f=^[[38;2;%lu;%lu;%lum
+    if g:lemon_vim8
+        set t_8b=^[[48;2;%lu;%lu;%lum
+        set t_8f=^[[38;2;%lu;%lu;%lum
+    endif
     set termguicolors
 endfunc
 
