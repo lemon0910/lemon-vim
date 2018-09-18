@@ -28,7 +28,7 @@ function! ColorSchemeSetting()
 endfunc
 
 autocmd Colorscheme * exec ":call ColorSchemeSetting()"
-colorscheme space-vim-dark
+colorscheme onedark
 set background=dark " Setting dark mode
 
 hi! link SignColumn   LineNr

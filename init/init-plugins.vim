@@ -15,10 +15,7 @@ if index(g:bundle_group, 'themes') >= 0
     Plug 'drewtempelmeyer/palenight.vim'
     Plug 'KeitaNakamura/neodark.vim'
     Plug 'iCyMind/NeoSolarized'
-    Plug 'crusoexia/vim-monokai'
     Plug 'morhetz/gruvbox'
-    Plug 'aradunovic/perun.vim'
-    Plug 'ashfinal/vim-colors-paper'
 endif
 
 "----------------------------------------------------------------------
@@ -344,7 +341,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='violet'
+    let g:airline_theme='onedark'
     let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
