@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['airline', 'leaderf']
+	let g:bundle_group += ['airline', 'fzf']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -306,8 +306,10 @@ if index(g:bundle_group, 'filetypes') >= 0
 	" lua 语法高亮增强
 	Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
-	" C++ 语法高亮增强，支持 11/14/17 标准
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+    if g:lemon_nvim
+        " C++ 语法高亮增强，支持 11/14/17 标准
+        Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+    endif
 
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
