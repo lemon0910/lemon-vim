@@ -92,7 +92,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
     if index(g:bundle_group, 'ycmd') < 0
-        " Plug 'maralla/completor.vim'
+        Plug 'maralla/completor.vim'
     endif
     if g:lemon_vim8
         Plug 'PangPangPangPangPang/vim-terminal'
