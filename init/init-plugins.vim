@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['airline', 'fzf']
+	let g:bundle_group += ['airline', 'leaderf']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -16,6 +16,7 @@ if index(g:bundle_group, 'themes') >= 0
     Plug 'KeitaNakamura/neodark.vim'
     Plug 'iCyMind/NeoSolarized'
     Plug 'morhetz/gruvbox'
+    Plug 'srcery-colors/srcery-vim'
 endif
 
 "----------------------------------------------------------------------
@@ -343,7 +344,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='onedark'
+    let g:airline_theme='srcery'
     let g:airline_solarized_bg='dark'
     let g:Powerline_symbols='fancy'
     let g:airline#extensions#tabline#enabled=1
@@ -431,18 +432,17 @@ endif
 if index(g:bundle_group, 'leaderf') >= 0
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     " Yggdroot/LeaderF {
-    nnoremap <leader>ss :LeaderfLine<CR>
-    nnoremap <leader>ft :LeaderfFunction<CR>
-    nnoremap <leader>fa :LeaderfTag<CR>
-    nnoremap <leader>se :LeaderfSelf<CR>
-    nnoremap <leader>fr :LeaderfMru<CR>
+    nnoremap <leader>ff :Leaderf --bottom --nameOnly file<CR>
+    nnoremap <leader>bb :Leaderf --bottom --nameOnly buffer<CR>
+    nnoremap <leader>ss :Leaderf --bottom --stayOpen line<CR>
+    nnoremap <leader>ft :Leaderf --bottom --nameOnly function<CR>
+    nnoremap <leader>fa :Leaderf --bottom --nameOnly tag<CR>
+    nnoremap <leader>fr :Leaderf --bottom --nameOnly mru<CR>
 
-    let g:Lf_ShortcutF = '<leader>ff'
-    let g:Lf_ShortcutB = '<leader>bb'
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_CursorBlink = 0
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-    " let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WorkingDirectoryMode = 'ac'
     let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg'],
             \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o', '*.lo', '*.so','*.py[co]']
@@ -453,7 +453,6 @@ if index(g:bundle_group, 'leaderf') >= 0
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
     let g:Lf_UseVersionControlTool = 0
-    let g:Lf_WorkingDirectoryMode = 'ac'
     " }
 endif
 
