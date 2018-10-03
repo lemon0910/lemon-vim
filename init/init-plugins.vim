@@ -453,6 +453,7 @@ if index(g:bundle_group, 'leaderf') >= 0
     let g:Lf_ShowRelativePath = 0
     let g:Lf_HideHelp = 1
     let g:Lf_UseVersionControlTool = 0
+    let g:Lf_ReverseOrder = 1
     " }
 endif
 
