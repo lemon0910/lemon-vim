@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['airline', 'leaderf']
+	let g:bundle_group += ['airline', 'fzf']
 endif
 
 call plug#begin('~/.vim/bundle')

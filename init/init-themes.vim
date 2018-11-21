@@ -28,7 +28,7 @@ function! ColorSchemeSetting()
 endfunc
 
 autocmd Colorscheme * exec ":call ColorSchemeSetting()"
-colorscheme srcery
+colorscheme duoduo
 set background=dark " Setting dark mode
 
 hi! link SignColumn   LineNr
