@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
-	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd']
+	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd', 'lightline']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['fzf']
+	let g:bundle_group += ['fzf', 'lightline']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -90,7 +90,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
     if index(g:bundle_group, 'airline') < 0
-        Plug 'pacha/vem-statusline', {'dir' : '~/.vim/bundle/vem-statusline'}
+        " Plug 'pacha/vem-statusline'
         Plug 'pacha/vem-tabline', {'dir' : '~/.vim/bundle/vem-tabline'}
     endif
     if index(g:bundle_group, 'ycmd') < 0
@@ -220,9 +220,9 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
     " vem-statusline and vem-tabline {
     if index(g:bundle_group, 'airline') < 0
-        let g:vem_statusline_parts = 'mbfpP'
-        let g:vem_statusline_mode_separator = '    '
-        let g:vem_statusline_branch_separator = '    '
+        " let g:vem_statusline_parts = 'mbfpP'
+        " let g:vem_statusline_mode_separator = '    '
+        " let g:vem_statusline_branch_separator = '    '
         let g:vem_tabline_show = 2
     endif
     " }
@@ -418,6 +418,19 @@ if index(g:bundle_group, 'filetypes') >= 0
 
     let g:go_fmt_fail_silently = 1
     " }}}
+endif
+
+"----------------------------------------------------------------------
+" lightline
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'lightline') >= 0
+    Plug 'itchyny/lightline.vim'
+    "lightline {
+    let g:lightline = {
+			\ 'enable': { 'tabline': 0 },
+    \ }
+    let g:lightline.colorscheme = 'neodark'
+    "}
 endif
 
 "----------------------------------------------------------------------

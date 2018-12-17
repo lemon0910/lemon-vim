@@ -24,5 +24,6 @@ if has("termguicolors")
     set termguicolors
 endif
 
-colorscheme lemon
+colorscheme neodark
+set background=dark
 
