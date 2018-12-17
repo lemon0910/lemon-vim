@@ -66,3 +66,22 @@ nnoremap ; :
 noremap <M-f> : call utils#Tools_PreviousCursor(1) <CR>
 noremap <M-b> : call utils#Tools_PreviousCursor(0) <CR>
 
+" vim终端的映射
+if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
+	" vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
+	" 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
+	" 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
+	set termwinkey=<c-_>
+	tnoremap <C-h> <c-_>h
+	tnoremap <C-l> <c-_>l
+	tnoremap <c-j> <c-_>j
+	tnoremap <C-k> <c-_>k
+	tnoremap <C-q> <c-\><c-n>
+elseif has('nvim')
+	" neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
+	tnoremap <C-h> <c-\><c-n><c-w>h
+	tnoremap <C-l> <c-\><c-n><c-w>l
+	tnoremap <C-j> <c-\><c-n><c-w>j
+	tnoremap <C-k> <c-\><c-n><c-w>k
+	tnoremap <C-q> <c-\><c-n>
+endif
