@@ -5,5 +5,5 @@ if has("termguicolors")
     set termguicolors
 endif
 autocmd! ColorScheme call ColorConfig()<CR>
-colorscheme neodark
+colorscheme monokai_pro
 set noshowmode

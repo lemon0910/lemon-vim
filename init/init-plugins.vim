@@ -11,10 +11,7 @@ call plug#begin('~/.vim/bundle')
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
     Plug 'rakr/vim-one'
-    Plug 'drewtempelmeyer/palenight.vim'
     Plug 'KeitaNakamura/neodark.vim'
-    Plug 'iCyMind/NeoSolarized'
-    Plug 'srcery-colors/srcery-vim'
 endif
 
 "----------------------------------------------------------------------
@@ -426,10 +423,10 @@ endif
 if index(g:bundle_group, 'lightline') >= 0
     Plug 'itchyny/lightline.vim'
     "lightline {
-    let g:lightline = {
-			\ 'enable': { 'tabline': 0 },
+    let g:lightline = { 
+    \ 'enable': { 'tabline': 0 },
     \ }
-    let g:lightline.colorscheme = 'neodark'
+    let g:lightline.colorscheme = 'one'
     "}
 endif
 
