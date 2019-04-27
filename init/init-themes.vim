@@ -4,6 +4,6 @@
 if has("termguicolors")
     set termguicolors
 endif
-autocmd! ColorScheme call ColorConfig()<CR>
-colorscheme monokai_pro
+colorscheme hybrid_reverse
+set background=dark
 set noshowmode

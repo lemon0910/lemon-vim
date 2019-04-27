@@ -35,6 +35,8 @@ nnoremap <leader>Q :q!<CR>
 nnoremap <leader>ba :%bd<CR>
 nnoremap <Leader>bd :bd<CR>
 
+nnoremap <leader>o :wincmd p<CR>
+
 " <Leader>b[1-9] move to buffer [1-9]
 for s:i in range(1, 9)
   execute 'nnoremap <Leader>' . s:i . ' :b' . s:i . '<CR>'
@@ -59,7 +61,6 @@ nnoremap <S-Tab> :call BufferPreSkipEnew()<CR>
 " 去掉搜索高亮
 noremap <silent><leader>sc :nohls<CR>
 
-nnoremap <space><space> :
 nnoremap ; :
 
 " 移动窗口

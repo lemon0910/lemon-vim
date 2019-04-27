@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd', 'lightline']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['fzf', 'lightline']
+	let g:bundle_group += ['fzf', 'airline']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -10,8 +10,7 @@ call plug#begin('~/.vim/bundle')
 " 主题安装
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
-    Plug 'rakr/vim-one'
-    Plug 'KeitaNakamura/neodark.vim'
+    Plug 'kristijanhusak/vim-hybrid-material'
 endif
 
 "----------------------------------------------------------------------
@@ -82,14 +81,9 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 't9md/vim-choosewin'                   " 切换window
     Plug 'chrisbra/vim-diff-enhanced'
     Plug 'godlygeek/tabular', { 'on': 'Tabularize' } " 表格对齐，使用命令Tabularize
-    Plug 'justinmk/vim-dirvish'        "文件浏览器
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
-    if index(g:bundle_group, 'airline') < 0
-        " Plug 'pacha/vem-statusline'
-        Plug 'pacha/vem-tabline', {'dir' : '~/.vim/bundle/vem-tabline'}
-    endif
     if index(g:bundle_group, 'ycmd') < 0
         Plug 'Shougo/neocomplete.vim'
     endif
@@ -153,7 +147,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
 
     " t9md/vim-choosewin {
-    nmap  <leader>o  <Plug>(choosewin)
+    nmap - <Plug>(choosewin)
     " }
 
     " junegunn/gv.vim {
@@ -214,14 +208,6 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \ '--max-count'         : [ 'g:ags_agmaxcount', '-m' ],
                 \ '--numbers'           : [ '', '' ]
                 \ }
-    " }
-    " vem-statusline and vem-tabline {
-    if index(g:bundle_group, 'airline') < 0
-        " let g:vem_statusline_parts = 'mbfpP'
-        " let g:vem_statusline_mode_separator = '    '
-        " let g:vem_statusline_branch_separator = '    '
-        let g:vem_tabline_show = 2
-    endif
     " }
     if index(g:bundle_group, 'ycmd') < 0
         Plug 'Shougo/neocomplete.vim'
@@ -438,8 +424,9 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='one'
+    let g:airline_theme='hybrid'
     let g:Powerline_symbols='fancy'
+    let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     let g:airline#extensions#tabline#buffer_nr_show = 1
