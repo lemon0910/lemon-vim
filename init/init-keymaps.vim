@@ -14,6 +14,14 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+
 " ctags相关设置
 map gd :execute 'tjump ' . expand('<cword>') <CR>
 map gb <C-O>

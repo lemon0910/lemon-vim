@@ -3,7 +3,11 @@
 "==========================================
 if has("termguicolors")
     set termguicolors
+    " 修复在tmux色彩显示的问题
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
-colorscheme hybrid_reverse
+
 set background=dark
+colorscheme codedark
 set noshowmode

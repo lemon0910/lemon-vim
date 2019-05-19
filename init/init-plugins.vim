@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd', 'lightline']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['fzf', 'airline']
+	let g:bundle_group += ['fzf', 'airline', 'deoplete']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -11,6 +11,9 @@ call plug#begin('~/.vim/bundle')
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
     Plug 'kristijanhusak/vim-hybrid-material'
+    Plug 'lifepillar/vim-solarized8'
+    Plug 'morhetz/gruvbox'
+    Plug 'tomasiser/vim-code-dark'
 endif
 
 "----------------------------------------------------------------------
@@ -84,9 +87,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
-    if index(g:bundle_group, 'ycmd') < 0
-        Plug 'Shougo/neocomplete.vim'
-    endif
 
     " { vim-terminal
     if g:lemon_vim8
@@ -141,6 +141,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+    let g:completor_node_binary = '/usr/local/opt/llvm/bin/clang'
     " }
     " asyncrun.vim {
     nnoremap <Leader>ar :AsyncRun
@@ -209,84 +210,6 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \ '--numbers'           : [ '', '' ]
                 \ }
     " }
-    if index(g:bundle_group, 'ycmd') < 0
-        Plug 'Shougo/neocomplete.vim'
-    endif
-    " Shougo/neocomplete {
-    if index(g:bundle_group, 'ycmd') < 0
-        "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-        let g:acp_enableAtStartup = 0
-        " Use neocomplete.
-        let g:neocomplete#enable_at_startup = 1
-        " Use smartcase.
-        let g:neocomplete#enable_smart_case = 1
-        " Set minimum syntax keyword length.
-        let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-        " Define dictionary.
-        let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-                \ }
-
-        " Define keyword.
-        if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns = {}
-        endif
-        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-        " Plugin key-mappings.
-        inoremap <expr><C-g>     neocomplete#undo_completion()
-        inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-        " Recommended key-mappings.
-        " <CR>: close popup and save indent.
-        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        function! s:my_cr_function()
-        return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-        " For no inserting <CR> key.
-        "return pumvisible() ? "\<C-y>" : "\<CR>"
-        endfunction
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-        " Close popup by <Space>.
-        "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-        " AutoComplPop like behavior.
-        "let g:neocomplete#enable_auto_select = 1
-
-        " Shell like behavior(not recommended).
-        "set completeopt+=longest
-        "let g:neocomplete#enable_auto_select = 1
-        "let g:neocomplete#disable_auto_complete = 1
-        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-        " Enable omni completion.
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-        "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-        " For perlomni.vim setting.
-        " https://github.com/c9s/perlomni.vim
-        let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-    endif
-    " }
-
 endif
 
 "----------------------------------------------------------------------
@@ -404,6 +327,30 @@ if index(g:bundle_group, 'filetypes') >= 0
 endif
 
 "----------------------------------------------------------------------
+" deoplete
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'deoplete') >= 0
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'} 
+    Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/deoplete-clangx'
+    Plug 'Shougo/neco-vim'
+    Plug 'deoplete-plugins/deoplete-jedi'
+
+    let g:deoplete#enable_at_startup = 1
+    " Set minimum syntax keyword length.
+    let g:min_pattern_length = 2
+
+    " buffer improve
+    let g:require_same_filetype = 'False'
+
+    " delay
+    let g:deoplete#auto_complete_delay = 0
+    " auto_refresh
+    let g:auto_refresh_delay = 0
+endif
+
+"----------------------------------------------------------------------
 " lightline
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'lightline') >= 0
@@ -424,9 +371,9 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='hybrid'
+    let g:airline_theme='codedark'
     let g:Powerline_symbols='fancy'
-    let g:airline_powerline_fonts = 1
+    " let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     let g:airline#extensions#tabline#buffer_nr_show = 1
