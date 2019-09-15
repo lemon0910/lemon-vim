@@ -169,3 +169,6 @@ augroup generalSetting
 
     autocmd TabLeave * let g:last_active_tab = tabpagenr()
 augroup END
+
+" 创建python文件增加头部信息
+autocmd BufNewFile *.py exec "call utils#AutoSetFileHead()"

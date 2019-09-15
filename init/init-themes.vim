@@ -9,5 +9,5 @@ if has("termguicolors")
 endif
 
 set background=dark
-colorscheme codedark
+colorscheme neodark
 set noshowmode

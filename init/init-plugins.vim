@@ -10,10 +10,7 @@ call plug#begin('~/.vim/bundle')
 " 主题安装
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
-    Plug 'kristijanhusak/vim-hybrid-material'
-    Plug 'lifepillar/vim-solarized8'
-    Plug 'morhetz/gruvbox'
-    Plug 'tomasiser/vim-code-dark'
+    Plug 'KeitaNakamura/neodark.vim'
 endif
 
 "----------------------------------------------------------------------
@@ -371,7 +368,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    let g:airline_theme='codedark'
+    " let g:airline_theme='codedark'
     let g:Powerline_symbols='fancy'
     " let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled=1
