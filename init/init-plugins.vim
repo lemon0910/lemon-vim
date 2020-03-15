@@ -75,7 +75,6 @@ endif
 if index(g:bundle_group, 'enhanced') >= 0
     Plug 'mhinz/vim-startify'                   "启动窗口界面
     Plug 'scrooloose/nerdtree'
-    Plug 'skywind3000/asyncrun.vim'             " 后台任务执行插件
     Plug 'tpope/vim-fugitive'                   " git相关
     Plug 'junegunn/gv.vim'
     Plug 'christoomey/vim-tmux-navigator'       " vim和tmux导航
@@ -85,16 +84,23 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
+
     Plug 'skywind3000/vim-terminal-help'
 
-    " { vim-terminal
-    if g:lemon_vim8
-        map <silent> <F2> :VSTerminalToggle<cr>
-        tmap <silent> <F2> <c-w>:VSTerminalToggle<cr>
-        let g:vs_terminal_custom_height = 20
-        tnoremap <C-n> <c-\><c-n>
-    endif
-    " }
+    " if index(g:bundle_group, 'coc') < 0
+        " Plug 'skywind3000/vim-auto-popmenu'
+" 
+        " " 配置
+        " " enable this plugin for filetypes, '*' for all files.
+        " let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1}
+        " " source for dictionary, current or other loaded buffers, see ':help cpt'
+        " set cpt=.,k,w,b
+        " " don't select the first item.
+        " set completeopt=menu,menuone,noselect
+        " " suppress annoy messages.
+        " set shortmess+=c
+    " endif
+
     " vim-startify {{{
     " 默认不显示 startify
 	" let g:startify_disable_at_vimenter = 1
@@ -136,16 +142,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'
     " }}}
-    " completor {
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-    let g:completor_node_binary = '/usr/local/opt/llvm/bin/clang'
-    " }
-    " asyncrun.vim {
-    nnoremap <Leader>ar :AsyncRun
-    " }
-
     " t9md/vim-choosewin {
     nmap - <Plug>(choosewin)
     " }
@@ -153,37 +149,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     " junegunn/gv.vim {
     nnoremap <leader>gv :GV<CR>
     " }
-    " { dirvish
-    " Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
-    " 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
-    " 比默认的纯按照字母排序更友好点。
-    "----------------------------------------------------------------------
-    function! s:setup_dirvish()
-        if &buftype != 'nofile' && &filetype != 'dirvish'
-            return
-        endif
-        if has('nvim')
-            return
-        endif
-        " 取得光标所在行的文本（当前选中的文件名）
-        let text = getline('.')
-        if ! get(g:, 'dirvish_hide_visible', 0)
-            exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
-        endif
-        " 排序文件名
-        exec 'sort ,^.*[\/],'
-        let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
-        " 定位到之前光标处的文件
-        call search(name, 'wc')
-        noremap <silent><buffer> ~ :Dirvish ~<cr>
-        noremap <buffer> % :e %
-    endfunc
-    " }
-
-    augroup MyPluginSetup
-        autocmd!
-        autocmd FileType dirvish call s:setup_dirvish()
-    augroup END
 
     " { skywind3000/vim-preview
     nnoremap <leader>pt : execute 'PreviewTag ' . expand('<cword>') <CR>
@@ -332,30 +297,6 @@ if index(g:bundle_group, 'filetypes') >= 0
 endif
 
 "----------------------------------------------------------------------
-" deoplete
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'deoplete') >= 0
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'} 
-    Plug 'Shougo/neco-syntax'
-    Plug 'Shougo/deoplete-clangx'
-    Plug 'Shougo/neco-vim'
-    Plug 'deoplete-plugins/deoplete-jedi'
-
-    let g:deoplete#enable_at_startup = 1
-    " Set minimum syntax keyword length.
-    let g:min_pattern_length = 2
-
-    " buffer improve
-    let g:require_same_filetype = 'False'
-
-    " delay
-    let g:deoplete#auto_complete_delay = 0
-    " auto_refresh
-    let g:auto_refresh_delay = 0
-endif
-
-"----------------------------------------------------------------------
 " coc
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'coc') >= 0
@@ -407,19 +348,6 @@ if index(g:bundle_group, 'coc') >= 0
             \ endif |
             \ unlet size
     augroup END
-endif
-
-"----------------------------------------------------------------------
-" lightline
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'lightline') >= 0
-    Plug 'itchyny/lightline.vim'
-    "lightline {
-    let g:lightline = { 
-    \ 'enable': { 'tabline': 0 },
-    \ }
-    let g:lightline.colorscheme = 'one'
-    "}
 endif
 
 "----------------------------------------------------------------------
