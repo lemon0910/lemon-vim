@@ -87,19 +87,19 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     Plug 'skywind3000/vim-terminal-help'
 
-    " if index(g:bundle_group, 'coc') < 0
-        " Plug 'skywind3000/vim-auto-popmenu'
-" 
-        " " 配置
-        " " enable this plugin for filetypes, '*' for all files.
-        " let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1}
-        " " source for dictionary, current or other loaded buffers, see ':help cpt'
-        " set cpt=.,k,w,b
-        " " don't select the first item.
-        " set completeopt=menu,menuone,noselect
-        " " suppress annoy messages.
-        " set shortmess+=c
-    " endif
+    if index(g:bundle_group, 'coc') < 0
+        Plug 'skywind3000/vim-auto-popmenu'
+
+        " 配置
+        " enable this plugin for filetypes, '*' for all files.
+        let g:apc_enable_ft = {'*':1}
+        " source for dictionary, current or other loaded buffers, see ':help cpt'
+        set cpt=.,k,w,b
+        " don't select the first item.
+        set completeopt=menu,menuone,noselect
+        " suppress annoy messages.
+        set shortmess+=c
+    endif
 
     " vim-startify {{{
     " 默认不显示 startify
@@ -439,40 +439,6 @@ if index(g:bundle_group, 'fzf') >= 0
     \ 'header':  ['fg', 'Comment'] }
     " }
     "
-    function! OpenFloatingWin()
-        let height = &lines - 3
-        let width = float2nr(&columns - (&columns * 2 / 10))
-        let col = float2nr((&columns - width) / 2)
-
-        " 设置浮动窗口打开的位置，大小等。
-        " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
-        let opts = {
-                \ 'relative': 'editor',
-                \ 'row': height * 0.3,
-                \ 'col': col + 30,
-                \ 'width': width * 2 / 3,
-                \ 'height': height / 2
-                \ }
-
-        let buf = nvim_create_buf(v:false, v:true)
-        let win = nvim_open_win(buf, v:true, opts)
-
-        " 设置浮动窗口高亮
-        call setwinvar(win, '&winhl', 'Normal:Pmenu')
-
-        setlocal
-                \ buftype=nofile
-                \ nobuflisted
-                \ bufhidden=hide
-                \ nonumber
-                \ norelativenumber
-                \ signcolumn=no
-    endfunction
-" 让输入上方，搜索列表在下方
-    let $FZF_DEFAULT_OPTS = '--layout=reverse'
-
-    " 打开 fzf 的方式选择 floating window
-    let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
 endif
 
 "----------------------------------------------------------------------
