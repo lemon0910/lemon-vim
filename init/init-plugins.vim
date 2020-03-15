@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd', 'lightline']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['fzf', 'airline', 'deoplete']
+	let g:bundle_group += ['leaderf', 'airline', 'coc']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -11,6 +11,7 @@ call plug#begin('~/.vim/bundle')
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
     Plug 'KeitaNakamura/neodark.vim'
+    Plug 'kristijanhusak/vim-hybrid-material'
 endif
 
 "----------------------------------------------------------------------
@@ -84,6 +85,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'skywind3000/vim-preview'
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
+    Plug 'skywind3000/vim-terminal-help'
 
     " { vim-terminal
     if g:lemon_vim8
@@ -207,6 +209,10 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \ '--numbers'           : [ '', '' ]
                 \ }
     " }
+    " skywind3000/vim-terminal-help {
+    let g:terminal_height = 25
+    " let g:terminal_shell = "zsh"
+    " }
 endif
 
 "----------------------------------------------------------------------
@@ -310,6 +316,8 @@ if index(g:bundle_group, 'filetypes') >= 0
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 
+    Plug 'vim-scripts/dbext.vim'
+
     " vim-go {{{
     let g:go_highlight_types = 1
     let g:go_highlight_fields = 1
@@ -348,6 +356,60 @@ if index(g:bundle_group, 'deoplete') >= 0
 endif
 
 "----------------------------------------------------------------------
+" coc
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'coc') >= 0
+    " Use release branch
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'Shougo/neoinclude.vim'
+    Plug 'jsfaint/coc-neoinclude'
+
+    " if hidden is not set, TextEdit might fail.
+    set hidden
+
+    " Some servers have issues with backup files, see #649
+    set nobackup
+    set nowritebackup
+
+    " Better display for messages
+    set cmdheight=2
+
+    " You will have bad experience for diagnostic messages when it's default 4000.
+    set updatetime=300
+
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+
+    " always show signcolumns
+    set signcolumn=yes
+
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    let g:coc_start_at_startup=0
+    function! CocTimerStart(timer)
+        exec "CocStart"
+    endfunction
+    call timer_start(500,'CocTimerStart',{'repeat':1})
+    "解决coc.nvim大文件卡死状况
+    let g:trigger_size = 0.5 * 1048576
+
+    augroup hugefile
+    autocmd!
+    autocmd BufReadPre *
+            \ let size = getfsize(expand('<afile>')) |
+            \ if (size > g:trigger_size) || (size == -2) |
+            \   echohl WarningMsg | echomsg 'WARNING: altering options for this huge file!' | echohl None |
+            \   exec 'CocDisable' |
+            \ else |
+            \   exec 'CocEnable' |
+            \ endif |
+            \ unlet size
+    augroup END
+endif
+
+"----------------------------------------------------------------------
 " lightline
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'lightline') >= 0
@@ -368,7 +430,7 @@ if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline-themes'
 
     " vim-airline {
-    " let g:airline_theme='codedark'
+    let g:airline_theme='hybrid'
     let g:Powerline_symbols='fancy'
     " let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#enabled=1
@@ -448,6 +510,41 @@ if index(g:bundle_group, 'fzf') >= 0
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Comment'] }
     " }
+    "
+    function! OpenFloatingWin()
+        let height = &lines - 3
+        let width = float2nr(&columns - (&columns * 2 / 10))
+        let col = float2nr((&columns - width) / 2)
+
+        " 设置浮动窗口打开的位置，大小等。
+        " 这里的大小配置可能不是那么的 flexible 有继续改进的空间
+        let opts = {
+                \ 'relative': 'editor',
+                \ 'row': height * 0.3,
+                \ 'col': col + 30,
+                \ 'width': width * 2 / 3,
+                \ 'height': height / 2
+                \ }
+
+        let buf = nvim_create_buf(v:false, v:true)
+        let win = nvim_open_win(buf, v:true, opts)
+
+        " 设置浮动窗口高亮
+        call setwinvar(win, '&winhl', 'Normal:Pmenu')
+
+        setlocal
+                \ buftype=nofile
+                \ nobuflisted
+                \ bufhidden=hide
+                \ nonumber
+                \ norelativenumber
+                \ signcolumn=no
+    endfunction
+" 让输入上方，搜索列表在下方
+    let $FZF_DEFAULT_OPTS = '--layout=reverse'
+
+    " 打开 fzf 的方式选择 floating window
+    let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
 endif
 
 "----------------------------------------------------------------------
@@ -456,12 +553,12 @@ endif
 if index(g:bundle_group, 'leaderf') >= 0
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     " Yggdroot/LeaderF {
-    nnoremap <leader>ff :Leaderf --bottom --nameOnly file<CR>
-    nnoremap <leader>bb :Leaderf --bottom --nameOnly buffer<CR>
-    nnoremap <leader>ss :Leaderf --bottom --stayOpen line<CR>
-    nnoremap <leader>ft :Leaderf --bottom --nameOnly function<CR>
-    nnoremap <leader>fa :Leaderf --bottom --nameOnly tag<CR>
-    nnoremap <leader>fr :Leaderf --bottom --nameOnly mru<CR>
+    nnoremap <leader>ff :Leaderf --popup --nameOnly file<CR>
+    nnoremap <leader>bb :Leaderf --popup --nameOnly buffer<CR>
+    nnoremap <leader>ss :Leaderf --popup --nameOnly line<CR>
+    nnoremap <leader>ft :Leaderf --popup --nameOnly function<CR>
+    nnoremap <leader>fa :Leaderf --popup --nameOnly tag<CR>
+    nnoremap <leader>fr :Leaderf --popup --nameOnly mru<CR>
 
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_CursorBlink = 0
@@ -478,6 +575,8 @@ if index(g:bundle_group, 'leaderf') >= 0
     let g:Lf_HideHelp = 1
     let g:Lf_UseVersionControlTool = 0
     let g:Lf_ReverseOrder = 1
+    let g:Lf_PreviewInPopup = 1
+    let g:Lf_WindowPosition = 'popup'
     " }
 endif
 
