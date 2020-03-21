@@ -19,7 +19,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'basic') >= 0
     Plug 'lfv89/vim-interestingwords'           " 选中光标指向单词
-    Plug 'scrooloose/nerdcommenter'             " 快速注释
+    Plug 'preservim/nerdcommenter'             " 快速注释
     Plug 'easymotion/vim-easymotion'              " 更高效的移动 [,, + w/fx/h/j/k/l]
     Plug 'mbbill/undotree'                      " undo
     Plug 'yianwillis/vimcdoc'                   " vim的中文文档
