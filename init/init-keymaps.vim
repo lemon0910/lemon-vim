@@ -92,3 +92,5 @@ elseif has('nvim')
 	tnoremap <C-k> <c-\><c-n><c-w>k
 	tnoremap <C-q> <c-\><c-n>
 endif
+
+nmap <leader>ct :cs find t <C-R>=expand("<cword>")<CR><CR>
