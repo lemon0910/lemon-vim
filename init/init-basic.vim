@@ -172,3 +172,19 @@ augroup END
 
 " 创建python文件增加头部信息
 autocmd BufNewFile *.py exec "call utils#AutoSetFileHead()"
+
+"-- Cscope setting --
+" 添加cscope数据库到当前vim
+if has("cscope")
+    " set csprg=/usr/bin/cscope " 指定用来执行cscope的命令
+    set csto=0 " 设置cstag命令查找次序：0先找cscope数据库再找标签文件；1先找标签文件再找cscope数据库
+    set cst " 同时搜索cscope数据库和标签文件
+    "set cscopequickfix=s-,c-,d-,i-,t-,e- " 使用QuickFix窗口来显示cscope查找结果
+    set nocsverb
+    if filereadable("cscope.out") " 若当前目录下存在cscope数据库，添加该数据库到vim
+        cs add cscope.out
+    elseif $CSCOPE_DB != ""  "否则只要环境变量CSCOPE_DB不为空，则添加其指定的数据库到vim
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
