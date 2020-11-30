@@ -1,7 +1,7 @@
 if !exists('g:bundle_group')
 	"['themes', 'basic', 'enhanced', 'filetypes', 'textobj', 'tags', 'airline', 'leaderf', 'fzf', 'ale', 'ycmd', 'lightline']
 	let g:bundle_group = ['themes', 'basic', 'enhanced', 'filetypes']
-	let g:bundle_group += ['leaderf', 'airline', 'coc']
+	let g:bundle_group += ['leaderf', 'airline', 'tags']
 endif
 
 call plug#begin('~/.vim/bundle')
@@ -225,6 +225,11 @@ if index(g:bundle_group, 'tags') >= 0
 
 	" 禁止 gutentags 自动链接 gtags 数据库
 	let g:gutentags_auto_add_gtags_cscope = 0
+	let g:gutentags_plus_switch = 1
+        " let g:gutentags_define_advanced_commands = 1
+        let g:gutentags_plus_nomap = 1
+
+        noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
 endif
 
 "----------------------------------------------------------------------
