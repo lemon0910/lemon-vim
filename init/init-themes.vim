@@ -9,5 +9,5 @@ if has("termguicolors")
 endif
 
 set background=dark
-colorscheme hybrid_reverse
+colorscheme srcery
 set noshowmode

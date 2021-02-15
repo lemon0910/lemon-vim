@@ -37,7 +37,6 @@ nnoremap L $
 nnoremap <leader>q :q<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>ww :w<CR>
-nnoremap <leader>Q :q!<CR>
 
 " normal模式下切换到确切的buffer
 nnoremap <leader>ba :%bd<CR>
@@ -55,12 +54,14 @@ function! BufferNextSkipEnew()
         bn
     endif
 endfunction
+
 function! BufferPreSkipEnew()
     bp
     if bufname('%') == 'enew'
         bp
     endif
 endfunction
+
 nnoremap <Tab> :call BufferNextSkipEnew()<CR>
 nnoremap <S-Tab> :call BufferPreSkipEnew()<CR>
 
@@ -68,10 +69,6 @@ nnoremap <S-Tab> :call BufferPreSkipEnew()<CR>
 noremap <silent><leader>sc :nohls<CR>
 
 nnoremap ; :
-
-" 移动窗口
-noremap <M-f> : call utils#Tools_PreviousCursor(1) <CR>
-noremap <M-b> : call utils#Tools_PreviousCursor(0) <CR>
 
 " vim终端的映射
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
@@ -92,5 +89,3 @@ elseif has('nvim')
 	tnoremap <C-k> <c-\><c-n><c-w>k
 	tnoremap <C-q> <c-\><c-n>
 endif
-
-nmap <leader>ct :cs find t <C-R>=expand("<cword>")<CR><CR>
