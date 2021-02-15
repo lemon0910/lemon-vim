@@ -79,6 +79,8 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tpope/vim-unimpaired'
     Plug 'gabesoft/vim-ags'
     Plug 'skywind3000/vim-terminal-help'
+    Plug 'skywind3000/asyncrun.vim'
+    Plug 'skywind3000/asyncrun.extra'
 
     if index(g:bundle_group, 'complete') < 0
         Plug 'skywind3000/vim-auto-popmenu'
@@ -166,6 +168,10 @@ if index(g:bundle_group, 'enhanced') >= 0
     
     " skywind3000/vim-terminal-help {
     let g:terminal_height = 25
+    " }
+
+    " skywind3000/asyncrun.vim {
+    nnoremap <leader>ar :AsyncRun -mode=term -pos=thelp
     " }
 endif
 

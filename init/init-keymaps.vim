@@ -47,21 +47,6 @@ for s:i in range(1, 9)
   execute 'nnoremap <Leader>' . s:i . ' :b' . s:i . '<CR>'
 endfor
 
-" Use Tab to switch buffer
-function! BufferNextSkipEnew()
-    bn
-    if bufname('%') == 'enew'
-        bn
-    endif
-endfunction
-
-function! BufferPreSkipEnew()
-    bp
-    if bufname('%') == 'enew'
-        bp
-    endif
-endfunction
-
 nnoremap <Tab> :call BufferNextSkipEnew()<CR>
 nnoremap <S-Tab> :call BufferPreSkipEnew()<CR>
 
