@@ -47,8 +47,8 @@ for s:i in range(1, 9)
   execute 'nnoremap <Leader>' . s:i . ' :b' . s:i . '<CR>'
 endfor
 
-nnoremap <Tab> :call BufferNextSkipEnew()<CR>
-nnoremap <S-Tab> :call BufferPreSkipEnew()<CR>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
 
 " 去掉搜索高亮
 noremap <silent><leader>sc :nohls<CR>
