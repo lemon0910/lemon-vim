@@ -114,11 +114,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }}}
 
     " fugitive {{{
-    nnoremap <leader>gs :Gstatus<CR>
-    nnoremap <leader>gd :Gdiff<CR>
-    nnoremap <leader>gc :Gcommit<CR>
     nnoremap <leader>gb :Gblame<CR>
-    nnoremap <leader>gl :Glog<CR>
     " }}}
 
     " junegunn/gv.vim {
