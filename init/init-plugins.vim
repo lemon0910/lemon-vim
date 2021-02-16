@@ -52,7 +52,7 @@ if index(g:bundle_group, 'basic') >= 0
     " easymotion {{{
     let g:EasyMotion_smartcase = 1
     " s{char}{char} to move to {char}{char}
-    nmap s <Plug>(easymotion-overwin-f2)
+    nmap s <Plug>(easymotion-s2)
     " }}}
 
     " undotree {{{
