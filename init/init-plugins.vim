@@ -167,7 +167,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
 
     " skywind3000/asyncrun.vim {
-    nnoremap <leader>ar :AsyncRun -mode=term -pos=thelp
+    nnoremap <leader>ar :AsyncRun -mode=term -pos=thelp 
     " }
 endif
 
