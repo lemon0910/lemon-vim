@@ -144,7 +144,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " }
 
     " vim-ags {
-     nnoremap <leader>ag :Ags <Space>
+     nnoremap <leader>ag :Ags 
      let g:ags_enable_async = 1
      let g:ags_agargs = {
                 \ '--break'             : [ '', '' ],
