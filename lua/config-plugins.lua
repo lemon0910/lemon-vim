@@ -93,21 +93,19 @@ map("n", "s", ":HopChar2<CR>", opt)
 require("galaxyline.themes.spaceline")
 
 -- complete
-vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")
-vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"')
-vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"')
+local cmp = require'cmp'
+cmp.setup({
+    mapping = {
+      ["<Tab>"] = cmp.mapping.select_next_item(),
+      ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources({
+      { name = 'buffer' },
+    })
+  })
 
--- Set completeopt to have a better completion experience
-vim.cmd('set completeopt=menuone,noinsert,noselect')
--- Avoid showing message extra message when using completion
-vim.cmd('set shortmess+=c')
-vim.g.completion_chain_complete_list = {
-  default = {
-    { complete_items = { 'buffers' } },
-    { mode = { '<c-p>' } },
-    { mode = { '<c-n>' } }
-  },
-}
+vim.o.completeopt="menu,menuone,noselect"
 
 -- tags
 -- 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件

@@ -16,8 +16,8 @@ return require('packer').startup(function(use)
     branch = 'v1', -- optional but strongly recommended
   }
   -- completion
-  use 'nvim-lua/completion-nvim'
-  use 'steelsojka/completion-buffers'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/nvim-cmp'
   -- bufferline
   use {
     'akinsho/bufferline.nvim',
