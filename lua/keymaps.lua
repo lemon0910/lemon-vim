@@ -14,7 +14,7 @@ function CloseOtherBuf()
     local current_buf_num = vim.fn.bufnr("%")
     local last_num = vim.fn.bufnr("$")
     for  i = 1, last_num do
-        if 1 == vim.fn.bufexists(i) and i ~= current_buf_num
+        if 1 == vim.fn.buflisted(i) and i ~= current_buf_num
         then
             vim.cmd("bdelete " .. i)
         end
