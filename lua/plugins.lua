@@ -5,11 +5,18 @@ return require('packer').startup(function(use)
   use 'preservim/nerdcommenter'
   use 'mbbill/undotree'
   use 'mhinz/vim-startify'
-  use 'scrooloose/nerdtree'
   use 'tpope/vim-fugitive'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
   use 'tpope/vim-unimpaired'
+  -- colorscheme
+  use 'tiagovla/tokyodark.nvim'
+  use 'glepnir/zephyr-nvim'
+  use "rebelot/kanagawa.nvim"
+  use {
+  'kyazdani42/nvim-tree.lua',
+  requires = 'kyazdani42/nvim-web-devicons'
+  }
   -- hop
   use {
     'phaazon/hop.nvim',
@@ -31,8 +38,6 @@ return require('packer').startup(function(use)
     -- some optional icons
     requires = { "kyazdani42/nvim-web-devicons", opt = true }
   })
-  -- zephyr
-  use 'glepnir/zephyr-nvim'
   -- telescope
   -- use {
     -- 'nvim-telescope/telescope.nvim',

@@ -46,19 +46,32 @@ vim.g.signify_vcs_cmds = {git = 'git diff --no-color --diff-algorithm=histogram 
 map("n", "<leader>gb", ":Git blame<CR>", opt)
 -- }}}
 
--- nerdtree {{{
-vim.g.NERDTreeHighlightCursorline = 1
-vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeAutoDeleteBuffer = 1
-vim.g.NERDTreeDirArrowCollapsible = '▼'
-vim.g.NERDTreeIgnore = {'.py[cdo]$', '~$', '.swo$', '.swp$', '.DS_Store$', '^.git$', '^.hg$', '^.svn$', '.bzr$', '.obj$', '.o$', '.so$', '.egg$'}
--- close vim if the only window left open is a NERDTree
-vim.cmd('autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif')
-map("n", "<leader>n", "NERDTreeToggle<CR>", opt)
--- s/v 分屏打开文件
-vim.g.NERDTreeMapOpenSplit = 's'
-vim.g.NERDTreeMapOpenVSplit = 'v'
--- }}}
+
+-- kyazdani42/nvim-tree.lua
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+map("n", "<leader>n", ":NvimTreeToggle<CR>", opt)
+--}
+
 -- t9md/vim-choosewin {
 map("n", "-", ":ChooseWin<CR>", opt)
 -- }
@@ -138,3 +151,4 @@ map("n", "<Leader>fb", ":Buffers<CR>", opt)
 map("n", "<Leader>ft", ":BTags<CR>", opt)
 map("n", "<Leader>fa", ":Tags<CR>", opt)
 map("n", "<Leader>fr", ":FZFMru<CR>", opt)
+
