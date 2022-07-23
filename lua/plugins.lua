@@ -54,4 +54,5 @@ return require('packer').startup(function(use)
   use 'octol/vim-cpp-enhanced-highlight'
   -- vim-ags
   use 'gabesoft/vim-ags'
+  use 'nvim-treesitter/nvim-treesitter'
 end)
