@@ -4,7 +4,7 @@ return require('packer').startup(function(use)
   use 'lfv89/vim-interestingwords'
   use 'preservim/nerdcommenter'
   use 'mbbill/undotree'
-  use 'mhinz/vim-startify'
+  -- use 'mhinz/vim-startify'
   use 'tpope/vim-fugitive'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
@@ -47,12 +47,26 @@ return require('packer').startup(function(use)
   use 'ludovicchabant/vim-gutentags'
   use 'skywind3000/gutentags_plus'
   -- fzf
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
-  use 'pbogut/fzf-mru.vim'
+  -- use 'junegunn/fzf'
+  -- use 'junegunn/fzf.vim'
+  -- use 'pbogut/fzf-mru.vim'
   -- highlight
   use 'octol/vim-cpp-enhanced-highlight'
   -- vim-ags
   use 'gabesoft/vim-ags'
   use 'nvim-treesitter/nvim-treesitter'
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    -- or                            , branch = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use 'voldikss/vim-floaterm'
+  use {
+    'lewis6991/gitsigns.nvim',
+    -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+  }
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
 end)
