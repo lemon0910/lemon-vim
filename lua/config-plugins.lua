@@ -120,6 +120,12 @@ cmp.setup({
 
 vim.o.completeopt="menu,menuone,noselect"
 
+require'cmp'.setup.cmdline(':', {
+  sources = {
+    { name = 'cmdline' }
+  }
+})
+
 -- tags
 -- 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
 vim.g.gutentags_project_root = {'.root'}

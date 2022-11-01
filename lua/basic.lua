@@ -71,7 +71,7 @@ vim.o.autoindent = true
 -- 设置Tab键的宽度        [等同的空格个数]
 vim.o.tabstop = 4
 -- 每一次缩进对应的空格数
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 -- 按退格键时可以一次删掉 4 个空格
 vim.o.softtabstop = 4
 -- insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格

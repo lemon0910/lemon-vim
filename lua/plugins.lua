@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
   }
   -- completion
   use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
   -- bufferline
   use {
