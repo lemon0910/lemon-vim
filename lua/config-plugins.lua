@@ -150,27 +150,6 @@ require'cmp'.setup.cmdline(':', {
   }
 })
 
--- tags
--- 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-vim.g.gutentags_project_root = {'.root'}
-vim.g.gutentags_ctags_tagfile = 'tags'
-
--- 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
-vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/tags')
-
--- 默认禁用自动生成
-vim.g.gutentags_modules = {'ctags', 'gtags_cscope'}
-
--- 设置 ctags 的参数
-vim.g.gutentags_ctags_extra_args = {'--fields=+niazS', '--extra=+q', '--c++-kinds=+px', '--c-kinds=+px', '--output-format=e-ctags'}
-
--- 禁止 gutentags 自动链接 gtags 数据库
-vim.g.gutentags_auto_add_gtags_cscope = 0
-vim.g.gutentags_plus_switch = 1
--- let g:gutentags_define_advanced_commands = 1
-vim.g.gutentags_plus_nomap = 1
-map("n", "<leader>gs", ":GscopeFind s <C-R><C-W><cr>", opt)
-
 -- autopair
 require('nvim-autopairs').setup{}
 

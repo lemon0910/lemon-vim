@@ -44,9 +44,6 @@ return require('packer').startup(function(use)
     -- 'nvim-telescope/telescope.nvim',
     -- requires = {{'nvim-lua/plenary.nvim'}}
   -- }
-  -- tags
-  use 'ludovicchabant/vim-gutentags'
-  use 'skywind3000/gutentags_plus'
   -- fzf
   -- use 'junegunn/fzf'
   -- use 'junegunn/fzf.vim'
