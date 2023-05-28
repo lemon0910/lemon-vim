@@ -4,7 +4,6 @@ return require('packer').startup(function(use)
   use 'lfv89/vim-interestingwords'
   use 'preservim/nerdcommenter'
   use 'mbbill/undotree'
-  -- use 'mhinz/vim-startify'
   use 'tpope/vim-fugitive'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
@@ -12,10 +11,12 @@ return require('packer').startup(function(use)
   -- colorscheme
   use 'tiagovla/tokyodark.nvim'
   use 'glepnir/zephyr-nvim'
-  use "rebelot/kanagawa.nvim"
+  use 'rebelot/kanagawa.nvim'
+  use 'sainnhe/gruvbox-material'
+  use { "bluz71/vim-moonfly-colors", as = "moonfly" }
+  use { 'Mofiqul/vscode.nvim' }
   use {
-  'kyazdani42/nvim-tree.lua',
-  requires = 'kyazdani42/nvim-web-devicons'
+  'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'
   }
   -- hop
   use {
@@ -25,37 +26,43 @@ return require('packer').startup(function(use)
   -- completion
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/nvim-cmp'
   -- bufferline
   use {
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons'
   }
+
+  use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig"
+  }
+  use({
+    "utilyre/barbecue.nvim",
+    tag = "*",
+    requires = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    after = "nvim-web-devicons", -- keep this if you're using NvChad
+    config = function()
+            require("barbecue").setup()
+    end,
+  })
+
   -- nvim-autopairs
   use 'windwp/nvim-autopairs'
-  -- galaxyline
-  use({
-    "NTBBloodbath/galaxyline.nvim",
-    -- some optional icons
-    requires = { "kyazdani42/nvim-web-devicons", opt = true }
-  })
-  -- telescope
-  -- use {
-    -- 'nvim-telescope/telescope.nvim',
-    -- requires = {{'nvim-lua/plenary.nvim'}}
-  -- }
-  -- fzf
-  -- use 'junegunn/fzf'
-  -- use 'junegunn/fzf.vim'
-  -- use 'pbogut/fzf-mru.vim'
-  -- highlight
-  use 'octol/vim-cpp-enhanced-highlight'
-  -- vim-ags
-  use 'gabesoft/vim-ags'
-  use 'nvim-treesitter/nvim-treesitter'
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    -- or                            , branch = '0.1.x',
+   'nvim-lualine/lualine.nvim',
+   requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+  -- vim-ripgrep
+  use 'jremmen/vim-ripgrep'
+  use 'nvim-treesitter/nvim-treesitter'
+  -- telescope
+  use {
+    'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
@@ -63,10 +70,17 @@ return require('packer').startup(function(use)
   end}
   use {
     'lewis6991/gitsigns.nvim',
-    -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
   }
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
+
+  use({
+      "kdheepak/lazygit.nvim",
+      -- optional for floating window border decoration
+      requires = {
+          "nvim-lua/plenary.nvim",
+      },
+  })
 end)

@@ -30,7 +30,6 @@ map("n", "<leader>u", ":UndotreeToggle<CR>", opt)
 map("n", "<leader>aa", ":A<CR>", opt)
 -- }}}
 
--- vim-startify {{{
 -- signify 调优
 vim.g.signify_vcs_list = {'git', 'svn'}
 vim.g.signify_sign_add               = '+'
@@ -49,8 +48,6 @@ map("n", "<leader>gb", ":Git blame<CR>", opt)
 
 -- kyazdani42/nvim-tree.lua
 -- empty setup using defaults
-require("nvim-tree").setup()
-
 -- OR setup with some options
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
@@ -73,12 +70,12 @@ map("n", "<leader>n", ":NvimTreeToggle<CR>", opt)
 --}
 
 -- t9md/vim-choosewin {
-map("n", "-", ":ChooseWin<CR>", opt)
+map("n", "<leader>o", ":ChooseWin<CR>", opt)
 -- }
 
--- vim-ags {
-map("n", "<leader>ag", ":Ags", opt)
-vim.g.ags_enable_async = 1
+-- vim-ripgrep {
+    vim.g.rg_highlight = true
+    map("n", "<leader>rg", ":Rg", opt)
 -- }
 
 -- bufferline
@@ -92,6 +89,51 @@ require("bufferline").setup {
       highlight = "Directory",
       text_align = "left"
     }},
+  }
+}
+
+-- hop.vim
+require("hop").setup()
+map("n", "s", ":HopChar2<CR>", opt)
+
+-- lualine
+require('lualine').setup()
+
+-- complete
+local cmp = require'cmp'
+cmp.setup({
+    mapping = {
+      ["<Tab>"] = cmp.mapping.select_next_item(),
+      ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources({
+      { name = 'buffer' },
+      { name = 'nvim_lsp' },
+    })
+  })
+
+vim.o.completeopt="menu,menuone,noselect"
+
+require'cmp'.setup.cmdline(':', {
+  sources = {
+    { name = 'cmdline' }
+  }
+})
+
+-- autopair
+require('nvim-autopairs').setup{}
+
+require'nvim-treesitter.configs'.setup {
+  -- 安装 language parser
+  -- :TSInstallInfo 命令查看支持的语言
+  ensure_installed = {"c", "cpp"},
+  ignore_install = { "vim" },
+  -- 启用代码高亮功能
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+    disable = {"lua"},
   }
 }
 
@@ -121,63 +163,7 @@ vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
 vim.keymap.set('n', '<leader>fm', builtin.marks, {})
 vim.keymap.set('n', '<leader>fq', builtin.quickfix, {})
 vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {})
-
--- hop.vim
-require("hop").setup()
-map("n", "s", ":HopChar2<CR>", opt)
-
--- galaxyline
-require("galaxyline.themes.spaceline")
-
--- complete
-local cmp = require'cmp'
-cmp.setup({
-    mapping = {
-      ["<Tab>"] = cmp.mapping.select_next_item(),
-      ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    },
-    sources = cmp.config.sources({
-      { name = 'buffer' },
-    })
-  })
-
-vim.o.completeopt="menu,menuone,noselect"
-
-require'cmp'.setup.cmdline(':', {
-  sources = {
-    { name = 'cmdline' }
-  }
-})
-
--- autopair
-require('nvim-autopairs').setup{}
-
--- fzf
--- map("n", "<Leader>ff", ":Files<CR>", opt)
--- map("n", "<Leader>fg", ":GFiles<CR>", opt)
--- map("n", "<Leader>fb", ":Buffers<CR>", opt)
--- map("n", "<Leader>ft", ":BTags<CR>", opt)
--- map("n", "<Leader>fa", ":Tags<CR>", opt)
--- map("n", "<Leader>fr", ":FZFMru<CR>", opt)
-
-require'nvim-treesitter.configs'.setup {
-  -- 安装 language parser
-  -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = {"c", "cpp"},
-  -- 启用代码高亮功能
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-    disable = {"lua"},
-  }
-}
-
--- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
-vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
+vim.keymap.set('n', '<leader>fc', builtin.commands, {})
 
 -- gitsigns
 require('gitsigns').setup {
@@ -201,7 +187,7 @@ require('gitsigns').setup {
   current_line_blame_opts = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
+    delay = 500,
     ignore_whitespace = false,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
@@ -223,7 +209,7 @@ require('gitsigns').setup {
 }
 
 -- alpha
-require'alpha'.setup(require'alpha.themes.dashboard'.config)
+require'alpha'.setup(require'alpha.themes.startify'.config)
 -- toggleterm
 require('toggleterm').setup {
   -- size can be a number or function which is passed the current terminal
@@ -281,4 +267,98 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-map('n', '<c-`>', ':ToggleTerm size=40 direction=horizontal<CR>', opt)
+map('n', '<leader>`', ':ToggleTerm size=40 direction=horizontal<CR>', opt)
+
+-- require('vscode').setup({
+    -- -- Enable italic comment
+    -- italic_comments = true,
+-- })
+
+local navic = require("nvim-navic")
+navic.setup {
+    icons = {
+        File          = "󰈙 ",
+        Module        = " ",
+        Namespace     = "󰌗 ",
+        Package       = " ",
+        Class         = "󰌗 ",
+        Method        = "󰆧 ",
+        Property      = " ",
+        Field         = " ",
+        Constructor   = " ",
+        Enum          = "󰕘",
+        Interface     = "󰕘",
+        Function      = "󰊕 ",
+        Variable      = "󰆧 ",
+        Constant      = "󰏿 ",
+        String        = "󰀬 ",
+        Number        = "󰎠 ",
+        Boolean       = "◩ ",
+        Array         = "󰅪 ",
+        Object        = "󰅩 ",
+        Key           = "󰌋 ",
+        Null          = "󰟢 ",
+        EnumMember    = " ",
+        Struct        = "󰌗 ",
+        Event         = " ",
+        Operator      = "󰆕 ",
+        TypeParameter = "󰊄 ",
+    },
+    lsp = {
+        auto_attach = false,
+        preference = nil,
+    },
+    highlight = false,
+    separator = " > ",
+    depth_limit = 0,
+    depth_limit_indicator = "..",
+    safe_output = true,
+    click = false
+}
+
+require("barbecue").setup({
+  attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
+})
+
+-- vim.g.gutentags_define_advanced_commands = 1
+local lspconfig = require('lspconfig')
+lspconfig.ccls.setup {
+  on_attach = function(client, bufnr)
+    -- ...
+
+    if client.server_capabilities["documentSymbolProvider"] then
+      require("nvim-navic").attach(client, bufnr)
+    end
+
+    -- ...
+  end,
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
