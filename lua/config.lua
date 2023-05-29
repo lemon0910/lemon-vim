@@ -332,6 +332,9 @@ lspconfig.ccls.setup {
 
     -- ...
   end,
+  vim.diagnostic.config({
+    virtual_text = false
+  }),
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
