@@ -365,3 +365,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+-- laygit config
+map("n", "<leader>gl", ":LazyGit<CR>", opt)
