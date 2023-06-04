@@ -4,4 +4,4 @@ require('plugins')
 require('config')
 
 vim.o.backgroud = 'dark'
-vim.cmd('colorscheme moonfly')
+vim.cmd('colorscheme vscode')

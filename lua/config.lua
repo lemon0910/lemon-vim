@@ -30,21 +30,18 @@ map("n", "<leader>u", ":UndotreeToggle<CR>", opt)
 map("n", "<leader>aa", ":A<CR>", opt)
 -- }}}
 
--- signify 调优
-vim.g.signify_vcs_list = {'git', 'svn'}
-vim.g.signify_sign_add               = '+'
-vim.g.signify_sign_delete            = '_'
-vim.g.signify_sign_delete_first_line = '‾'
-vim.g.signify_sign_change            = '~'
-vim.g.signify_sign_changedelete      = vim.g.signify_sign_change
--- git 仓库使用 histogram 算法进行 diff
-vim.g.signify_vcs_cmds = {git = 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f'}
--- }}}
-
 -- fugitive {{{
 map("n", "<leader>gb", ":Git blame<CR>", opt)
 -- }}}
 
+-- t9md/vim-choosewin {
+map("n", "<leader>o", ":ChooseWin<CR>", opt)
+-- }
+
+-- vim-ripgrep {
+    vim.g.rg_highlight = true
+    map("n", "<leader>rg", ":Rg", opt)
+-- }
 
 -- kyazdani42/nvim-tree.lua
 -- empty setup using defaults
@@ -65,18 +62,9 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = true,
   },
+  map("n", "<leader>n", ":NvimTreeToggle<CR>", opt)
 })
-map("n", "<leader>n", ":NvimTreeToggle<CR>", opt)
 --}
-
--- t9md/vim-choosewin {
-map("n", "<leader>o", ":ChooseWin<CR>", opt)
--- }
-
--- vim-ripgrep {
-    vim.g.rg_highlight = true
-    map("n", "<leader>rg", ":Rg", opt)
--- }
 
 -- bufferline
 vim.opt.termguicolors = true
@@ -93,8 +81,9 @@ require("bufferline").setup {
 }
 
 -- hop.vim
-require("hop").setup()
-map("n", "s", ":HopChar2<CR>", opt)
+require("hop").setup({
+    map("n", "s", ":HopChar2<CR>", opt)
+})
 
 -- lualine
 require('lualine').setup()
@@ -110,9 +99,8 @@ cmp.setup({
     sources = cmp.config.sources({
       { name = 'buffer' },
       { name = 'nvim_lsp' },
-    })
+    }),
   })
-
 vim.o.completeopt="menu,menuone,noselect"
 
 require'cmp'.setup.cmdline(':', {
@@ -153,17 +141,19 @@ require("telescope").setup{
       find_files = {
           -- theme = "dropdown",
       }
-  }
+  },
+  vim.keymap.set('n', '<leader>ff', builtin.find_files, {}),
+  vim.keymap.set('n', '<leader>fg', builtin.live_grep, {}),
+  vim.keymap.set('n', '<leader>fb', builtin.buffers, {}),
+  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {}),
+  vim.keymap.set('n', '<leader>ft', builtin.treesitter, {}),
+  vim.keymap.set('n', '<leader>fm', builtin.marks, {}),
+  vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
+  vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {}),
+  vim.keymap.set('n', '<leader>fc', builtin.commands, {}),
+  vim.keymap.set('n', '<leader>fq', builtin.quickfix, {})
 }
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
-vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
-vim.keymap.set('n', '<leader>fm', builtin.marks, {})
-vim.keymap.set('n', '<leader>fq', builtin.quickfix, {})
-vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>fc', builtin.commands, {})
+
 
 -- gitsigns
 require('gitsigns').setup {
@@ -252,6 +242,10 @@ require('toggleterm').setup {
       return term.name
     end
   },
+  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+  vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()'),
+
+  map('n', '<leader>`', ':ToggleTerm size=40 direction=horizontal<CR>', opt)
 }
 
 function _G.set_terminal_keymaps()
@@ -263,16 +257,6 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
-
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
-map('n', '<leader>`', ':ToggleTerm size=40 direction=horizontal<CR>', opt)
-
--- require('vscode').setup({
-    -- -- Enable italic comment
-    -- italic_comments = true,
--- })
 
 local navic = require("nvim-navic")
 navic.setup {
@@ -320,21 +304,28 @@ require("barbecue").setup({
   attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
 })
 
--- vim.g.gutentags_define_advanced_commands = 1
-local lspconfig = require('lspconfig')
-lspconfig.ccls.setup {
-  on_attach = function(client, bufnr)
+require'lspconfig'.clangd.setup{
+    cmd = {"/home/zhixin.lm/usr/bin/clangd",
+           "--background-index",
+           "--query-driver=/usr/local/gcc-9.3.0/bin",
+           "-resource-dir=/usr/local/ob-clang11/lib/clang/11.1.0",
+           "-j=32",
+           "--completion-style=detailed",
+           "--header-insertion=iwyu"},
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    -- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git")
+    on_attach = function(client, bufnr)
     -- ...
 
     if client.server_capabilities["documentSymbolProvider"] then
-      require("nvim-navic").attach(client, bufnr)
+    require("nvim-navic").attach(client, bufnr)
     end
 
     -- ...
-  end,
-  vim.diagnostic.config({
+    end,
+    vim.diagnostic.config({
     virtual_text = false
-  }),
+    }),
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -368,3 +359,49 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- laygit config
 map("n", "<leader>gl", ":LazyGit<CR>", opt)
+
+require("lspsaga").setup({
+    finder = {
+        max_height = 0.5,
+        min_width = 30,
+        force_max_height = false,
+        keys = {
+        expand_or_jump = 'o',
+        vsplit = 's',
+        split = 'i',
+        tabe = 't',
+        tabnew = 'r',
+        quit = { 'q', '<ESC>' },
+        close_in_preview = '<ESC>',
+        },
+    },
+    code_action = {
+        num_shortcut = true,
+        show_server_name = false,
+        extend_gitsigns = true,
+        keys = {
+        -- string | table type
+        quit = "q",
+        exec = "<CR>",
+        },
+    },
+    outline = {
+        win_position = "right",
+        win_with = "",
+        win_width = 30,
+        preview_width= 0.4,
+        show_detail = true,
+        auto_preview = true,
+        auto_refresh = true,
+        auto_close = true,
+        auto_resize = false,
+        custom_sort = nil,
+        keys = {
+        expand_or_jump = 'o',
+        quit = "q",
+        },
+    },
+    map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt),
+    map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt),
+    map("n","<leader>so", "<cmd>Lspsaga outline<CR>", opt)
+})

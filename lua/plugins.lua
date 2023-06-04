@@ -38,6 +38,17 @@ return require('packer').startup(function(use)
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig"
   }
+
+  use({
+    "glepnir/lspsaga.nvim",
+    opt = true,
+    event = "LspAttach",
+    requires = {
+        {"nvim-tree/nvim-web-devicons"},
+        --Please make sure you install markdown and markdown_inline parser
+        {"nvim-treesitter/nvim-treesitter"}
+    }
+  })
   use({
     "utilyre/barbecue.nvim",
     tag = "*",
@@ -65,12 +76,8 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
-  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-    require("toggleterm").setup()
-  end}
-  use {
-    'lewis6991/gitsigns.nvim',
-  }
+  use "akinsho/toggleterm.nvim"
+  use 'lewis6991/gitsigns.nvim'
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' }
