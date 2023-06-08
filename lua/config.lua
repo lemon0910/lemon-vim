@@ -151,7 +151,8 @@ require("telescope").setup{
   vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
   vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {}),
   vim.keymap.set('n', '<leader>fc', builtin.commands, {}),
-  vim.keymap.set('n', '<leader>fq', builtin.quickfix, {})
+  vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
+  vim.keymap.set('n', '<leader>fo', builtin.resume, {})
 }
 
 
