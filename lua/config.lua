@@ -152,7 +152,8 @@ require("telescope").setup{
   vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {}),
   vim.keymap.set('n', '<leader>fc', builtin.commands, {}),
   vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
-  vim.keymap.set('n', '<leader>fo', builtin.resume, {})
+  vim.keymap.set('n', '<leader>fo', builtin.resume, {}),
+  vim.keymap.set('n', 'gr', builtin.lsp_references, {})
 }
 
 
@@ -351,7 +352,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
