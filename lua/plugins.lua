@@ -9,7 +9,7 @@ return require('packer').startup(function(use)
   use 't9md/vim-choosewin'
   use 'tpope/vim-unimpaired'
   -- colorscheme
-  use 'tiagovla/tokyodark.nvim'
+  use 'folke/tokyonight.nvim'
   use 'glepnir/zephyr-nvim'
   use 'rebelot/kanagawa.nvim'
   use 'sainnhe/gruvbox-material'
@@ -90,4 +90,12 @@ return require('packer').startup(function(use)
           "nvim-lua/plenary.nvim",
       },
   })
+
+  use {'srcery-colors/srcery-vim', as = 'srcery'}
+  use {'AstroNvim/astrotheme'}
+  use {'NMAC427/guess-indent.nvim'}
+  use {'folke/which-key.nvim'}
+  use {"lukas-reineke/indent-blankline.nvim"}
+  use {'onsails/lspkind.nvim'}
+  use {'stevearc/dressing.nvim'}
 end)
