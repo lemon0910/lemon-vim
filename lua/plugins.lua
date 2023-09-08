@@ -1,7 +1,6 @@
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'lfv89/vim-interestingwords'
   use 'preservim/nerdcommenter'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
@@ -98,4 +97,7 @@ return require('packer').startup(function(use)
   use {"lukas-reineke/indent-blankline.nvim"}
   use {'onsails/lspkind.nvim'}
   use {'stevearc/dressing.nvim'}
+  use {'MunifTanjim/nui.nvim'}
+  use {'folke/noice.nvim'}
+  use {'Mr-LLLLL/interestingwords.nvim'}
 end)

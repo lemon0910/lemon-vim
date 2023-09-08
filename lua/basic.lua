@@ -29,7 +29,7 @@ vim.o.tags= './tags;,tags'
 vim.o.wildmenu = true
 
 -- 延迟绘制（提升性能）
-vim.o.lazyredraw = true
+-- vim.o.lazyredraw = true
 
 -- Puts new vsplit windows to the right of the current
 vim.o.splitright = true
@@ -66,7 +66,7 @@ vim.o.smartindent = true
 -- 打开自动缩进
 -- never add copyindent, case error   " copy the previous indentation on autoindenting
 vim.o.autoindent = true
--- vim.o.number = true
+vim.o.number = true
 
 -- tab相关变更
 -- 设置Tab键的宽度        [等同的空格个数]
