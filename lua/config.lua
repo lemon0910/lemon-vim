@@ -108,6 +108,18 @@ cmp.setup({
       maxwidth = 50,    -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
     })
   },
+  window = {
+ completion = {
+ side_padding = 1,
+ winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
+ scrollbar = false,
+ border = "rounded"
+},
+ documentation = {
+    border = "rounded",
+    winhighlight = "Normal:CmpDoc",
+  },
+},
     mapping = {
       ["<Tab>"] = cmp.mapping.select_next_item(),
       ["<S-Tab>"] = cmp.mapping.select_prev_item(),
