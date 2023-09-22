@@ -8,7 +8,7 @@ local opt = {
 -- plugin config
 -- vim-interestingwords {{{
 require("interestingwords").setup {
-  colors = { '#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b' },
+  -- colors = { '#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b' },
   search_count = true,
   navigation = true,
   search_key = "<leader>m",
@@ -29,7 +29,7 @@ vim.g.NERDCommentEmptyLines = 1
 -- }}}
 
 -- undotree {{{
-map("n", "<leader>u", ":UndotreeToggle<CR>", opt)
+-- map("n", "<leader>u", ":UndotreeToggle<CR>", opt)
 -- }}}
 
 -- a.vim {{{
@@ -97,29 +97,30 @@ require('lualine').setup()
 
 -- complete
 local cmp = require'cmp'
-local lspkind = require('lspkind')
+-- local lspkind = require('lspkind')
+
 cmp.setup({
   completion = {
-      completeopt = 'menu,menuone,noinsert',
+      completeopt = 'menu,menuone,noselect',
   },
-  formatting = {
-    format = lspkind.cmp_format({
-      with_text = true, -- do not show text alongside icons
-      maxwidth = 50,    -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-    })
+  -- formatting = {
+    -- format = lspkind.cmp_format({
+      -- with_text = true, -- do not show text alongside icons
+      -- maxwidth = 50,    -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    -- })
+  -- },
+    window = {
+    completion = {
+      side_padding = 1,
+      -- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
+      scrollbar = false,
+      border = "rounded"
+    },
+    documentation = {
+      border = "rounded",
+      winhighlight = "Normal:CmpDoc",
+    },
   },
-  window = {
- completion = {
- side_padding = 1,
- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
- scrollbar = false,
- border = "rounded"
-},
- documentation = {
-    border = "rounded",
-    winhighlight = "Normal:CmpDoc",
-  },
-},
     mapping = {
       ["<Tab>"] = cmp.mapping.select_next_item(),
       ["<S-Tab>"] = cmp.mapping.select_prev_item(),
@@ -159,6 +160,36 @@ local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
 require("telescope").setup{
   defaults = {
+    vimgrep_arguments = {
+      "rg",
+      "-L",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+    },
+    -- prompt_prefix = "   ",
+    -- selection_caret = "  ",
+    -- entry_prefix = "  ",
+    -- initial_mode = "insert",
+    -- selection_strategy = "reset",
+    -- sorting_strategy = "ascending",
+    -- layout_strategy = "horizontal",
+    -- layout_config = {
+      -- horizontal = {
+        -- prompt_position = "top",
+        -- preview_width = 0.55,
+        -- results_width = 0.8,
+      -- },
+      -- vertical = {
+        -- mirror = false,
+      -- },
+      -- width = 0.87,
+      -- height = 0.80,
+      -- preview_cutoff = 120,
+    -- },
     mappings = {
       i = {
         ["<C-u>"] = false,
@@ -290,51 +321,51 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
-local navic = require("nvim-navic")
-navic.setup {
-    icons = {
-        File          = "󰈙 ",
-        Module        = " ",
-        Namespace     = "󰌗 ",
-        Package       = " ",
-        Class         = "󰌗 ",
-        Method        = "󰆧 ",
-        Property      = " ",
-        Field         = " ",
-        Constructor   = " ",
-        Enum          = "󰕘",
-        Interface     = "󰕘",
-        Function      = "󰊕 ",
-        Variable      = "󰆧 ",
-        Constant      = "󰏿 ",
-        String        = "󰀬 ",
-        Number        = "󰎠 ",
-        Boolean       = "◩ ",
-        Array         = "󰅪 ",
-        Object        = "󰅩 ",
-        Key           = "󰌋 ",
-        Null          = "󰟢 ",
-        EnumMember    = " ",
-        Struct        = "󰌗 ",
-        Event         = " ",
-        Operator      = "󰆕 ",
-        TypeParameter = "󰊄 ",
-    },
-    lsp = {
-        auto_attach = false,
-        preference = nil,
-    },
-    highlight = false,
-    separator = " > ",
-    depth_limit = 0,
-    depth_limit_indicator = "..",
-    safe_output = true,
-    click = false
-}
-
-require("barbecue").setup({
-  attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
-})
+-- local navic = require("nvim-navic")
+-- navic.setup {
+    -- icons = {
+        -- File          = "󰈙 ",
+        -- Module        = " ",
+        -- Namespace     = "󰌗 ",
+        -- Package       = " ",
+        -- Class         = "󰌗 ",
+        -- Method        = "󰆧 ",
+        -- Property      = " ",
+        -- Field         = " ",
+        -- Constructor   = " ",
+        -- Enum          = "󰕘",
+        -- Interface     = "󰕘",
+        -- Function      = "󰊕 ",
+        -- Variable      = "󰆧 ",
+        -- Constant      = "󰏿 ",
+        -- String        = "󰀬 ",
+        -- Number        = "󰎠 ",
+        -- Boolean       = "◩ ",
+        -- Array         = "󰅪 ",
+        -- Object        = "󰅩 ",
+        -- Key           = "󰌋 ",
+        -- Null          = "󰟢 ",
+        -- EnumMember    = " ",
+        -- Struct        = "󰌗 ",
+        -- Event         = " ",
+        -- Operator      = "󰆕 ",
+        -- TypeParameter = "󰊄 ",
+    -- },
+    -- lsp = {
+        -- auto_attach = false,
+        -- preference = nil,
+    -- },
+    -- highlight = false,
+    -- separator = " > ",
+    -- depth_limit = 0,
+    -- depth_limit_indicator = "..",
+    -- safe_output = true,
+    -- click = false
+-- }
+-- 
+-- require("barbecue").setup({
+  -- attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
+-- })
 
 require'lspconfig'.clangd.setup{
     cmd = {"/home/zhixin.lm/usr/bin/clangd",
@@ -394,51 +425,51 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- laygit config
 map("n", "<leader>gl", ":LazyGit<CR>", opt)
 
-require("lspsaga").setup({
-    finder = {
-        max_height = 0.5,
-        min_width = 30,
-        force_max_height = false,
-        keys = {
-        expand_or_jump = 'o',
-        vsplit = 's',
-        split = 'i',
-        tabe = 't',
-        tabnew = 'r',
-        quit = { 'q', '<ESC>' },
-        close_in_preview = '<ESC>',
-        },
-    },
-    code_action = {
-        num_shortcut = true,
-        show_server_name = false,
-        extend_gitsigns = true,
-        keys = {
-        -- string | table type
-        quit = "q",
-        exec = "<CR>",
-        },
-    },
-    outline = {
-        win_position = "right",
-        win_with = "",
-        win_width = 30,
-        preview_width= 0.4,
-        show_detail = true,
-        auto_preview = true,
-        auto_refresh = true,
-        auto_close = true,
-        auto_resize = false,
-        custom_sort = nil,
-        keys = {
-        expand_or_jump = 'o',
-        quit = "q",
-        },
-    },
-    map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt),
-    map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt),
-    map("n","<leader>so", "<cmd>Lspsaga outline<CR>", opt)
-})
+-- require("lspsaga").setup({
+    -- finder = {
+        -- max_height = 0.5,
+        -- min_width = 30,
+        -- force_max_height = false,
+        -- keys = {
+        -- expand_or_jump = 'o',
+        -- vsplit = 's',
+        -- split = 'i',
+        -- tabe = 't',
+        -- tabnew = 'r',
+        -- quit = { 'q', '<ESC>' },
+        -- close_in_preview = '<ESC>',
+        -- },
+    -- },
+    -- code_action = {
+        -- num_shortcut = true,
+        -- show_server_name = false,
+        -- extend_gitsigns = true,
+        -- keys = {
+        -- -- string | table type
+        -- quit = "q",
+        -- exec = "<CR>",
+        -- },
+    -- },
+    -- outline = {
+        -- win_position = "right",
+        -- win_with = "",
+        -- win_width = 30,
+        -- preview_width= 0.4,
+        -- show_detail = true,
+        -- auto_preview = true,
+        -- auto_refresh = true,
+        -- auto_close = true,
+        -- auto_resize = false,
+        -- custom_sort = nil,
+        -- keys = {
+        -- expand_or_jump = 'o',
+        -- quit = "q",
+        -- },
+    -- },
+    -- map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt),
+    -- map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt),
+    -- map("n","<leader>so", "<cmd>Lspsaga outline<CR>", opt)
+-- })
 
 require("tokyonight").setup({
   -- your configuration comes here
@@ -476,51 +507,11 @@ require("tokyonight").setup({
   on_highlights = function(highlights, colors) end,
 })
 
-require("astrotheme").setup({
-  palette = "astrodark", -- String of the default palette to use when calling `:colorscheme astrotheme`
-  background = { -- :h background, palettes to use when using the core vim background colors
-    light = "astrolight",
-    dark = "astrodark",
-  },
-
-  style = {
-    transparent = false,         -- Bool value, toggles transparency.
-    inactive = false,             -- Bool value, toggles inactive window color.
-    float = false,                -- Bool value, toggles floating windows background colors.
-    popup = false,                -- Bool value, toggles popup background color.
-    neotree = false,              -- Bool value, toggles neo-trees background color.
-    border = true,               -- Bool value, toggles borders.
-    title_invert = false,         -- Bool value, swaps text and background colors.
-    italic_comments = false,      -- Bool value, toggles italic comments.
-    simple_syntax_colors = false, -- Bool value, simplifies the amounts of colors used for syntax highlighting.
-  },
-
-
-  termguicolors = true, -- Bool value, toggles if termguicolors are set by AstroTheme.
-
-  terminal_color = true, -- Bool value, toggles if terminal_colors are set by AstroTheme.
-})
-
-require('guess-indent').setup {
-  auto_cmd = true,  -- Set to false to disable automatic execution
-  override_editorconfig = false, -- Set to true to override settings set by .editorconfig
-  filetype_exclude = {  -- A list of filetypes for which the auto command gets disabled
-    "netrw",
-    "tutor",
-  },
-  buftype_exclude = {  -- A list of buffer types for which the auto command gets disabled
-    "help",
-    "nofile",
-    "terminal",
-    "prompt",
-  },
-}
-
-require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-}
+-- require("which-key").setup {
+    -- -- your configuration comes here
+    -- -- or leave it empty to use the default settings
+    -- -- refer to the configuration section below
+-- }
 
 require("indent_blankline").setup {
     -- for example, context is off by default, use this to turn it on
@@ -528,151 +519,151 @@ require("indent_blankline").setup {
     -- show_current_context_start = true,
 }
 
-require("dressing").setup({
-  input = {
-    -- Set to false to disable the vim.ui.input implementation
-    enabled = true,
-
-    -- Default prompt string
-    default_prompt = "Input:",
-
-    -- Can be 'left', 'right', or 'center'
-    title_pos = "left",
-
-    -- When true, <Esc> will close the modal
-    insert_only = true,
-
-    -- When true, input will start in insert mode.
-    start_in_insert = true,
-
-    -- These are passed to nvim_open_win
-    border = "rounded",
-    -- 'editor' and 'win' will default to being centered
-    relative = "cursor",
-
-    -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-    prefer_width = 40,
-    width = nil,
-    -- min_width and max_width can be a list of mixed types.
-    -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-    max_width = { 140, 0.9 },
-    min_width = { 20, 0.2 },
-
-    buf_options = {},
-    win_options = {
-      -- Window transparency (0-100)
-      winblend = 10,
-      -- Disable line wrapping
-      wrap = false,
-      -- Indicator for when text exceeds window
-      list = true,
-      listchars = "precedes:…,extends:…",
-      -- Increase this for more context when text scrolls off the window
-      sidescrolloff = 0,
-    },
-
-    -- Set to `false` to disable
-    mappings = {
-      n = {
-        ["<Esc>"] = "Close",
-        ["<CR>"] = "Confirm",
-      },
-      i = {
-        ["<C-c>"] = "Close",
-        ["<CR>"] = "Confirm",
-        ["<Up>"] = "HistoryPrev",
-        ["<Down>"] = "HistoryNext",
-      },
-    },
-
-    override = function(conf)
-      -- This is the config that will be passed to nvim_open_win.
-      -- Change values here to customize the layout
-      return conf
-    end,
-
-    -- see :help dressing_get_config
-    get_config = nil,
-  },
-  select = {
-    -- Set to false to disable the vim.ui.select implementation
-    enabled = true,
-
-    -- Priority list of preferred vim.select implementations
-    backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
-
-    -- Trim trailing `:` from prompt
-    trim_prompt = true,
-
-    -- Options for telescope selector
-    -- These are passed into the telescope picker directly. Can be used like:
-    -- telescope = require('telescope.themes').get_ivy({...})
-    telescope = nil,
-
-    -- Options for fzf selector
-    fzf = {
-      window = {
-        width = 0.5,
-        height = 0.4,
-      },
-    },
-
-    -- Options for fzf-lua
-    fzf_lua = {
-      -- winopts = {
-      --   height = 0.5,
-      --   width = 0.5,
+-- require("dressing").setup({
+  -- input = {
+    -- -- Set to false to disable the vim.ui.input implementation
+    -- enabled = true,
+-- 
+    -- -- Default prompt string
+    -- default_prompt = "Input:",
+-- 
+    -- -- Can be 'left', 'right', or 'center'
+    -- title_pos = "left",
+-- 
+    -- -- When true, <Esc> will close the modal
+    -- insert_only = true,
+-- 
+    -- -- When true, input will start in insert mode.
+    -- start_in_insert = true,
+-- 
+    -- -- These are passed to nvim_open_win
+    -- border = "rounded",
+    -- -- 'editor' and 'win' will default to being centered
+    -- relative = "cursor",
+-- 
+    -- -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    -- prefer_width = 40,
+    -- width = nil,
+    -- -- min_width and max_width can be a list of mixed types.
+    -- -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
+    -- max_width = { 140, 0.9 },
+    -- min_width = { 20, 0.2 },
+-- 
+    -- buf_options = {},
+    -- win_options = {
+      -- -- Window transparency (0-100)
+      -- winblend = 10,
+      -- -- Disable line wrapping
+      -- wrap = false,
+      -- -- Indicator for when text exceeds window
+      -- list = true,
+      -- listchars = "precedes:…,extends:…",
+      -- -- Increase this for more context when text scrolls off the window
+      -- sidescrolloff = 0,
+    -- },
+-- 
+    -- -- Set to `false` to disable
+    -- mappings = {
+      -- n = {
+        -- ["<Esc>"] = "Close",
+        -- ["<CR>"] = "Confirm",
       -- },
-    },
-
-    -- Options for built-in selector
-    builtin = {
-      -- Display numbers for options and set up keymaps
-      show_numbers = true,
-      -- These are passed to nvim_open_win
-      border = "rounded",
-      -- 'editor' and 'win' will default to being centered
-      relative = "editor",
-
-      buf_options = {},
-      win_options = {
-        -- Window transparency (0-100)
-        winblend = 10,
-        cursorline = true,
-        cursorlineopt = "both",
-      },
-
-      -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-      -- the min_ and max_ options can be a list of mixed types.
-      -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
-      width = nil,
-      max_width = { 140, 0.8 },
-      min_width = { 40, 0.2 },
-      height = nil,
-      max_height = 0.9,
-      min_height = { 10, 0.2 },
-
-      -- Set to `false` to disable
-      mappings = {
-        ["<Esc>"] = "Close",
-        ["<C-c>"] = "Close",
-        ["<CR>"] = "Confirm",
-      },
-
-      override = function(conf)
-        -- This is the config that will be passed to nvim_open_win.
-        -- Change values here to customize the layout
-        return conf
-      end,
-    },
-
-    -- Used to override format_item. See :help dressing-format
-    format_item_override = {},
-
-    -- see :help dressing_get_config
-    get_config = nil,
-  },
-})
+      -- i = {
+        -- ["<C-c>"] = "Close",
+        -- ["<CR>"] = "Confirm",
+        -- ["<Up>"] = "HistoryPrev",
+        -- ["<Down>"] = "HistoryNext",
+      -- },
+    -- },
+-- 
+    -- override = function(conf)
+      -- -- This is the config that will be passed to nvim_open_win.
+      -- -- Change values here to customize the layout
+      -- return conf
+    -- end,
+-- 
+    -- -- see :help dressing_get_config
+    -- get_config = nil,
+  -- },
+  -- select = {
+    -- -- Set to false to disable the vim.ui.select implementation
+    -- enabled = true,
+-- 
+    -- -- Priority list of preferred vim.select implementations
+    -- backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+-- 
+    -- -- Trim trailing `:` from prompt
+    -- trim_prompt = true,
+-- 
+    -- -- Options for telescope selector
+    -- -- These are passed into the telescope picker directly. Can be used like:
+    -- -- telescope = require('telescope.themes').get_ivy({...})
+    -- telescope = nil,
+-- 
+    -- -- Options for fzf selector
+    -- fzf = {
+      -- window = {
+        -- width = 0.5,
+        -- height = 0.4,
+      -- },
+    -- },
+-- 
+    -- -- Options for fzf-lua
+    -- fzf_lua = {
+      -- -- winopts = {
+      -- --   height = 0.5,
+      -- --   width = 0.5,
+      -- -- },
+    -- },
+-- 
+    -- -- Options for built-in selector
+    -- builtin = {
+      -- -- Display numbers for options and set up keymaps
+      -- show_numbers = true,
+      -- -- These are passed to nvim_open_win
+      -- border = "rounded",
+      -- -- 'editor' and 'win' will default to being centered
+      -- relative = "editor",
+-- 
+      -- buf_options = {},
+      -- win_options = {
+        -- -- Window transparency (0-100)
+        -- winblend = 10,
+        -- cursorline = true,
+        -- cursorlineopt = "both",
+      -- },
+-- 
+      -- -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+      -- -- the min_ and max_ options can be a list of mixed types.
+      -- -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
+      -- width = nil,
+      -- max_width = { 140, 0.8 },
+      -- min_width = { 40, 0.2 },
+      -- height = nil,
+      -- max_height = 0.9,
+      -- min_height = { 10, 0.2 },
+-- 
+      -- -- Set to `false` to disable
+      -- mappings = {
+        -- ["<Esc>"] = "Close",
+        -- ["<C-c>"] = "Close",
+        -- ["<CR>"] = "Confirm",
+      -- },
+-- 
+      -- override = function(conf)
+        -- -- This is the config that will be passed to nvim_open_win.
+        -- -- Change values here to customize the layout
+        -- return conf
+      -- end,
+    -- },
+-- 
+    -- -- Used to override format_item. See :help dressing-format
+    -- format_item_override = {},
+-- 
+    -- -- see :help dressing_get_config
+    -- get_config = nil,
+  -- },
+-- })
 
 require("noice").setup({
   cmdline = {
@@ -716,3 +707,6 @@ require("noice").setup({
   ---@type NoiceFormatOptions
   format = {}, --- @see section on formatting
 })
+
+-- vim.o.backgroud = 'dark'
+vim.cmd('colorscheme tokyonight-day')
