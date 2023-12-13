@@ -368,10 +368,10 @@ end
 -- })
 
 require'lspconfig'.clangd.setup{
-    cmd = {"/home/zhixin.lm/usr/bin/clangd",
+    cmd = {"/xxx/clangd",
            "--background-index",
            "--query-driver=/usr/local/gcc-9.3.0/bin/g++",
-           -- "-resource-dir=/usr/local/ob-clang11/lib/clang/11.1.0",
+           -- "-resource-dir=/usr/local/xxx/lib/clang/11.1.0",
            "-j=32",
            "--completion-style=detailed",
            "--header-insertion=iwyu"},
