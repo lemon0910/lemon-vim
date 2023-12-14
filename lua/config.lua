@@ -367,32 +367,28 @@ end
   -- attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
 -- })
 
-require'lspconfig'.clangd.setup{
-    cmd = {"/xxx/clangd",
-           "--background-index",
-           "--query-driver=/usr/local/gcc-9.3.0/bin/g++",
-           -- "-resource-dir=/usr/local/xxx/lib/clang/11.1.0",
-           "-j=32",
-           "--completion-style=detailed",
-           "--header-insertion=iwyu"},
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    -- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git")
-    on_attach = function(client, bufnr)
-    -- ...
-
-    if client.server_capabilities["documentSymbolProvider"] then
-    require("nvim-navic").attach(client, bufnr)
-    end
-
-    -- ...
-    end,
-    vim.diagnostic.config({
-    virtual_text = false
-    }),
+require'lspconfig'.ccls.setup {
+  cmd = { '/xxx/ccls' },
+  init_options = {
+  clang = {
+          resourceDir = "/usr/local/clang11/lib/clang/11.1.0",
+          extraArgs = {
+                  "--limit-references=0",
+                  "-Wno-sign-conversion",
+                  "-ferror-limit=0",
+                  "--gcc-toolchain=/usr/local/gcc-9.3.0",
+                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0",
+                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0/x86_64-pc-linux-gnu",
+                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0/backward",
+                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/include",
+                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/include-fixed",
+                  "-isystem/usr/local/include,/usr/local/gcc-9.3.0/bin/../lib/gcc/../../include",
+                  "-isystem/usr/include"
+          },
+  },
+  index = { initialBlacklist = { "unittest" } },
+  }
 }
-
-vim.keymap.set('n', '<leader>ls', ':LspStop<CR>', opts)
-vim.keymap.set('n', '<leader>lr', ':LspStart<CR>', opts)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
