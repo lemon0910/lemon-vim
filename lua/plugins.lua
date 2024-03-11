@@ -39,10 +39,10 @@ return require('packer').startup(function(use)
     -- }
   -- })
 
-  -- use {
-    -- "SmiteshP/nvim-navic",
-    -- requires = "neovim/nvim-lspconfig"
-  -- }
+  use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig"
+  }
 
   -- use({
     -- "utilyre/barbecue.nvim",
@@ -87,7 +87,7 @@ return require('packer').startup(function(use)
   })
 
   -- use {'folke/which-key.nvim'}
-  use {"lukas-reineke/indent-blankline.nvim"}
+  use {"lukas-reineke/indent-blankline.nvim", main = "ibl"}
   -- use {'onsails/lspkind.nvim'}
   -- use {'stevearc/dressing.nvim'}
   use {'MunifTanjim/nui.nvim'}

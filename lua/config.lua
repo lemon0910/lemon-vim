@@ -57,11 +57,11 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
+    -- mappings = {
+      -- list = {
+        -- { key = "u", action = "dir_up" },
+      -- },
+    -- },
   },
   renderer = {
     group_empty = true,
@@ -367,28 +367,7 @@ end
   -- attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
 -- })
 
-require'lspconfig'.ccls.setup {
-  cmd = { '/xxx/ccls' },
-  init_options = {
-  clang = {
-          resourceDir = "/usr/local/clang11/lib/clang/11.1.0",
-          extraArgs = {
-                  "--limit-references=0",
-                  "-Wno-sign-conversion",
-                  "-ferror-limit=0",
-                  "--gcc-toolchain=/usr/local/gcc-9.3.0",
-                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0",
-                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0/x86_64-pc-linux-gnu",
-                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/../../../../include/c++/9.3.0/backward",
-                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/include",
-                  "-isystem/usr/local/gcc-9.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/9.3.0/include-fixed",
-                  "-isystem/usr/local/include,/usr/local/gcc-9.3.0/bin/../lib/gcc/../../include",
-                  "-isystem/usr/include"
-          },
-  },
-  index = { initialBlacklist = { "unittest" } },
-  }
-}
+require'lspconfig'.clangd.setup{}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -509,10 +488,8 @@ require("tokyonight").setup({
     -- -- refer to the configuration section below
 -- }
 
-require("indent_blankline").setup {
-    -- for example, context is off by default, use this to turn it on
-    show_current_context = true,
-    -- show_current_context_start = true,
+require("ibl").setup {
+    scope = { enabled = false },
 }
 
 -- require("dressing").setup({
@@ -705,4 +682,4 @@ require("noice").setup({
 })
 
 -- vim.o.backgroud = 'dark'
-vim.cmd('colorscheme tokyonight-day')
+vim.cmd('colorscheme tokyonight-storm')
