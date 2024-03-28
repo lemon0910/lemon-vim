@@ -367,7 +367,7 @@ end
   -- attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
 -- })
 
-require'lspconfig'.clangd.setup{}
+-- require'lspconfig'.clangd.setup{}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -682,4 +682,4 @@ require("noice").setup({
 })
 
 -- vim.o.backgroud = 'dark'
-vim.cmd('colorscheme tokyonight-storm')
+vim.cmd('colorscheme catppuccin-latte')
