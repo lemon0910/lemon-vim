@@ -34,8 +34,8 @@ map("v", "j", "gj", opt)
 map("v", "k", "gk", opt)
 
 -- ctags相关设置
-map("n", "gd", ":execute 'tjump ' . expand('<cword>') <CR>", opt)
-map("n", "gb", "<C-O>", opt)
+-- map("n", "gd", ":execute 'tjump ' . expand('<cword>') <CR>", opt)
+-- map("n", "gb", "<C-O>", opt)
 
 -- Move to the start of line
 map("n", "H", "^", opt)
