@@ -721,18 +721,6 @@ vim.keymap.set("n", "<leader>ps", [[<cmd>lua require("persistence").load()<cr>]]
 
 require("go").setup()
 
-require('nvim-treesitter.configs').setup {
-    textsubjects = {
-        enable = true,
-        -- prev_selection = ',', -- (Optional) keymap to select the previous selection
-        keymaps = {
-            ['i;'] = 'textsubjects-smart',
-            -- [';'] = 'textsubjects-container-outer',
-            -- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
-        },
-    },
-}
-
 require("lspconfig").gopls.setup{}
 
 require("notify").setup({
@@ -749,7 +737,6 @@ require('lspsaga').setup({
     }
 })
 vim.keymap.set("n", "<leader>so", ":Lspsaga outline<CR>")
-
 
 -- vim.o.backgroud = 'dark'
 vim.cmd('colorscheme catppuccin-mocha')
