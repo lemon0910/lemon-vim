@@ -721,7 +721,39 @@ vim.keymap.set("n", "<leader>ps", [[<cmd>lua require("persistence").load()<cr>]]
 
 require("go").setup()
 
-require("symbols-outline").setup()
+require("symbols-outline").setup({
+    symbols = {
+        File = { icon = "F", hl = "@text.uri" },
+        Module = { icon = "N", hl = "@namespace" },
+        Namespace = { icon = "N", hl = "@namespace" },
+        Package = { icon = "", hl = "@namespace" },
+        Class = { icon = "𝓒", hl = "@type" },
+        Method = { icon = "ƒ", hl = "@method" },
+        Property = { icon = "M", hl = "@method" },
+        Field = { icon = "F", hl = "@field" },
+        Constructor = { icon = "C", hl = "@constructor" },
+        Enum = { icon = "ℰ", hl = "@type" },
+        Interface = { icon = "ﰮ", hl = "@type" },
+        Function = { icon = "", hl = "@function" },
+        Variable = { icon = "C", hl = "@constant" },
+        Constant = { icon = "", hl = "@constant" },
+        String = { icon = "𝓐", hl = "@string" },
+        Number = { icon = "#", hl = "@number" },
+        Boolean = { icon = "⊨", hl = "@boolean" },
+        Array = { icon = "C", hl = "@constant" },
+        Object = { icon = "⦿", hl = "@type" },
+        Key = { icon = "🔐", hl = "@type" },
+        Null = { icon = "NULL", hl = "@type" },
+        EnumMember = { icon = "", hl = "@field" },
+        Struct = { icon = "𝓢", hl = "@type" },
+        Event = { icon = "🗲", hl = "@type" },
+        Operator = { icon = "+", hl = "@operator" },
+        TypeParameter = { icon = "𝙏", hl = "@parameter" },
+        Component = { icon = "f", hl = "@function" },
+        Fragment = { icon = "C", hl = "@constant" },
+    }
+})
+
 vim.keymap.set("n", "<leader>so", ":SymbolsOutline<CR>")
 require('nvim-treesitter.configs').setup {
     textsubjects = {
