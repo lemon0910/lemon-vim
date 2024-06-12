@@ -89,6 +89,8 @@ require("bufferline").setup {
 
 -- flash.vim
 require("flash").setup()
+require("flash").toggle()
+
 vim.keymap.set('n', 's', function() require("flash").jump() end, {})
 
 -- lualine
