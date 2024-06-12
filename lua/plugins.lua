@@ -12,11 +12,7 @@ return require('packer').startup(function(use)
   use {
   'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'
   }
-  -- hop
-  use {
-    'phaazon/hop.nvim',
-    branch = 'v1', -- optional but strongly recommended
-  }
+  use 'folke/flash.nvim'
   -- completion
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-cmdline'
@@ -93,4 +89,28 @@ return require('packer').startup(function(use)
   use {'MunifTanjim/nui.nvim'}
   use {'folke/noice.nvim'}
   use {'Mr-LLLLL/interestingwords.nvim'}
+
+  use 'folke/trouble.nvim'
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua' -- recommended if need floating window support
+
+  -- use {
+    -- 's1n7ax/nvim-window-picker',
+    -- tag = 'v2.*',
+    -- config = function()
+        -- require'window-picker'.setup()
+    -- end,
+  -- }
+
+  use 'stevearc/conform.nvim'
+  use 'folke/persistence.nvim'
+  use 'stevearc/dressing.nvim'
+  use 'rcarriga/nvim-notify'
+  use 'simrat39/symbols-outline.nvim'
+  use 'RRethy/nvim-treesitter-textsubjects'
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
 end)

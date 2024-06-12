@@ -87,13 +87,36 @@ require("bufferline").setup {
   }
 }
 
--- hop.vim
-require("hop").setup({
-    map("n", "s", ":HopChar2<CR>", opt)
-})
+-- flash.vim
+require("flash").setup()
+vim.keymap.set('n', 's', function() require("flash").jump() end, {})
 
 -- lualine
-require('lualine').setup()
+require('lualine').setup({
+    sections = {
+       lualine_c = {
+           {
+              'filename',
+              file_status = true,      -- Displays file status (readonly status, modified status)
+              newfile_status = false,  -- Display new file status (new file means no write after created)
+              path = 3,                -- 0: Just the filename
+              -- 1: Relative path
+              -- 2: Absolute path
+              -- 3: Absolute path, with tilde as the home directory
+              -- 4: Filename and parent dir, with tilde as the home directory
+
+              shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
+              -- for other components. (terrible name, any suggestions?)
+              symbols = {
+                      modified = '[+]',      -- Text to show when the file is modified.
+                      readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+                      unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                      newfile = '[New]',     -- Text to show for newly created file before first write
+              }
+           }
+       }
+    }
+})
 
 -- complete
 local cmp = require'cmp'
@@ -127,16 +150,24 @@ cmp.setup({
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     },
     sources = cmp.config.sources({
-      { name = 'buffer' },
       { name = 'nvim_lsp' },
+      { name = 'buffer' },
     }),
   })
 -- vim.o.completeopt="menu,menuone,noselect"
 
-require'cmp'.setup.cmdline(':', {
-  sources = {
-    { name = 'cmdline' }
-  }
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
 })
 
 -- autopair
@@ -363,9 +394,6 @@ end
     -- click = false
 -- }
 -- 
--- require("barbecue").setup({
-  -- attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
--- })
 
 -- require'lspconfig'.clangd.setup{}
 
@@ -681,5 +709,36 @@ require("noice").setup({
   format = {}, --- @see section on formatting
 })
 
+require("trouble").setup()
+vim.keymap.set('n', '<leader>tr', ':Trouble<CR>', {})
+
+require("persistence").setup()
+vim.keymap.set("n", "<leader>ps", [[<cmd>lua require("persistence").load()<cr>]], {})
+
+-- require'window-picker'.setup()
+
+require("go").setup()
+
+require("symbols-outline").setup()
+vim.keymap.set("n", "<leader>so", ":SymbolsOutline<CR>")
+require('nvim-treesitter.configs').setup {
+    textsubjects = {
+        enable = true,
+        -- prev_selection = ',', -- (Optional) keymap to select the previous selection
+        keymaps = {
+            ['i;'] = 'textsubjects-smart',
+            -- [';'] = 'textsubjects-container-outer',
+            -- ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
+        },
+    },
+}
+
+require("lspconfig").gopls.setup{}
+
+require("notify").setup({
+  timeout = 2000,
+  stages = 'static'
+})
+
 -- vim.o.backgroud = 'dark'
-vim.cmd('colorscheme catppuccin-latte')
+vim.cmd('colorscheme catppuccin-mocha')
