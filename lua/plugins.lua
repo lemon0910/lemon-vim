@@ -113,4 +113,7 @@ return require('packer').startup(function(use)
     after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
   })
+
+  use { "anuvyklack/windows.nvim",
+        requires = "anuvyklack/middleclass" }
 end)

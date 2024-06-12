@@ -740,5 +740,8 @@ require("notify").setup({
   stages = 'static'
 })
 
+require("windows").setup()
+vim.keymap.set("n", "<leader>m", ":WindowsMaximize<CR>", {})
+
 -- vim.o.backgroud = 'dark'
 vim.cmd('colorscheme catppuccin-mocha')
