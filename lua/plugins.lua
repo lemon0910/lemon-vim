@@ -116,4 +116,6 @@ return require('packer').startup(function(use)
 
   use { "anuvyklack/windows.nvim",
         requires = "anuvyklack/middleclass" }
+  
+  use 'nvimdev/lspsaga.nvim'
 end)

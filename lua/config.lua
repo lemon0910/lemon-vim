@@ -777,5 +777,7 @@ require("notify").setup({
 require("windows").setup()
 vim.keymap.set("n", "<leader>m", ":WindowsMaximize<CR>", {})
 
+require('lspsaga').setup({})
+
 -- vim.o.backgroud = 'dark'
 vim.cmd('colorscheme catppuccin-mocha')
