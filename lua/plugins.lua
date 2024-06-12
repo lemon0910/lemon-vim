@@ -106,7 +106,6 @@ return require('packer').startup(function(use)
   use 'folke/persistence.nvim'
   use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
-  use 'simrat39/symbols-outline.nvim'
   use 'RRethy/nvim-treesitter-textsubjects'
   use({
     "nvim-treesitter/nvim-treesitter-textobjects",
