@@ -7,7 +7,6 @@ return require('packer').startup(function(use)
   use 't9md/vim-choosewin'
   -- colorscheme
   use 'folke/tokyonight.nvim'
-  use 'glepnir/zephyr-nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
   use {
   'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'
@@ -24,43 +23,12 @@ return require('packer').startup(function(use)
     requires = 'kyazdani42/nvim-web-devicons'
   }
 
-  -- use({
-    -- "glepnir/lspsaga.nvim",
-    -- opt = true,
-    -- event = "LspAttach",
-    -- requires = {
-        -- {"nvim-tree/nvim-web-devicons"},
-        -- --Please make sure you install markdown and markdown_inline parser
-        -- {"nvim-treesitter/nvim-treesitter"}
-    -- }
-  -- })
-
-  use {
-    "SmiteshP/nvim-navic",
-    requires = "neovim/nvim-lspconfig"
-  }
-
-  -- use({
-    -- "utilyre/barbecue.nvim",
-    -- tag = "*",
-    -- requires = {
-            -- "SmiteshP/nvim-navic",
-            -- "nvim-tree/nvim-web-devicons", -- optional dependency
-    -- },
-    -- after = "nvim-web-devicons", -- keep this if you're using NvChad
-    -- config = function()
-            -- require("barbecue").setup()
-    -- end,
-  -- })
-
   -- nvim-autopairs
   use 'windwp/nvim-autopairs'
   use {
    'nvim-lualine/lualine.nvim',
    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-  -- vim-ripgrep
-  use 'jremmen/vim-ripgrep'
   use 'nvim-treesitter/nvim-treesitter'
   -- telescope
   use {
@@ -82,10 +50,7 @@ return require('packer').startup(function(use)
       },
   })
 
-  -- use {'folke/which-key.nvim'}
   use {"lukas-reineke/indent-blankline.nvim", main = "ibl"}
-  -- use {'onsails/lspkind.nvim'}
-  -- use {'stevearc/dressing.nvim'}
   use {'MunifTanjim/nui.nvim'}
   use {'folke/noice.nvim'}
   use {'Mr-LLLLL/interestingwords.nvim'}
@@ -94,27 +59,11 @@ return require('packer').startup(function(use)
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua' -- recommended if need floating window support
 
-  -- use {
-    -- 's1n7ax/nvim-window-picker',
-    -- tag = 'v2.*',
-    -- config = function()
-        -- require'window-picker'.setup()
-    -- end,
-  -- }
-
   use 'stevearc/conform.nvim'
   use 'folke/persistence.nvim'
   use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
-  use 'RRethy/nvim-treesitter-textsubjects'
-  use({
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
-  })
-
   use { "anuvyklack/windows.nvim",
         requires = "anuvyklack/middleclass" }
-  
-  use 'nvimdev/lspsaga.nvim'
+  use 'hedyhli/outline.nvim'
 end)

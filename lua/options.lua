@@ -3,7 +3,7 @@ vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 
 -- utf8
-vim.g.encoding = 'UTF-8'
+vim.g.encoding = 'utf-8'
 vim.o.fileencoding = 'utf-8'
 
 -- 文件修改之后自动载入

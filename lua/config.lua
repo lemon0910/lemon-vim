@@ -28,10 +28,6 @@ vim.g.NERDCompactSexyComs = 1
 vim.g.NERDCommentEmptyLines = 1
 -- }}}
 
--- undotree {{{
--- map("n", "<leader>u", ":UndotreeToggle<CR>", opt)
--- }}}
-
 -- a.vim {{{
 -- .h和.c切换相关
 map("n", "<leader>aa", ":A<CR>", opt)
@@ -43,11 +39,6 @@ map("n", "<leader>gb", ":Git blame<CR>", opt)
 
 -- t9md/vim-choosewin {
 map("n", "<leader>o", ":ChooseWin<CR>", opt)
--- }
-
--- vim-ripgrep {
-    vim.g.rg_highlight = true
-    map("n", "<leader>rg", ":Rg", opt)
 -- }
 
 -- kyazdani42/nvim-tree.lua
@@ -90,7 +81,6 @@ require("bufferline").setup {
 -- flash.vim
 require("flash").setup()
 require("flash").toggle()
-
 vim.keymap.set('n', 's', function() require("flash").jump() end, {})
 
 -- lualine
@@ -122,8 +112,6 @@ require('lualine').setup({
 
 -- complete
 local cmp = require'cmp'
--- local lspkind = require('lspkind')
-
 cmp.setup({
   completion = {
       completeopt = 'menu,menuone,noselect',
@@ -178,13 +166,22 @@ require('nvim-autopairs').setup{}
 require'nvim-treesitter.configs'.setup {
   -- 安装 language parser
   -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = {"c", "cpp"},
+  ensure_installed = {"c", "cpp", "vim", "lua", },
   ignore_install = { "vim" },
   -- 启用代码高亮功能
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
     disable = {"lua"},
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-=>",
+      node_incremental = "<C-=>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
   }
 }
 
@@ -244,7 +241,6 @@ require("telescope").setup{
   vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
   vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {}),
   vim.keymap.set('n', '<leader>fc', builtin.commands, {}),
-  vim.keymap.set('n', '<leader>fq', builtin.quickfix, {}),
   vim.keymap.set('n', '<leader>fo', builtin.resume, {}),
   vim.keymap.set('n', 'gs', builtin.grep_string, {}),
   vim.keymap.set('n', 'gr', builtin.lsp_references, {})
@@ -341,7 +337,7 @@ require('toggleterm').setup {
   -- if you only want these mappings for toggle term use term://*toggleterm#* instead
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()'),
 
-  map('n', '<leader>`', ':ToggleTerm size=40 direction=horizontal<CR>', opt)
+  map('n', '<leader>`', ':ToggleTerm direction=float<CR>', opt)
 }
 
 function _G.set_terminal_keymaps()
@@ -354,127 +350,8 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
--- local navic = require("nvim-navic")
--- navic.setup {
-    -- icons = {
-        -- File          = "󰈙 ",
-        -- Module        = " ",
-        -- Namespace     = "󰌗 ",
-        -- Package       = " ",
-        -- Class         = "󰌗 ",
-        -- Method        = "󰆧 ",
-        -- Property      = " ",
-        -- Field         = " ",
-        -- Constructor   = " ",
-        -- Enum          = "󰕘",
-        -- Interface     = "󰕘",
-        -- Function      = "󰊕 ",
-        -- Variable      = "󰆧 ",
-        -- Constant      = "󰏿 ",
-        -- String        = "󰀬 ",
-        -- Number        = "󰎠 ",
-        -- Boolean       = "◩ ",
-        -- Array         = "󰅪 ",
-        -- Object        = "󰅩 ",
-        -- Key           = "󰌋 ",
-        -- Null          = "󰟢 ",
-        -- EnumMember    = " ",
-        -- Struct        = "󰌗 ",
-        -- Event         = " ",
-        -- Operator      = "󰆕 ",
-        -- TypeParameter = "󰊄 ",
-    -- },
-    -- lsp = {
-        -- auto_attach = false,
-        -- preference = nil,
-    -- },
-    -- highlight = false,
-    -- separator = " > ",
-    -- depth_limit = 0,
-    -- depth_limit_indicator = "..",
-    -- safe_output = true,
-    -- click = false
--- }
--- 
-
--- require'lspconfig'.clangd.setup{}
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
-})
-
 -- laygit config
 map("n", "<leader>gl", ":LazyGit<CR>", opt)
-
--- require("lspsaga").setup({
-    -- finder = {
-        -- max_height = 0.5,
-        -- min_width = 30,
-        -- force_max_height = false,
-        -- keys = {
-        -- expand_or_jump = 'o',
-        -- vsplit = 's',
-        -- split = 'i',
-        -- tabe = 't',
-        -- tabnew = 'r',
-        -- quit = { 'q', '<ESC>' },
-        -- close_in_preview = '<ESC>',
-        -- },
-    -- },
-    -- code_action = {
-        -- num_shortcut = true,
-        -- show_server_name = false,
-        -- extend_gitsigns = true,
-        -- keys = {
-        -- -- string | table type
-        -- quit = "q",
-        -- exec = "<CR>",
-        -- },
-    -- },
-    -- outline = {
-        -- win_position = "right",
-        -- win_with = "",
-        -- win_width = 30,
-        -- preview_width= 0.4,
-        -- show_detail = true,
-        -- auto_preview = true,
-        -- auto_refresh = true,
-        -- auto_close = true,
-        -- auto_resize = false,
-        -- custom_sort = nil,
-        -- keys = {
-        -- expand_or_jump = 'o',
-        -- quit = "q",
-        -- },
-    -- },
-    -- map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt),
-    -- map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt),
-    -- map("n","<leader>so", "<cmd>Lspsaga outline<CR>", opt)
--- })
 
 require("tokyonight").setup({
   -- your configuration comes here
@@ -512,161 +389,9 @@ require("tokyonight").setup({
   on_highlights = function(highlights, colors) end,
 })
 
--- require("which-key").setup {
-    -- -- your configuration comes here
-    -- -- or leave it empty to use the default settings
-    -- -- refer to the configuration section below
--- }
-
 require("ibl").setup {
     scope = { enabled = false },
 }
-
--- require("dressing").setup({
-  -- input = {
-    -- -- Set to false to disable the vim.ui.input implementation
-    -- enabled = true,
--- 
-    -- -- Default prompt string
-    -- default_prompt = "Input:",
--- 
-    -- -- Can be 'left', 'right', or 'center'
-    -- title_pos = "left",
--- 
-    -- -- When true, <Esc> will close the modal
-    -- insert_only = true,
--- 
-    -- -- When true, input will start in insert mode.
-    -- start_in_insert = true,
--- 
-    -- -- These are passed to nvim_open_win
-    -- border = "rounded",
-    -- -- 'editor' and 'win' will default to being centered
-    -- relative = "cursor",
--- 
-    -- -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-    -- prefer_width = 40,
-    -- width = nil,
-    -- -- min_width and max_width can be a list of mixed types.
-    -- -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-    -- max_width = { 140, 0.9 },
-    -- min_width = { 20, 0.2 },
--- 
-    -- buf_options = {},
-    -- win_options = {
-      -- -- Window transparency (0-100)
-      -- winblend = 10,
-      -- -- Disable line wrapping
-      -- wrap = false,
-      -- -- Indicator for when text exceeds window
-      -- list = true,
-      -- listchars = "precedes:…,extends:…",
-      -- -- Increase this for more context when text scrolls off the window
-      -- sidescrolloff = 0,
-    -- },
--- 
-    -- -- Set to `false` to disable
-    -- mappings = {
-      -- n = {
-        -- ["<Esc>"] = "Close",
-        -- ["<CR>"] = "Confirm",
-      -- },
-      -- i = {
-        -- ["<C-c>"] = "Close",
-        -- ["<CR>"] = "Confirm",
-        -- ["<Up>"] = "HistoryPrev",
-        -- ["<Down>"] = "HistoryNext",
-      -- },
-    -- },
--- 
-    -- override = function(conf)
-      -- -- This is the config that will be passed to nvim_open_win.
-      -- -- Change values here to customize the layout
-      -- return conf
-    -- end,
--- 
-    -- -- see :help dressing_get_config
-    -- get_config = nil,
-  -- },
-  -- select = {
-    -- -- Set to false to disable the vim.ui.select implementation
-    -- enabled = true,
--- 
-    -- -- Priority list of preferred vim.select implementations
-    -- backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
--- 
-    -- -- Trim trailing `:` from prompt
-    -- trim_prompt = true,
--- 
-    -- -- Options for telescope selector
-    -- -- These are passed into the telescope picker directly. Can be used like:
-    -- -- telescope = require('telescope.themes').get_ivy({...})
-    -- telescope = nil,
--- 
-    -- -- Options for fzf selector
-    -- fzf = {
-      -- window = {
-        -- width = 0.5,
-        -- height = 0.4,
-      -- },
-    -- },
--- 
-    -- -- Options for fzf-lua
-    -- fzf_lua = {
-      -- -- winopts = {
-      -- --   height = 0.5,
-      -- --   width = 0.5,
-      -- -- },
-    -- },
--- 
-    -- -- Options for built-in selector
-    -- builtin = {
-      -- -- Display numbers for options and set up keymaps
-      -- show_numbers = true,
-      -- -- These are passed to nvim_open_win
-      -- border = "rounded",
-      -- -- 'editor' and 'win' will default to being centered
-      -- relative = "editor",
--- 
-      -- buf_options = {},
-      -- win_options = {
-        -- -- Window transparency (0-100)
-        -- winblend = 10,
-        -- cursorline = true,
-        -- cursorlineopt = "both",
-      -- },
--- 
-      -- -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-      -- -- the min_ and max_ options can be a list of mixed types.
-      -- -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
-      -- width = nil,
-      -- max_width = { 140, 0.8 },
-      -- min_width = { 40, 0.2 },
-      -- height = nil,
-      -- max_height = 0.9,
-      -- min_height = { 10, 0.2 },
--- 
-      -- -- Set to `false` to disable
-      -- mappings = {
-        -- ["<Esc>"] = "Close",
-        -- ["<C-c>"] = "Close",
-        -- ["<CR>"] = "Confirm",
-      -- },
--- 
-      -- override = function(conf)
-        -- -- This is the config that will be passed to nvim_open_win.
-        -- -- Change values here to customize the layout
-        -- return conf
-      -- end,
-    -- },
--- 
-    -- -- Used to override format_item. See :help dressing-format
-    -- format_item_override = {},
--- 
-    -- -- see :help dressing_get_config
-    -- get_config = nil,
-  -- },
--- })
 
 require("noice").setup({
   cmdline = {
@@ -717,9 +442,35 @@ vim.keymap.set('n', '<leader>tr', ':Trouble<CR>', {})
 require("persistence").setup()
 vim.keymap.set("n", "<leader>ps", [[<cmd>lua require("persistence").load()<cr>]], {})
 
--- require'window-picker'.setup()
-
 require("go").setup()
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+
 
 require("lspconfig").gopls.setup{}
 
@@ -731,12 +482,7 @@ require("notify").setup({
 require("windows").setup()
 vim.keymap.set("n", "<leader>m", ":WindowsMaximize<CR>", {})
 
-require('lspsaga').setup({
-    ui = {
-        code_action = ''
-    }
-})
-vim.keymap.set("n", "<leader>so", ":Lspsaga outline<CR>")
+require("outline").setup()
+vim.keymap.set("n", "<leader>so", ":Outline<CR>")
 
--- vim.o.backgroud = 'dark'
 vim.cmd('colorscheme catppuccin-mocha')
