@@ -66,4 +66,5 @@ return require('packer').startup(function(use)
   use { "anuvyklack/windows.nvim",
         requires = "anuvyklack/middleclass" }
   use 'hedyhli/outline.nvim'
+  use 'neovim/nvim-lspconfig'
 end)
