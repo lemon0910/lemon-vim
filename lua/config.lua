@@ -482,7 +482,13 @@ require("notify").setup({
 require("windows").setup()
 vim.keymap.set("n", "<leader>m", ":WindowsMaximize<CR>", {})
 
-require("outline").setup()
+require("outline").setup({
+  outline_window = {
+    width = 25,
+    relative_width = true,
+  }
+})
+
 vim.keymap.set("n", "<leader>so", ":Outline<CR>")
 
 vim.cmd('colorscheme catppuccin-mocha')
