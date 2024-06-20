@@ -67,4 +67,6 @@ return require('packer').startup(function(use)
         requires = "anuvyklack/middleclass" }
   use 'hedyhli/outline.nvim'
   use 'neovim/nvim-lspconfig'
+  use 'tmux-plugins/vim-tmux-focus-events'
+  use 'roxma/vim-tmux-clipboard'
 end)
