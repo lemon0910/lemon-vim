@@ -85,7 +85,10 @@ vim.o.shiftround = true
 -- A buffer becomes hidden when it is abandoned
 vim.o.wildmode = 'list:longest'
 vim.o.ttyfast = true
-vim.o.mouse =
+vim.o.mouse = ''
+
+vim.o.termguicolors = true
+vim.o.background = 'dark'
 
 vim.cmd('augroup generalSetting')
 vim.cmd('autocmd!')

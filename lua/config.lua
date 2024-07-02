@@ -142,7 +142,6 @@ require("nvim-tree").setup({
 --}
 
 -- bufferline
-vim.opt.termguicolors = true
 require("bufferline").setup {
     options = {
     -- 左侧让出 nvim-tree 的位置
