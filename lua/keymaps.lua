@@ -44,7 +44,8 @@ map("n", "L", "$", opt)
 
 -- 退出相关
 map("n", "<leader>q", ":q<CR>", opt)
-map("n", "<leader>ww", ":w<CR>", opt)
+map("n", "<C-s>", "<cmd>w<CR><ESC>", opt)
+map("i", "<C-s>", "<cmd>w<CR><ESC>", opt)
 
 -- normal模式下切换到确切的buffer
 map("n", "<leader>bd", ":bd<CR>", opt)

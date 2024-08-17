@@ -1,7 +1,7 @@
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'preservim/nerdcommenter'
+  use 'echasnovski/mini.comment'
   use 'tpope/vim-fugitive'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
@@ -57,16 +57,14 @@ return require('packer').startup(function(use)
 
   use 'folke/trouble.nvim'
   use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua' -- recommended if need floating window support
 
   use 'stevearc/conform.nvim'
   use 'folke/persistence.nvim'
   use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
-  use { "anuvyklack/windows.nvim",
-        requires = "anuvyklack/middleclass" }
-  use 'hedyhli/outline.nvim'
   use 'neovim/nvim-lspconfig'
   use 'tmux-plugins/vim-tmux-focus-events'
   use 'roxma/vim-tmux-clipboard'
+  use 'gbprod/yanky.nvim'
+  use 'stevearc/aerial.nvim'
 end)

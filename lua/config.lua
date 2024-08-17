@@ -11,21 +11,9 @@ require("interestingwords").setup {
   -- colors = { '#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b' },
   search_count = true,
   navigation = true,
-  search_key = "<leader>m",
-  cancel_search_key = "<leader>M",
   color_key = "<leader>k",
   cancel_color_key = "<leader>K",
 }
--- }}}
-
--- nerdcommenter {{{
--- Add spaces after comment delimiters by default
-vim.g.NERDSpaceDelims = 1
--- Use compact syntax for prettified multi-line comments
-vim.g.NERDCompactSexyComs = 1
-
--- Allow commenting and inverting empty lines (useful when commenting a region)
-vim.g.NERDCommentEmptyLines = 1
 -- }}}
 
 -- a.vim {{{
@@ -326,7 +314,6 @@ require("telescope").setup{
   vim.keymap.set('n', 'gr', builtin.lsp_references, {})
 }
 
-
 -- gitsigns
 require('gitsigns').setup {
   signs = {
@@ -551,7 +538,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-
 require("lspconfig").gopls.setup{}
 
 local util = require 'lspconfig.util'
@@ -616,16 +602,18 @@ require("notify").setup({
   stages = 'static'
 })
 
-require("windows").setup()
-vim.keymap.set("n", "<leader>m", ":WindowsMaximize<CR>", {})
-
-require("outline").setup({
-  outline_window = {
-    width = 25,
-    relative_width = true,
-  }
+require("aerial").setup({
 })
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>ae", "<cmd>AerialToggle!<CR>")
 
-vim.keymap.set("n", "<leader>so", ":Outline<CR>")
+require("yanky").setup({
+})
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+vim.keymap.set("n", "[p", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", "]p", "<Plug>(YankyNextEntry)")
 
 vim.cmd('colorscheme catppuccin-mocha')
