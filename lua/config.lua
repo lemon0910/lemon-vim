@@ -606,4 +606,6 @@ vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "[p", "<Plug>(YankyPreviousEntry)")
 vim.keymap.set("n", "]p", "<Plug>(YankyNextEntry)")
 
+require('render-markdown').setup({})
+
 vim.cmd('colorscheme catppuccin-mocha')

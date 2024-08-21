@@ -67,4 +67,5 @@ return require('packer').startup(function(use)
   use 'roxma/vim-tmux-clipboard'
   use 'gbprod/yanky.nvim'
   use 'stevearc/aerial.nvim'
+  use 'MeanderingProgrammer/render-markdown.nvim'
 end)
