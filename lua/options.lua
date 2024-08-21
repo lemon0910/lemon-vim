@@ -87,6 +87,8 @@ vim.o.wildmode = 'list:longest'
 vim.o.ttyfast = true
 vim.o.mouse = ''
 
+vim.o.clipboard = 'unnamedplus'
+
 vim.o.termguicolors = true
 vim.o.background = 'dark'
 
