@@ -63,8 +63,6 @@ return require('packer').startup(function(use)
   use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
   use 'neovim/nvim-lspconfig'
-  use 'tmux-plugins/vim-tmux-focus-events'
-  use 'roxma/vim-tmux-clipboard'
   use 'gbprod/yanky.nvim'
   use 'stevearc/aerial.nvim'
   use 'MeanderingProgrammer/render-markdown.nvim'
