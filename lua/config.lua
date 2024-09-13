@@ -21,10 +21,6 @@ require("interestingwords").setup {
 map("n", "<leader>aa", ":A<CR>", opt)
 -- }}}
 
--- fugitive {{{
-map("n", "<leader>gb", ":Git blame<CR>", opt)
--- }}}
-
 -- t9md/vim-choosewin {
 map("n", "<leader>o", ":ChooseWin<CR>", opt)
 -- }
@@ -346,6 +342,8 @@ require('gitsigns').setup {
     col = 1
   },
 }
+
+map("n", "<leader>gb", ":Gitsigns blame<CR>", opt)
 
 -- alpha
 require'alpha'.setup(require'alpha.themes.startify'.config)

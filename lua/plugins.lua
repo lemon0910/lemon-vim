@@ -2,7 +2,6 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   use 'echasnovski/mini.comment'
-  use 'tpope/vim-fugitive'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
   -- colorscheme
