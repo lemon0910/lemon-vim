@@ -1,6 +1,7 @@
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use 'folke/snacks.nvim'
   use 'echasnovski/mini.comment'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
@@ -34,20 +35,12 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
-  use "akinsho/toggleterm.nvim"
+  use { 'nvim-telescope/telescope-fzf-native.nvim' }
   use 'lewis6991/gitsigns.nvim'
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
-
-  use({
-      "kdheepak/lazygit.nvim",
-      -- optional for floating window border decoration
-      requires = {
-          "nvim-lua/plenary.nvim",
-      },
-  })
 
   use {"lukas-reineke/indent-blankline.nvim", main = "ibl"}
   use {'MunifTanjim/nui.nvim'}
@@ -57,7 +50,6 @@ return require('packer').startup(function(use)
   use 'folke/trouble.nvim'
   use 'ray-x/go.nvim'
 
-  use 'stevearc/conform.nvim'
   use 'folke/persistence.nvim'
   use 'stevearc/dressing.nvim'
   use 'rcarriga/nvim-notify'
