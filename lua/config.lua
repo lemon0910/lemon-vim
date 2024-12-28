@@ -537,7 +537,7 @@ require("lspconfig").clangd.setup{
     root_dir = function(fname)
       return util.root_pattern(unpack(root_files))(fname)
     end,
-    single_file_support = true,
+    single_file_support = false,
     capabilities = default_capabilities,
 }
 

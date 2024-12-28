@@ -1,7 +1,6 @@
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'folke/snacks.nvim'
   use 'echasnovski/mini.comment'
   use 'christoomey/vim-tmux-navigator'
   use 't9md/vim-choosewin'
@@ -11,6 +10,7 @@ return require('packer').startup(function(use)
   use {
   'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'
   }
+  use 'folke/snacks.nvim'
   use 'folke/flash.nvim'
   -- completion
   use 'hrsh7th/cmp-buffer'
