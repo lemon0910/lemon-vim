@@ -3,7 +3,6 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'echasnovski/mini.comment'
   use 'christoomey/vim-tmux-navigator'
-  use 't9md/vim-choosewin'
   -- colorscheme
   use 'folke/tokyonight.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
@@ -42,7 +41,6 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
 
-  use {"lukas-reineke/indent-blankline.nvim", main = "ibl"}
   use {'MunifTanjim/nui.nvim'}
   use {'folke/noice.nvim'}
   use {'Mr-LLLLL/interestingwords.nvim'}

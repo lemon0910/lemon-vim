@@ -11,6 +11,8 @@ require("snacks").setup({
     bigfile = { enabled = true },
     bufdelete = { enabled = true },
     quickfile = { enabled = true },
+    indent = { enabled = true },
+    scroll = { enabled = true },
 })
 
 vim.api.nvim_create_user_command("GitBrowse", 'lua Snacks.gitbrowse()', { desc = "GitBrowse" })
@@ -31,11 +33,6 @@ require("interestingwords").setup {
 -- .h和.c切换相关
 map("n", "<leader>aa", ":A<CR>", opt)
 -- }}}
-
--- t9md/vim-choosewin {
--- map("n", "<leader>o", ":ChooseWin<CR>", opt)
-  vim.cmd('nmap  -  <Plug>(choosewin)')
--- }
 
 -- kyazdani42/nvim-tree.lua
 -- empty setup using defaults
@@ -261,9 +258,17 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+require("trouble").setup()
+vim.keymap.set('n', '<leader>tr', ':Trouble<CR>', {})
+
 -- telescope
 local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
+local open_with_trouble = require("trouble.sources.telescope").open
+
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
+
 require("telescope").setup{
   defaults = {
     vimgrep_arguments = {
@@ -299,8 +304,10 @@ require("telescope").setup{
     mappings = {
       i = {
         ["<C-u>"] = false,
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        ["<c-t>"] = open_with_trouble,
       },
+      n = { ["<c-t>"] = open_with_trouble },
     },
   },
   pickers = {
@@ -406,10 +413,6 @@ require("tokyonight").setup({
   on_highlights = function(highlights, colors) end,
 })
 
-require("ibl").setup {
-    scope = { enabled = false },
-}
-
 require("noice").setup({
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI
@@ -452,9 +455,6 @@ require("noice").setup({
   ---@type NoiceFormatOptions
   format = {}, --- @see section on formatting
 })
-
-require("trouble").setup()
-vim.keymap.set('n', '<leader>tr', ':Trouble<CR>', {})
 
 require("persistence").setup()
 vim.keymap.set("n", "<leader>ps", [[<cmd>lua require("persistence").load()<cr>]], {})
