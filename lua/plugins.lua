@@ -7,7 +7,8 @@ return require('packer').startup(function(use)
   use 'folke/tokyonight.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
   use {
-  'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons'
   }
   use 'folke/snacks.nvim'
   use 'folke/flash.nvim'
@@ -21,7 +22,6 @@ return require('packer').startup(function(use)
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons'
   }
-
   -- nvim-autopairs
   use 'windwp/nvim-autopairs'
   use {
@@ -40,17 +40,15 @@ return require('packer').startup(function(use)
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
-
+  -- 界面美化相关
+  use 'stevearc/dressing.nvim'
+  use 'rcarriga/nvim-notify'
   use {'MunifTanjim/nui.nvim'}
   use {'folke/noice.nvim'}
   use {'Mr-LLLLL/interestingwords.nvim'}
-
   use 'folke/trouble.nvim'
   use 'ray-x/go.nvim'
-
   use 'folke/persistence.nvim'
-  use 'stevearc/dressing.nvim'
-  use 'rcarriga/nvim-notify'
   use 'neovim/nvim-lspconfig'
   use 'gbprod/yanky.nvim'
   use 'MeanderingProgrammer/render-markdown.nvim'

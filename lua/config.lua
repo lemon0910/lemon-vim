@@ -17,7 +17,17 @@ require("snacks").setup({
 
 vim.api.nvim_create_user_command("GitBrowse", 'lua Snacks.gitbrowse()', { desc = "GitBrowse" })
 map("n", "<leader>gl", ":lua Snacks.lazygit()<CR>", opt)
+
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+end
 map("n", "<leader>`", ":lua Snacks.terminal()<CR>", opt)
+
 
 -- vim-interestingwords {{{
 require("interestingwords").setup {
@@ -150,7 +160,7 @@ require("bufferline").setup {
 -- flash.vim
 require("flash").setup()
 require("flash").toggle()
-vim.keymap.set({'n', 'v', 'o'}, 's', function() require("flash").jump() end, {})
+vim.keymap.set({'n', 'v', 'o'}, 's', function() require("flash").jump() end, opt)
 
 -- lualine
 require('lualine').setup({
@@ -361,21 +371,10 @@ require('gitsigns').setup {
     col = 1
   },
 }
-
 map("n", "<leader>gb", ":Gitsigns blame<CR>", opt)
 
 -- alpha
 require'alpha'.setup(require'alpha.themes.startify'.config)
-
-function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-end
 
 require("tokyonight").setup({
   -- your configuration comes here
