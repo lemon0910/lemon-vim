@@ -60,6 +60,12 @@ end
 map("n", "<Tab>", ":bn<CR>", opt)
 map("n", "<S-Tab>", ":bp<CR>", opt)
 
+-- Resize window using <alt> arrow keys
+map("n", "<A-k>", "<cmd>resize +2<cr>", opt)
+map("n", "<A-j>", "<cmd>resize -2<cr>", opt)
+map("n", "<A-h>", "<cmd>vertical resize -2<cr>", opt)
+map("n", "<A-l>", "<cmd>vertical resize +2<cr>", opt)
+
 -- 去掉搜索高亮
 map("n", "<leader>sc", ":nohls<CR>", opt)
 

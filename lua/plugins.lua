@@ -53,6 +53,5 @@ return require('packer').startup(function(use)
   use 'rcarriga/nvim-notify'
   use 'neovim/nvim-lspconfig'
   use 'gbprod/yanky.nvim'
-  use 'stevearc/aerial.nvim'
   use 'MeanderingProgrammer/render-markdown.nvim'
 end)

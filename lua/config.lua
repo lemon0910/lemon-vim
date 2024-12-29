@@ -552,11 +552,6 @@ require("notify").setup({
   stages = 'static',
 })
 
-require("aerial").setup({
-})
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set("n", "<leader>ae", "<cmd>AerialToggle!<CR>")
-
 require("yanky").setup({
 })
 vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
