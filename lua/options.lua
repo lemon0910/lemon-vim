@@ -116,27 +116,56 @@ else
         --[ 小括号里面的内容可能是毫无意义的，但是保持原样可能看起来更好一点 ]
         ["+"] = my_paste("+"),
         ["*"] = my_paste("*"),
-
-
     },
 }
 end
 
-vim.cmd('augroup generalSetting')
-vim.cmd('autocmd!')
--- 离开插入模式后自动关闭预览窗口
-vim.cmd('autocmd InsertLeave * if pumvisible() == 0|pclose|endif')
--- command-line window
-vim.cmd('autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>')
--- 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
-vim.cmd([[
-        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-        ]])
-vim.cmd('autocmd TabLeave * let g:last_active_tab = tabpagenr()')
-vim.cmd('augroup END')
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(event)
+    local exclude = { "gitcommit" }
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+      return
+    end
+    vim.b[buf].lazyvim_last_loc = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "gitsigns-blame",
-    callback = function()
-        vim.keymap.set("n", "q", ":q<CR>", { buffer = true })
-    end,
+  pattern = {
+    "PlenaryTestPopup",
+    "checkhealth",
+    "dbout",
+    "gitsigns-blame",
+    "grug-far",
+    "help",
+    "lspinfo",
+    "neotest-output",
+    "neotest-output-panel",
+    "neotest-summary",
+    "notify",
+    "qf",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.schedule(function()
+      vim.keymap.set("n", "q", function()
+        vim.cmd("close")
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+      end, {
+        buffer = event.buf,
+        silent = true,
+        desc = "Quit buffer",
+      })
+    end)
+  end,
 })

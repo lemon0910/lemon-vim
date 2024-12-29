@@ -10,17 +10,6 @@ local opt = {
   silent = true
 }
 
-function CloseOtherBuf()
-    local current_buf_num = vim.fn.bufnr("%")
-    local last_num = vim.fn.bufnr("$")
-    for  i = 1, last_num do
-        if 1 == vim.fn.buflisted(i) and i ~= current_buf_num
-        then
-            vim.cmd("bdelete " .. i)
-        end
-    end
-end
-
 -- Keep search pattern at the center of the screen.
 map("n", "n", "nzz", opt)
 map("n", "N", "Nzz", opt)
@@ -48,9 +37,12 @@ map("n", "<C-s>", "<cmd>w<CR><ESC>", opt)
 map("i", "<C-s>", "<cmd>w<CR><ESC>", opt)
 
 -- normal模式下切换到确切的buffer
-map("n", "<leader>bd", ":bd<CR>", opt)
-map("n", "<leader>ba", ":%bd<CR>", opt)
-map("n", "<leader>bo", ":lua CloseOtherBuf()<CR>", opt)
+vim.keymap.set("n", "<leader>bd", function()
+  Snacks.bufdelete()
+end, { desc = "Delete Buffer" })
+vim.keymap.set("n", "<leader>bo", function()
+  Snacks.bufdelete.other()
+end, { desc = "Delete Other Buffers" })
 
 -- <Leader>b[1-9] move to buffer [1-9]
 for i = 1, 9 do
@@ -70,3 +62,6 @@ map("n", "<A-l>", "<cmd>vertical resize +2<cr>", opt)
 map("n", "<leader>sc", ":nohls<CR>", opt)
 
 map("n", ";", ":", opt)
+
+vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
