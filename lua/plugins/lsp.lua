@@ -1,5 +1,16 @@
 return {
   {
+    dir = "~/.local/share/nvim/lazy/mason.nvim",
+    cmd = { "Mason", "MasonInstall" },
+    opts = {}
+  },
+
+  {
+    dir = "~/.local/share/nvim/lazy/mason-lspconfig.nvim",
+    opts = {}
+  },
+
+  {
     dir = "~/.local/share/nvim/lazy/nvim-lspconfig",
     init = function()
       vim.api.nvim_create_autocmd('LspAttach', {
