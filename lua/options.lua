@@ -70,12 +70,12 @@ vim.o.number = true
 
 -- tab相关变更
 -- 设置Tab键的宽度        [等同的空格个数]
--- vim.o.tabstop = 4
+vim.o.tabstop = 2
 -- 每一次缩进对应的空格数
--- vim.o.shiftwidth = 4
--- 按退格键时可以一次删掉 4 个空格
--- vim.o.softtabstop = 4
--- insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
+vim.o.shiftwidth = 2
+-- 按退格键时可以一次删掉 2 个空格
+vim.o.softtabstop = 2
+-- insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 2 个空格
 vim.o.smarttab = true
 -- 将Tab自动转化成空格[需要输入真正的Tab键时，使用 Ctrl+V + Tab]
 vim.o.expandtab = true
