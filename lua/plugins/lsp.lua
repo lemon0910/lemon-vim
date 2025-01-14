@@ -81,15 +81,25 @@ return {
       }
 
       require("lspconfig").clangd.setup{
-        cmd = { '/usr/bin/clangd' },
-        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
-        root_dir = function(fname)
-          return util.root_pattern(unpack(root_files))(fname)
-        end,
-        single_file_support = false,
-        capabilities = default_capabilities,
+        default_config = {
+          cmd = { '/usr/bin/clangd' },
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+          root_dir = function(fname)
+            return util.root_pattern(unpack(root_files))(fname)
+          end,
+          single_file_support = false,
+          capabilities = default_capabilities,
+        },
+        commands = {
+          ClangdSwitchSourceHeader = {
+            function()
+              switch_source_header(0)
+            end,
+            description = 'Switch between source/header',
+          },
+        },
       }
-      vim.keymap.set("n", "<leader>aa", switch_source_header)
+      vim.keymap.set("n", "<leader>aa", "<cmd>ClangdSwitchSourceHeader<cr>")
 
       require("lspconfig").pyright.setup({
         cmd = {'/usr/local/bin/pyright-langserver', '--stdio'},
