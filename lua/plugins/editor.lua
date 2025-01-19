@@ -110,20 +110,27 @@ return {
           vimgrep_arguments = {
             "rg",
             "-L",
-            "--color=never",                                                                                                                                                 
             "--no-heading",
             "--with-filename",
+            "--color=never",
             "--line-number",
             "--column",
             "--smart-case",
           },
-          mappings = {                      
+          mappings = {
             i = {
               ["<C-u>"] = false,
               ["<esc>"] = actions.close,
               ["<c-t>"] = open_with_trouble,
             },
             n = { ["<c-t>"] = open_with_trouble },
+          },
+          prompt_prefix = "   ",
+          sorting_strategy = "ascending",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+            },
           },
         },
       }
