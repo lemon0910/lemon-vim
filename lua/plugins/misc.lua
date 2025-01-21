@@ -48,6 +48,7 @@ return {
       quickfile = { enabled = true },
       indent = { enabled = true },                                                     
       scroll = { enabled = true },
+      words = { enabled = true },
     },
     keys = {
       { "<leader>gl", "<cmd>lua Snacks.lazygit()<cr>" },
