@@ -2,6 +2,12 @@ return {
   {
     dir = "~/.local/share/nvim/lazy/nvim-lspconfig",
     init = function()
+      inlay_hints = {
+        enabled = true,
+      },
+      codelens = {
+        enabled = false,
+      },
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
