@@ -26,7 +26,8 @@ return {
       local cmp = require'cmp'
       return {
         completion = {
-          completeopt = 'menu,menuone,noselect',
+          completeopt = 'menu,menuone,noinsert,noselect',
+          com
         },
         -- formatting = {
         -- format = lspkind.cmp_format({
