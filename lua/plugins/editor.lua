@@ -126,12 +126,12 @@ return {
             n = { ["<c-t>"] = open_with_trouble },
           },
           prompt_prefix = "   ",
-          -- sorting_strategy = "ascending",
-          -- layout_config = {
-          --   horizontal = {
-          --     prompt_position = "top",
-          --   },
-          -- },
+          sorting_strategy = "ascending",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+            },
+          },
         },
       }
     end,
