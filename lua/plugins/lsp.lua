@@ -14,7 +14,7 @@ return {
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
           local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', '<leader>ld', function()
             vim.diagnostic.open_float { source = true }
@@ -24,8 +24,8 @@ return {
           vim.keymap.set('n', '<leader>lf', function()
             vim.lsp.buf.format { async = true }
           end, opts)
-          vim.keymap.set('n', ']]', function() Snacks.words.jump(vim.v.count1) end, opts)
-          vim.keymap.set('n', '[[', function() Snacks.words.jump(-vim.v.count1) end, opts)
+          -- vim.keymap.set('n', ']]', function() Snacks.words.jump(vim.v.count1) end, opts)
+          -- vim.keymap.set('n', '[[', function() Snacks.words.jump(-vim.v.count1) end, opts)
         end,
       })
       require("lspconfig").gopls.setup{}

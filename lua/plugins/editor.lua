@@ -1,30 +1,5 @@
 return {
   {
-    dir = "~/.local/share/nvim/lazy/nvim-tree.lua",
-    cmd = "NvimTreeToggle",
-    opts = {
-      sort_by = "case_sensitive",    
-      view = {
-       adaptive_size = true,    
-        -- mappings = {    
-        -- list = {    
-                -- { key = "u", action = "dir_up" },    
-        -- },    
-        -- },    
-      },    
-      renderer = {    
-        group_empty = true,    
-      },    
-      filters = {    
-        dotfiles = true,    
-      },
-    },
-    keys = { 
-      {"<leader>n", "<cmd>NvimTreeToggle<cr>", desc = "open dir tree" },
-    },
-  },
-
-  {
     dir = "~/.local/share/nvim/lazy/bufferline.nvim",
     opts = {
       options = {
@@ -70,75 +45,6 @@ return {
         }
       }
     }
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/trouble.nvim",
-    opts = {},
-    keys = {
-      { "<leader>tr", "<cmd>Trouble<cr>" },
-    }
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/telescope.nvim",
-    cmd = "Telescope",
-    init = function()
-      local builtin = require('telescope.builtin')
-      local actions = require("telescope.actions")
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
-      vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
-      vim.keymap.set('n', '<leader>fm', builtin.marks, {})
-      vim.keymap.set('n', '<leader>fq', builtin.quickfix, {})
-      vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, {})
-      vim.keymap.set('n', '<leader>fc', builtin.commands, {})
-      vim.keymap.set('n', '<leader>fr', builtin.resume, {})
-      vim.keymap.set('n', 'gs', builtin.grep_string, {})
-      vim.keymap.set('n', 'gr', builtin.lsp_references, {})
-    end,
-    opts = function()
-      local builtin = require('telescope.builtin')
-      local actions = require("telescope.actions")
-      local open_with_trouble = require("trouble.sources.telescope").open
-
-      -- Use this to add more results without clearing the trouble list
-      return {
-        defaults = {
-          vimgrep_arguments = {
-            "rg",
-            "-L",
-            "--no-heading",
-            "--with-filename",
-            "--color=never",
-            "--line-number",
-            "--column",
-            "--smart-case",
-          },
-          mappings = {
-            i = {
-              ["<C-u>"] = false,
-              ["<esc>"] = actions.close,
-              ["<c-t>"] = open_with_trouble,
-            },
-            n = { ["<c-t>"] = open_with_trouble },
-          },
-          prompt_prefix = "   ",
-          sorting_strategy = "ascending",
-          layout_config = {
-            horizontal = {
-              prompt_position = "top",
-            },
-          },
-        },
-      }
-    end,
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/telescope-fzf-native.nvim"
   },
 
   {
@@ -289,5 +195,34 @@ return {
     dir = '~/.local/share/nvim/lazy/dropbar.nvim',
     -- optional, but required for fuzzy finder support
     opts = {},
+  },
+
+  {
+    dir = "~/.local/share/nvim/lazy/trouble.nvim",
+    cmd = "Trouble",
+    specs = {
+      dir = "~/.local/share/nvim/lazy/snacks.nvim",
+      opts = function(_, opts)
+        return vim.tbl_deep_extend("force", opts or {}, {
+          picker = {
+            actions = require("trouble.sources.snacks").actions,
+            win = {
+              input = {
+                keys = {
+                  ["<c-t>"] = {
+                    "trouble_open",
+                    mode = { "n", "i" },
+                  },
+                },
+              },
+            },
+          },
+        })
+      end,
+    },
+    opts = {},
+    keys = {
+      { "<leader>tr", "<cmd>Trouble<cr>" },
+    },
   },
 }

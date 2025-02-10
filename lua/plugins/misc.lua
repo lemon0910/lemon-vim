@@ -49,10 +49,47 @@ return {
       indent = { enabled = true },                                                     
       scroll = { enabled = true },
       words = { enabled = true },
+      explorer = { enabled = true },
+      picker = {
+        win = {
+          -- input window
+          input = {
+            keys = {
+              -- to close the picker on ESC instead of going to normal mode,
+              -- add the following keymap to your config
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+            },
+          },
+        },
+      },
     },
     keys = {
       { "<leader>gl", "<cmd>lua Snacks.lazygit()<cr>" },
       { "<leader>`", "<cmd>lua Snacks.terminal()<cr>" },
+      -- Top Pickers & Explorer
+    { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
+    { "<leader>fe", function() Snacks.explorer() end, desc = "File Explorer" },
+    -- find
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<leader>fo", function() Snacks.picker.recent() end, desc = "Recent" },
+    -- Grep
+    { "<leader>fs", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+    { "gs", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+    -- search
+    { "<leader>fd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+    { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+    { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume" },
+    -- LSP
+    { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+    { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+    { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+    { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+    { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+    { "<leader>ft", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+    -- Other
+    { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+    { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     }
   },
 
