@@ -160,6 +160,8 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/persistence.nvim",
+    event = "BufReadPre",
+    opts = {},
     keys = {
       { "<leader>ps", '<cmd>lua require("persistence").load()<cr>' },
     }
