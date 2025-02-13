@@ -95,6 +95,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/nvim-treesitter",
+    lazy = false, -- load treesitter early when opening a file from the cmdline
     opts = {
       ensure_installed = {"c", "cpp", "vim", "lua", "go", "python", "vimdoc", "query", "markdown", "markdown_inline" },
       ignore_install = { },
@@ -102,7 +103,6 @@ return {
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
-        disable = {"lua"},
       },
       incremental_selection = {
         enable = true,
