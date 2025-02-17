@@ -87,6 +87,10 @@ return {
   },
 
   {
+    dir = "~/.local/share/nvim/lazy/nui.nvim"
+  },
+
+  {
     dir = "~/.local/share/nvim/lazy/noice.nvim",
     opts = {
       cmdline = {
