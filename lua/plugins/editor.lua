@@ -87,22 +87,6 @@ return {
   },
 
   {
-    dir = "~/.local/share/nvim/lazy/dressing.nvim"
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/nvim-notify",
-    opts = {
-      timeout = 2000,
-      stages = 'static'
-    }
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/nui.nvim"
-  },
-
-  {
     dir = "~/.local/share/nvim/lazy/noice.nvim",
     opts = {
       cmdline = {

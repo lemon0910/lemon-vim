@@ -47,8 +47,12 @@ return {
       bufdelete = { enabled = true },
       quickfile = { enabled = true },
       indent = { enabled = true },                                                     
+      input = { enabled = true },
+      notifier = { enabled = true },
       scroll = { enabled = true },
+      scope = { enabled = true },
       words = { enabled = true },
+      statuscolumn = { enabled = true },
       explorer = { enabled = true },
       picker = {
         win = {
