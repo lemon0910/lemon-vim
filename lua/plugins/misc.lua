@@ -87,14 +87,14 @@ return {
     -- LSP
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
     { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
-    { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+    { "gr", function() Snacks.picker.lsp_references({ layout = { preset = "vertical" }}) end, nowait = true, desc = "References" },
     { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
     { "<leader>ft", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
     -- git
-    { "<localleader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-    { "<localleader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
-    { "<localleader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+    { "<leader>Gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
+    { "<leader>Gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
+    { "<leader>Gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
     -- Other
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
