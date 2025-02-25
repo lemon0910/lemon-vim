@@ -55,6 +55,27 @@ return {
       statuscolumn = { enabled = true },
       explorer = { enabled = true },
       picker = {
+        layout = {
+          cycle = true,
+          --- Use the default layout or vertical if the window is too narrow
+          preset = function()
+            return vim.o.columns >= 120 and "default" or "vertical"
+          end,
+        },
+        ---@class snacks.picker.matcher.Config
+        matcher = {
+          fuzzy = true, -- use fuzzy matching
+          smartcase = true, -- use smartcase
+          ignorecase = true, -- use ignorecase
+          sort_empty = false, -- sort results when the search string is empty
+          filename_bonus = true, -- give bonus for matching file names (last part of the path)
+          file_pos = true, -- support patterns like `file:line:col` and `file:line`
+          -- the bonusses below, possibly require string concatenation and path normalization,
+          -- so this can have a performance impact for large lists and increase memory usage
+          cwd_bonus = false, -- give bonus for matching files in the cwd
+          frecency = false, -- frecency bonus
+          history_bonus = false, -- give more weight to chronological order
+        },
         win = {
           -- input window
           input = {
@@ -87,7 +108,8 @@ return {
     -- LSP
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
     { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
-    { "gr", function() Snacks.picker.lsp_references({ layout = { preset = "vertical" }}) end, nowait = true, desc = "References" },
+    -- { "gr", function() Snacks.picker.lsp_references({ layout = { preset = "vertical" }}) end, nowait = true, desc = "References" },
+    { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
     { "<leader>ft", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
@@ -113,12 +135,12 @@ return {
       },
       incremental_selection = {
         enable = true,
-        keymaps = {
-          init_selection = "<A-=>",
-          node_incremental = "<A-=>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
+        -- keymaps = {
+        --   init_selection = "<A-=>",
+        --   node_incremental = "<A-=>",
+        --   scope_incremental = false,
+        --   node_decremental = "<bs>",
+        -- },
       }
     }
   },
