@@ -49,7 +49,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/gitsigns.nvim",
-    lazy = false,
+    lazy = true,
     opts = {
       signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
       numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -59,7 +59,7 @@ return {
         follow_files = true
       },
       attach_to_untracked = false,
-      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      -- current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
