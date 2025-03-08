@@ -204,17 +204,16 @@ return {
         })
       end,
     },
+    opts = {
+      modes = {
+        symbols = {
+          win = { size = { width = 0.3 } },
+        }
+      }
+    },
     keys = {
       { "<leader>tr", "<cmd>Trouble<cr>" },
-    },
-  },
-
-  {
-    dir = "~/.local/share/nvim/lazy/aerial.nvim",
-    cmd = "AerialToggle",
-    opts = {},
-    keys = {
-      { "<leader>ae", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+      { "<leader>ol", "<cmd>Trouble symbols<cr>" },
     },
   },
 }
