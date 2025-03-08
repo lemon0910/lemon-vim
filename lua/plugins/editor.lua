@@ -137,6 +137,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/interestingwords.nvim",
+    keys = "<leader>k",
     opts = {
       search_count = true,
       navigation = true,
@@ -156,7 +157,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/yazi.nvim",
-    event = "VeryLazy",
+    cmd = "Yazi",
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
@@ -178,12 +179,6 @@ return {
         desc = "Resume the last yazi session",
       },
     },
-  },
-
-  {
-    dir = '~/.local/share/nvim/lazy/dropbar.nvim',
-    -- optional, but required for fuzzy finder support
-    opts = {},
   },
 
   {
@@ -209,9 +204,17 @@ return {
         })
       end,
     },
-    opts = {},
     keys = {
       { "<leader>tr", "<cmd>Trouble<cr>" },
+    },
+  },
+
+  {
+    dir = "~/.local/share/nvim/lazy/aerial.nvim",
+    cmd = "AerialToggle",
+    opts = {},
+    keys = {
+      { "<leader>ae", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
     },
   },
 }

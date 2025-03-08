@@ -6,6 +6,7 @@ return {
   },
   {
     dir = "~/.local/share/nvim/lazy/catppuccin",
+    lazy = true,
     -- config = function()
     --   vim.cmd.colorscheme "catppuccin-mocha"
     -- end,

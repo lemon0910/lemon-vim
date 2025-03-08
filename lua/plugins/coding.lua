@@ -12,11 +12,13 @@ return {
   },
 
   {
-    dir = "~/.local/share/nvim/lazy/cmp-buffer"
+    dir = "~/.local/share/nvim/lazy/cmp-buffer",
+    event = "InsertEnter",
   },
 
   {
-    dir = "~/.local/share/nvim/lazy/cmp-nvim-lsp"
+    dir = "~/.local/share/nvim/lazy/cmp-nvim-lsp",
+    event = "InsertEnter",
   },
 
   {
@@ -62,6 +64,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/cmp-cmdline",
+    event = "CmdlineEnter",
     init = function()
       local cmp = require'cmp'
       -- `/` cmdline setup.
@@ -106,6 +109,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/compile-mode.nvim",
+    cmd = "Compile",
     config = function()
     ---@type CompileModeOpts
     vim.g.compile_mode = {
