@@ -69,15 +69,13 @@ return {
       }
 
       require("lspconfig").clangd.setup{
-        default_config = {
-          cmd = { '/usr/bin/clangd' },
-          filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
-          root_dir = function(fname)
-            return util.root_pattern(unpack(root_files))(fname)
-          end,
-          single_file_support = false,
-          capabilities = default_capabilities,
-        },
+        cmd = { '/usr/bin/clangd' },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+        root_dir = function(fname)
+          return util.root_pattern(unpack(root_files))(fname)
+        end,
+        single_file_support = false,
+        capabilities = default_capabilities,
         commands = {
           ClangdSwitchSourceHeader = {
             function()
