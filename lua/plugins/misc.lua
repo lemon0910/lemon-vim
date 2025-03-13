@@ -146,15 +146,6 @@ return {
   },
 
   {
-    dir = "~/.local/share/nvim/lazy/nvim-treesitter-context",
-    lazy = false,
-    opts = {},
-    keys = {
-      { "<leader>n", function() require("treesitter-context").go_to_context(vim.v.count1) end, desc = "go to context" },
-    },
-  },
-
-  {
     dir = "~/.local/share/nvim/lazy/plenary.nvim"
   }
 }
