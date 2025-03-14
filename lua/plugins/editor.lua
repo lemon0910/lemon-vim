@@ -49,7 +49,7 @@ return {
 
   {
     dir = "~/.local/share/nvim/lazy/gitsigns.nvim",
-    lazy = true,
+    lazy = false,
     opts = {
       signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
       numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
