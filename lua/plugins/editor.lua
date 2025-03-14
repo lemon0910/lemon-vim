@@ -216,4 +216,10 @@ return {
       { "<leader>ol", "<cmd>Trouble symbols<cr>" },
     },
   },
+
+  {
+    dir = '~/.local/share/nvim/lazy/dropbar.nvim',
+    -- optional, but required for fuzzy finder support
+    opts = {},
+  },
 }

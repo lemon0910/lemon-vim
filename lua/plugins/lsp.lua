@@ -56,7 +56,6 @@ return {
         '.clang-format',
         'compile_commands.json',
         'compile_flags.txt',
-        'configure.ac', -- AutoTools
       }
 
       local default_capabilities = {
